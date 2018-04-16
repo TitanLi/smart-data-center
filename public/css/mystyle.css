@@ -1,0 +1,67 @@
+.color1{
+  background-color:yellow;
+  height:300px;
+}
+.color2{
+  background-color:blue;
+  height:300px;
+}
+/* div.main1 {
+  position: static;
+} */
+div.title {
+  position: absolute;
+  left: 10px;
+}
+div.data {
+  position: absolute;
+  top: 10%;
+  left: 10px;
+  width: 40%;
+  height: 66%;
+  border-radius:10px;
+  background-color: rgba(43, 40, 40, 0.71);
+  /* border: 6px solid rgba(43, 40, 40, 0.71); */
+}
+div.immediate {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 57%;
+  height: 75%;
+  border-radius:10px;
+  background-color: rgba(43, 40, 40, 0.71);
+}
+/* div.main2 {
+  position: static;
+} */
+div.message {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  width: 48.5%;
+  height: 20%;
+  border-radius:10px;
+  background-color: rgba(43, 40, 40, 0.71);
+}
+div.history {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 48.5%;
+  height: 20%;
+  border-radius:10px;
+  background-color: rgba(43, 40, 40, 0.71);
+}
+h1{
+  color: rgb(255, 255, 255);
+}
+.data-title {
+  font-size: 30px;
+  color: rgb(255, 255, 255);
+}
+.current {
+  width:70%;
+  height: 30%;
+  margin-left: 30%;
+}
