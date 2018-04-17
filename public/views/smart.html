@@ -11,15 +11,77 @@
     <!-- <script src="/socket.io/socket.io.js"></script>
     <link rel="stylesheet" type="text/css" href="mystyle.css">
     <script type="text/javascript" src="config.js"></script> -->
+    <script>
+    function a(){
+      var styleElem = document.head.appendChild(document.createElement("style"));
+      styleElem.innerHTML = "#battery-ups1:before {height: 100%;}";
+      console.log(123);
+    }
+    </script>
   </head>
   <body style="background-color:#000000;">
     <div class="main1">
-      <div class="title">
-        <h1>Smart Factory</h1>
-      </div>
-      <div class="data">
-        <p class="data-title">機房環境</p>
-        <div id="container" style="height: 400px"></div>
+      <div class="factory-info">
+        <div class="title">
+          <p class="title">Smart Factory</p>
+        </div>
+        <div class="data">
+          <p class="data-title">機房不斷電系統狀態</p>
+          <!-- <div id="container" style="height: 400px"></div> -->
+          <div class="battery1-info">
+            <div class="battery1">
+              <div id="battery1-ups"></div>
+              <div class="battery-name">
+                <p>UPS1<br>充電中</p>
+              </div>
+            </div>
+            <div class="battery-data">
+              <div class="data-left">
+                <p class="battery-value">輸入電壓:</p>
+                <p class="battery-value">輸出電壓:</p>
+                <p class="battery-value">輸出電流:</p>
+                <p class="battery-value">輸出狀態:</p>
+                <p class="battery-value">電池健康狀態:</p>
+                <p class="battery-value">ups內部溫度:</p>
+              </div>
+              <div class="data-right">
+                <p class="battery-value">輸入頻率:</p>
+                <p class="battery-value">輸出頻率:</p>
+                <p class="battery-value">輸出瓦特:</p>
+                <p class="battery-value">輸出負載比:</p>
+                <p class="battery-value">充電模式:</p>
+                <p class="battery-value">剩餘輸出時間:</p>
+              </div>
+            </div>
+          </div>
+          <div class="battery2-info">
+            <div class="battery2">
+              <div id="battery2-ups"></div>
+              <div class="battery-name">
+                <p>UPS2<br>充電中</p>
+              </div>
+            </div>
+            <div class="battery-data">
+              <div class="data-left">
+                <p class="battery-value">輸入電壓:</p>
+                <p class="battery-value">輸出電壓:</p>
+                <p class="battery-value">輸出電流:</p>
+                <p class="battery-value">輸出狀態:</p>
+                <p class="battery-value">電池健康狀態:</p>
+                <p class="battery-value">ups內部溫度:</p>
+              </div>
+              <div class="data-right">
+                <p class="battery-value">輸入頻率:</p>
+                <p class="battery-value">輸出頻率:</p>
+                <p class="battery-value">輸出瓦特:</p>
+                <p class="battery-value">輸出負載比:</p>
+                <p class="battery-value">充電模式:</p>
+                <p class="battery-value">剩餘輸出時間:</p>
+              </div>
+            </div>
+          </div>
+          <!-- <button type="button" onclick="a()">Click Me!</button> -->
+        </div>
       </div>
       <div class="immediate">
         <p class="data-title">電流統計</p>
@@ -30,7 +92,7 @@
     </div>
     <div class="main2">
       <div class="message">
-        <h1>123456</h1>
+        <p class="data-title">機房溫溼度</ㄣ>
       </div>
       <div class="history">
         <h1>123456</h1>

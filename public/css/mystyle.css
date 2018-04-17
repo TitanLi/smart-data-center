@@ -9,19 +9,154 @@
 /* div.main1 {
   position: static;
 } */
+.factory-info {
+  position: absolute;
+  top:10px;
+  left: 10px;
+  width: 40%;
+  height: 75%;
+}
 div.title {
   position: absolute;
   left: 10px;
 }
-div.data {
+p.title {
+  font-size: 60px;
+  color: rgb(255, 255, 255);
+}
+.data {
   position: absolute;
-  top: 10%;
-  left: 10px;
-  width: 40%;
-  height: 66%;
+  top:74px;
+  width: 100%;
+  bottom: 0px;
   border-radius:10px;
   background-color: rgba(43, 40, 40, 0.71);
   /* border: 6px solid rgba(43, 40, 40, 0.71); */
+}
+.data-title {
+  font-size: 30px;
+  color: rgb(255, 255, 255);
+}
+.battery1-info {
+  position: absolute;
+  top: 10%;
+  width: 100%;
+  height: 45%;
+  border-radius: 5px 5px 5px 5px;
+  border: 1px solid #cdcdcd;
+}
+.battery1 {
+  position: absolute;
+  top: 30%;
+  width: 60px;
+  height: 131px;
+  border-radius: 5px 5px 5px 5px;
+  margin-left: 10px;
+  /* border: 3px solid #cdcdcd; */
+}
+#battery1-ups {
+  position: absolute;
+  width: 60px;
+  height: 80px;
+  border-radius: 5px 5px 5px 5px;
+  border: 3px solid #cdcdcd;
+}
+#battery1-ups::after{
+	position: absolute;
+	top: -10px;
+	left: 30%;
+	width: 40%;
+	height: 10px;
+  background-color: #cdcdcd;
+	border: 3px solid #cdcdcd;
+  content: '';
+}
+#battery1-ups::before{
+	content: '';
+	position: absolute;
+  bottom:0px;
+	width: 100%;
+	height: 10%;
+  background-color: #cdcdcd;
+	border: 3px solid #cdcdcd;
+}
+.battery2-info {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  height: 45%;
+  border-radius: 5px 5px 5px 5px;
+  border: 1px solid #cdcdcd;
+}
+.battery2 {
+  position: absolute;
+  top: 30%;
+  width: 60px;
+  height: 131px;
+  border-radius: 5px 5px 5px 5px;
+  margin-left: 10px;
+  /* border: 3px solid #cdcdcd; */
+}
+#battery2-ups {
+  position: absolute;
+  width: 60px;
+  height: 80px;
+  border-radius: 5px 5px 5px 5px;
+  border: 3px solid #cdcdcd;
+}
+.battery-name {
+  position: absolute;
+  width: 100%;
+  color:#ffffff;
+  bottom:0px;
+}
+.battery-name p {
+  text-align:center;
+}
+.battery-data {
+  position: relative;
+  width: auto;
+  height: 100%;
+  margin-left: 76px;
+  margin-right:0px;
+  border-left: 1px solid #cdcdcd;
+}
+.data-left {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  margin-left: 0px;
+  /* border: 3px solid #cdcdcd; */
+}
+.data-right {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  margin-left: 50%;
+  /* border: 3px solid #cdcdcd; */
+}
+.battery-value {
+  font-size: 14px;
+  color: rgb(255, 255, 255);
+}
+#battery2-ups::after{
+	position: absolute;
+	top: -10px;
+	left: 30%;
+	width: 40%;
+	height: 10px;
+  background-color: #cdcdcd;
+	border: 3px solid #cdcdcd;
+  content: '';
+}
+#battery2-ups::before{
+	content: '';
+	position: absolute;
+  bottom:0px;
+	width: 100%;
+	height: 10%;
+  background-color: #cdcdcd;
+	border: 3px solid #cdcdcd;
 }
 div.immediate {
   position: absolute;
@@ -52,13 +187,6 @@ div.history {
   height: 20%;
   border-radius:10px;
   background-color: rgba(43, 40, 40, 0.71);
-}
-h1{
-  color: rgb(255, 255, 255);
-}
-.data-title {
-  font-size: 30px;
-  color: rgb(255, 255, 255);
 }
 .current {
   width:70%;
