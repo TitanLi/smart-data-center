@@ -29,6 +29,7 @@ app.context.render = co.wrap(render({
 router.get('/',index);
 router.get('/test',test);
 router.get('/pie',pie);
+router.get('/temperature',temperature);
 
 async function index(ctx){
   ctx.body = await ctx.render('smart');
@@ -40,6 +41,10 @@ async function test(ctx){
 
 async function pie(ctx){
   ctx.body = await ctx.render('pie');
+}
+
+async function temperature(ctx){
+  ctx.body = await ctx.render('temperature');
 }
 
 app.listen(3000);

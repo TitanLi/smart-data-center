@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="mystyle.css">
     <script src="http://code.highcharts.com/highcharts.js"></script>
     <script src="http://cdn.hcharts.cn/highcharts/highcharts-3d.js"></script>
+    <link rel="stylesheet" type="text/css" href="temperature.css">
     <!-- <script src="/socket.io/socket.io.js"></script>
     <link rel="stylesheet" type="text/css" href="mystyle.css">
     <script type="text/javascript" src="config.js"></script> -->
@@ -92,7 +93,26 @@
     </div>
     <div class="main2">
       <div class="message">
-        <p class="data-title">機房溫溼度</ㄣ>
+        <p class="data-title">機房溫溼度</p>
+        <div id="centered">
+          <!--add this line to the html where you want the thermometer-->
+          <div id="goal-thermometer">
+            <div id="therm-numbers">
+        		  </div>
+        		    <div id="therm-graphics">
+        			       <img id="therm-top" src="glassTop.png"></img>
+        			       <img id="therm-body-bg" src="glassBody.png"></img>
+        			       <img id="therm-body-mercury" src="redVertical.png"></img>
+        			       <div id="therm-body-fore"></div>
+        			       <img id="therm-bottom" src="glassBottom.png"></img>
+        			       <div id="therm-tooltip">
+        				           <img class="tip-left" src="tooltipPoint.png"></img>
+        				           <div class="tip-middle"><p>0°C</p></div>
+        				           <img class="tip-right" src="tooltipButt.png"></img>
+        			       </div>
+        		    </div>
+          </div>
+        </div>
       </div>
       <div class="history">
         <h1>123456</h1>
@@ -102,5 +122,6 @@
     <script language="JavaScript" src="/highcharts/ups1.js"></script>
     <script language="JavaScript" src="/highcharts/ups2.js"></script>
     <script language="JavaScript" src="/highcharts/pie.js"></script>
+    <script type="text/javascript" src="/temperature/temperature.js"></script>
   </body>
 </html>
