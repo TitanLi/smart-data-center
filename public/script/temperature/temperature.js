@@ -69,12 +69,10 @@ function createGraphics(){
 function preload(arrayOfImages) {
 	console.log(6);
 	for(i=0;i<arrayOfImages.length;i++){
-		console.log(6+"-"+i);
-		$(arrayOfImages[i]).load(function() {
-			$("#goal-thermometer").fadeTo(1000, 1, function(){
-			 animateThermometer();
-		 	});
-    });
+		$("#goal-thermometer").fadeTo(1000, 1, function(){
+			console.log("aaa");
+		 animateThermometer();
+		});
 	}
 
 }

@@ -6,9 +6,6 @@
   background-color:blue;
   height:300px;
 }
-/* div.main1 {
-  position: static;
-} */
 .factory-info {
   position: absolute;
   top:10px;
@@ -61,6 +58,15 @@ p.title {
   border-radius: 5px 5px 5px 5px;
   border: 3px solid #cdcdcd;
 }
+#battery1-ups::before{
+	content: '';
+	position: absolute;
+  bottom:0px;
+	width: 100%;
+	height: 10%;
+  background-color: #cdcdcd;
+	border: 3px solid #cdcdcd;
+}
 #battery1-ups::after{
 	position: absolute;
 	top: -10px;
@@ -70,15 +76,6 @@ p.title {
   background-color: #cdcdcd;
 	border: 3px solid #cdcdcd;
   content: '';
-}
-#battery1-ups::before{
-	content: '';
-	position: absolute;
-  bottom:0px;
-	width: 100%;
-	height: 10%;
-  background-color: #cdcdcd;
-	border: 3px solid #cdcdcd;
 }
 .battery2-info {
   position: absolute;
@@ -103,6 +100,25 @@ p.title {
   height: 80px;
   border-radius: 5px 5px 5px 5px;
   border: 3px solid #cdcdcd;
+}
+#battery2-ups::before{
+	content: '';
+	position: absolute;
+  bottom:0px;
+	width: 100%;
+	height: 10%;
+  background-color: #cdcdcd;
+	border: 3px solid #cdcdcd;
+}
+#battery2-ups::after{
+	position: absolute;
+	top: -10px;
+	left: 30%;
+	width: 40%;
+	height: 10px;
+  background-color: #cdcdcd;
+	border: 3px solid #cdcdcd;
+  content: '';
 }
 .battery-name {
   position: absolute;
@@ -139,25 +155,6 @@ p.title {
   font-size: 14px;
   color: rgb(255, 255, 255);
 }
-#battery2-ups::after{
-	position: absolute;
-	top: -10px;
-	left: 30%;
-	width: 40%;
-	height: 10px;
-  background-color: #cdcdcd;
-	border: 3px solid #cdcdcd;
-  content: '';
-}
-#battery2-ups::before{
-	content: '';
-	position: absolute;
-  bottom:0px;
-	width: 100%;
-	height: 10%;
-  background-color: #cdcdcd;
-	border: 3px solid #cdcdcd;
-}
 div.immediate {
   position: absolute;
   top: 10px;
@@ -167,9 +164,6 @@ div.immediate {
   border-radius:10px;
   background-color: rgba(43, 40, 40, 0.71);
 }
-/* div.main2 {
-  position: static;
-} */
 div.message {
   position: absolute;
   bottom: 10px;
@@ -178,6 +172,44 @@ div.message {
   height: 20%;
   border-radius:10px;
   background-color: rgba(43, 40, 40, 0.71);
+}
+#humidity {
+  position: absolute;
+  top: 60px;
+  right: 30%;
+  width: 60px;
+  height: 60px;
+  border-radius:250px 0 170px 80px / 170px 0 250px 80px;
+  background: -webkit-linear-gradient(left top,rgb(17, 223, 236),rgb(6, 16, 246));
+  background: -o-linear-gradient(bottom right,rgb(17, 223, 236),rgb(6, 16, 246)););
+  background: -moz-linear-gradient(bottom right,rgb(17, 223, 236),rgb(6, 16, 246)););
+  background: linear-gradient(to bottom right,rgb(17, 223, 236),rgb(6, 16, 246)););
+}
+#humidity::before {
+  content: '';
+  position: absolute;
+  right: 30px;
+  top: -30px;
+  width: 30px;
+  height: 30px;
+  border-radius:250px 0 170px 80px / 170px 0 250px 80px;
+  background: -webkit-linear-gradient(left top,rgb(17, 223, 236),rgb(6, 16, 246));
+  background: -o-linear-gradient(bottom right,rgb(17, 223, 236),rgb(6, 16, 246)););
+  background: -moz-linear-gradient(bottom right,rgb(17, 223, 236),rgb(6, 16, 246)););
+  background: linear-gradient(to bottom right,rgb(17, 223, 236),rgb(6, 16, 246)););
+}
+#humidity::after {
+  content: '';
+  position: absolute;
+  left: 73px;
+  top: -31px;
+  width: 40px;
+  height: 40px;
+  border-radius:250px 0 170px 80px / 170px 0 250px 80px;
+  background: -webkit-linear-gradient(left top,rgb(17, 223, 236),rgb(6, 16, 246));
+  background: -o-linear-gradient(bottom right,rgb(17, 223, 236),rgb(6, 16, 246)););
+  background: -moz-linear-gradient(bottom right,rgb(17, 223, 236),rgb(6, 16, 246)););
+  background: linear-gradient(to bottom right,rgb(17, 223, 236),rgb(6, 16, 246)););
 }
 div.history {
   position: absolute;
