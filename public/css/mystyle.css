@@ -173,6 +173,20 @@ div.message {
   border-radius:10px;
   background-color: rgba(43, 40, 40, 0.71);
 }
+.current {
+  width:60%;
+  height: 30%;
+  margin-left: 40%;
+}
+#pie {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  width: 40%;
+  height: 90%;
+  border-radius:10px;
+  /* border: 3px solid #cdcdcd; */
+}
 #humidity {
   position: absolute;
   top: 60px;
@@ -219,9 +233,4 @@ div.history {
   height: 20%;
   border-radius:10px;
   background-color: rgba(43, 40, 40, 0.71);
-}
-.current {
-  width:70%;
-  height: 30%;
-  margin-left: 30%;
 }
