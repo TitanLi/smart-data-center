@@ -1,0 +1,162 @@
+//UPS1
+socket.on("inputVolt_A", function (data) {
+  var upsData = document.getElementById("inputVolt_A");
+  upsData.innerHTML = data;
+  console.log(data);
+});
+
+socket.on("inputFreq_A", function (data) {
+  var upsData = document.getElementById("inputFreq_A");
+  upsData.innerHTML = data;
+  console.log(data);
+});
+
+socket.on("outputVolt_A", function (data) {
+  var upsData = document.getElementById("outputVolt_A");
+  upsData.innerHTML = data;
+  console.log(data);
+});
+
+socket.on("outputFreq_A", function (data) {
+  var upsData = document.getElementById("outputFreq_A");
+  upsData.innerHTML = data;
+  console.log(data);
+});
+
+socket.on("outputAmp_A", function (data) {
+  var upsData = document.getElementById("outputAmp_A");
+  upsData.innerHTML = data;
+  console.log(data);
+});
+
+socket.on("outputWatt_A", function (data) {
+  var upsData = document.getElementById("outputWatt_A");
+  upsData.innerHTML = data;
+  console.log(data);
+});
+
+socket.on("systemMode_A", function (data) {
+  var upsData = document.getElementById("systemMode_A");
+  upsData.innerHTML = data;
+  console.log(data);
+});
+
+socket.on("outputPercent_A", function (data) {
+  var upsData = document.getElementById("outputPercent_A");
+  upsData.innerHTML = data;
+  console.log(data);
+});
+
+socket.on("batteryHealth_A", function (data) {
+  var upsData = document.getElementById("batteryHealth_A");
+  upsData.innerHTML = data;
+  console.log(data);
+  console.log("error");
+});
+
+socket.on("batteryCharge_Mode_A", function (data) {
+  var upsData = document.getElementById("batteryCharge_Mode_A");
+  upsData.innerHTML = data;
+  console.log(data);
+});
+
+socket.on("batteryTemp_A", function (data) {
+  var upsData = document.getElementById("batteryTemp_A");
+  upsData.innerHTML = data;
+  console.log(data);
+});
+
+socket.on("batteryRemain_A", function (data) {
+  var upsData = document.getElementById("batteryRemain_A");
+  upsData.innerHTML = data;
+  var upsStatus = document.getElementById("battery1-status");
+  upsStatus.innerHTML = data;
+  console.log(data);
+});
+
+socket.on("batteryRemain_Percent_A", function (data) {
+  var styleElem = document.head.appendChild(document.createElement("style"));
+  styleElem.innerHTML = "#battery1-ups::before {height: "+data+"%;}";
+  console.log(data);
+});
+
+//UPS2
+socket.on("inputVolt_B", function (data) {
+  var upsData = document.getElementById("inputVolt_B");
+  upsData.innerHTML = data;
+  console.log(data);
+});
+
+socket.on("inputFreq_B", function (data) {
+  var upsData = document.getElementById("inputFreq_B");
+  upsData.innerHTML = data;
+  console.log(data);
+});
+
+socket.on("outputVolt_B", function (data) {
+  var upsData = document.getElementById("outputVolt_B");
+  upsData.innerHTML = data;
+  console.log(data);
+});
+
+socket.on("outputFreq_B", function (data) {
+  var upsData = document.getElementById("outputFreq_B");
+  upsData.innerHTML = data;
+  console.log(data);
+});
+
+socket.on("outputAmp_B", function (data) {
+  var upsData = document.getElementById("outputAmp_B");
+  upsData.innerHTML = data;
+  console.log(data);
+});
+
+socket.on("outputWatt_B", function (data) {
+  var upsData = document.getElementById("outputWatt_B");
+  upsData.innerHTML = data;
+  console.log(data);
+});
+
+socket.on("systemMode_B", function (data) {
+  var upsData = document.getElementById("systemMode_B");
+  upsData.innerHTML = data;
+  console.log(data);
+});
+
+socket.on("outputPercent_B", function (data) {
+  var upsData = document.getElementById("outputPercent_B");
+  upsData.innerHTML = data;
+  console.log(data);
+});
+
+socket.on("batteryHealth_B", function (data) {
+  var upsData = document.getElementById("batteryHealth_B");
+  upsData.innerHTML = data;
+  console.log(data);
+});
+
+socket.on("batteryCharge_Mode_B", function (data) {
+  var upsData = document.getElementById("batteryCharge_Mode_B");
+  upsData.innerHTML = data;
+  console.log(data);
+});
+
+socket.on("batteryTemp_B", function (data) {
+  var upsData = document.getElementById("batteryTemp_B");
+  upsData.innerHTML = data;
+  console.log(data);
+});
+
+socket.on("batteryRemain_B", function (data) {
+  var upsData = document.getElementById("batteryRemain_B");
+  upsData.innerHTML = data;
+  var upsStatus = document.getElementById("battery2-status");
+  upsStatus.innerHTML = data;
+  console.log(data);
+});
+
+socket.on("batteryRemain_Percent_B", function (data) {
+  var styleElem = document.head.appendChild(document.createElement("style"));
+  styleElem.innerHTML = "#battery2-ups::before {height: "+data+"%;}";
+  console.log(data);
+});

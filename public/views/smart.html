@@ -5,6 +5,10 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+      var socket = io.connect("127.0.0.1:3000");
+    </script>
     <link rel="stylesheet" type="text/css" href="mystyle.css">
     <script src="http://code.highcharts.com/highcharts.js"></script>
     <script src="http://cdn.hcharts.cn/highcharts/highcharts-3d.js"></script>
@@ -17,8 +21,11 @@
     <script>
     function a(){
       var styleElem = document.head.appendChild(document.createElement("style"));
-      styleElem.innerHTML = "#battery-ups1:before {height: 100%;}";
-      console.log(123);
+      styleElem.innerHTML = "#battery1-ups::before {height: 100%;}";
+    }
+    function button(){
+      var textarea = $("#messageList").append("Fifth Avenue, New York City\n");
+      textarea.scrollTop(textarea[0].scrollHeight - textarea.height());
     }
     </script>
   </head>
@@ -34,25 +41,25 @@
             <div class="battery1">
               <div id="battery1-ups"></div>
               <div class="battery-name">
-                <p>UPS1<br>充電中</p>
+                <p>UPS1</br><h id="battery1-status"></h></p>
               </div>
             </div>
             <div class="battery-data">
-              <div class="data-left">
-                <p class="battery-value">輸入電壓:</p>
-                <p class="battery-value">輸出電壓:</p>
-                <p class="battery-value">輸出電流:</p>
-                <p class="battery-value">輸出狀態:</p>
-                <p class="battery-value">電池健康狀態:</p>
-                <p class="battery-value">ups內部溫度:</p>
+              <div class="data-left battery-value">
+                輸入電壓:<h id="inputVolt_A"></h>(V)</br>
+                輸出電壓:<h id="outputVolt_A"></h>(V)</br>
+                輸出電流:<h id="outputAmp_A"></h>(A)</br>
+                輸出狀態:<h id="systemMode_A"></h></br>
+                電池健康狀態:<h id="batteryHealth_A"></h></br>
+                ups內部溫度:<h id="batteryTemp_A">(˚C)</h></br>
               </div>
-              <div class="data-right">
-                <p class="battery-value">輸入頻率:</p>
-                <p class="battery-value">輸出頻率:</p>
-                <p class="battery-value">輸出瓦特:</p>
-                <p class="battery-value">輸出負載比:</p>
-                <p class="battery-value">充電模式:</p>
-                <p class="battery-value">剩餘輸出時間:</p>
+              <div class="data-right battery-value">
+                輸入頻率:<h id="inputFreq_A"></h>(Hz)</br>
+                輸出頻率:<h id="outputFreq_A"></h>(Hz)</br>
+                輸出瓦特:<h id="outputWatt_A"></h>(kw)</br>
+                輸出負載比:<h id="outputPercent_A"></h>(%)</br>
+                充電模式:<h id="batteryCharge_Mode_A"></h></br>
+                剩餘輸出時間:<h id="batteryRemain_A"></h></br>
               </div>
             </div>
           </div>
@@ -60,25 +67,25 @@
             <div class="battery2">
               <div id="battery2-ups"></div>
               <div class="battery-name">
-                <p>UPS2<br>充電中</p>
+                <p>UPS2</br><h id="battery2-status"></h></p>
               </div>
             </div>
             <div class="battery-data">
-              <div class="data-left">
-                <p class="battery-value">輸入電壓:</p>
-                <p class="battery-value">輸出電壓:</p>
-                <p class="battery-value">輸出電流:</p>
-                <p class="battery-value">輸出狀態:</p>
-                <p class="battery-value">電池健康狀態:</p>
-                <p class="battery-value">ups內部溫度:</p>
+              <div class="data-left battery-value">
+                輸入電壓:<h id="inputVolt_B"></h>(V)</br>
+                輸出電壓:<h id="outputVolt_B"></h>(V)</br>
+                輸出電流:<h id="outputAmp_B"></h>(A)</br>
+                輸出狀態:<h id="systemMode_B"></h></br>
+                電池健康狀態:<h id="batteryHealth_B"></h></br>
+                ups內部溫度:<h id="batteryTemp_B">(˚C)</h></br>
               </div>
-              <div class="data-right">
-                <p class="battery-value">輸入頻率:</p>
-                <p class="battery-value">輸出頻率:</p>
-                <p class="battery-value">輸出瓦特:</p>
-                <p class="battery-value">輸出負載比:</p>
-                <p class="battery-value">充電模式:</p>
-                <p class="battery-value">剩餘輸出時間:</p>
+              <div class="data-right battery-value">
+                輸入頻率:<h id="inputFreq_B"></h>(Hz)</br>
+                輸出頻率:<h id="outputFreq_B"></h>(Hz)</br>
+                輸出瓦特:<h id="outputWatt_B"></h>(kw)</br>
+                輸出負載比:<h id="outputPercent_B"></h>(%)</br>
+                充電模式:<h id="batteryCharge_Mode_B"></h></br>
+                剩餘輸出時間:<h id="batteryRemain_B"></h></br>
               </div>
             </div>
           </div>
@@ -120,7 +127,10 @@
         <div id="humidity"></div>
       </div>
       <div class="history">
-        <h1>123456</h1>
+        <p class="data-title">Robot 24-hour monitoring</p>
+        <img src="8851f1e225910baa24be1fa547e103ec.png" alt="rebot" id="rebot">
+        <textarea name="messageList" id="messageList" disabled="true"></textarea>
+        <img src="lineBot.png" alt="lineBot" class="lineBot">
       </div>
     </div>
     <script language="JavaScript" src="/highcharts/air-conditioner.js"></script>
@@ -128,5 +138,6 @@
     <script language="JavaScript" src="/highcharts/ups2.js"></script>
     <script language="JavaScript" src="/highcharts/pie.js"></script>
     <script type="text/javascript" src="/temperature/temperature.js"></script>
+    <script type="text/javascript" src="socket.js"></script>
   </body>
 </html>

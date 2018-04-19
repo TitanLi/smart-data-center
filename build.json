@@ -1,0 +1,12 @@
+{
+    "apps": [
+        {
+          "name": "app",
+          "script": "./app.js"
+        },
+        {
+          "name": "mqtt-test",
+          "script": "./test/mqtt.js"
+        }
+    ]
+}

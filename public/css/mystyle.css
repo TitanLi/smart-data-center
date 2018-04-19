@@ -152,7 +152,7 @@ p.title {
   /* border: 3px solid #cdcdcd; */
 }
 .battery-value {
-  font-size: 14px;
+  font-size: 16px;
   color: rgb(255, 255, 255);
 }
 div.immediate {
@@ -233,4 +233,27 @@ div.history {
   height: 20%;
   border-radius:10px;
   background-color: rgba(43, 40, 40, 0.71);
+}
+#rebot {
+  width: 190px;
+  bottom: 10%;
+  height: 60%;
+}
+#messageList {
+  position: absolute;
+  bottom: 6%;
+  border: none;
+  background-color: rgba(186, 246, 244, 0.63);
+  border-radius:10px;
+  width: 50%;
+  height: 60%;
+}
+.lineBot {
+  position: absolute;
+  right: 10px;
+  bottom: 6%;
+  border: none;
+  border-radius:10px;
+  width: 90px;
+  height: 90px;
 }

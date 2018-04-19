@@ -1,3 +1,10 @@
+var outputAmp_B = 0;
+socket.on("outputAmp_B", function (data) {
+  if (data) {
+    outputAmp_B = parseInt(data);
+  }
+});
+
 $(document).ready(function() {
   var chart = {
     backgroundColor: [43, 40, 40, 0.71],
@@ -10,7 +17,7 @@ $(document).ready(function() {
           var series = this.series[0];
           setInterval(function () {
             var x = (new Date()).getTime(), // current time
-            y = Math.random()*10;
+            y = outputAmp_B;
             series.addPoint([x, y], true, true);
           }, 1000);
         }
