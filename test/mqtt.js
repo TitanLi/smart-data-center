@@ -72,7 +72,7 @@ var UPS_Data = { "connect_A" : "/dev/ttyUSB0 (左)",
 var current = {"Humidity":35.0,"Temperature":25.0,"currents":2.90};
 var i = 0;
 setInterval(() => {
-  client.publish('UPS_Monitor',JSON.stringify(UPS_Data));
-  client.publish('current',JSON.stringify(current));
+  // client.publish('UPS_Monitor',JSON.stringify(UPS_Data));
+  client.publish('current',JSON.stringify({"Humidity":35.0,"Temperature":25.0,"currents":Math.random()+23}));
   console.log(i++);
-},3000);
+},1000);

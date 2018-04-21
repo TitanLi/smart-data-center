@@ -1,3 +1,10 @@
+var current = 0;
+socket.on("current", function (data) {
+  if (data) {
+    current = parseInt(data);
+  }
+});
+
 $(document).ready(function() {
   var chart = {
     backgroundColor: [43, 40, 40, 0.71],
@@ -10,7 +17,7 @@ $(document).ready(function() {
           var series = this.series[0];
           setInterval(function () {
             var x = (new Date()).getTime(), // current time
-            y = Math.random()*10;
+            y = current;
             series.addPoint([x, y], true, true);
           }, 1000);
         }
@@ -35,6 +42,10 @@ $(document).ready(function() {
       }
     };
     var yAxis = {
+      allowDecimals:true,
+      softMax:16,
+      tickInterval: 0.01,
+      tickPixelInterval : 10,
       title: {
         text: '電流（A)',
         style:{

@@ -1,3 +1,16 @@
+//power-meter
+socket.on("humidity", function (data) {
+  var humidity = document.getElementById("humidity-data");
+  humidity.innerHTML = data + "%";
+  console.log(data);
+});
+
+socket.on("temperature", function (data) {
+  var temperature = document.getElementById("temperature");
+  temperature.innerHTML = data + "°C";
+  console.log(data);
+});
+
 //UPS1
 socket.on("inputVolt_A", function (data) {
   var upsData = document.getElementById("inputVolt_A");

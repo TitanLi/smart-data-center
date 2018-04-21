@@ -225,6 +225,14 @@ div.message {
   background: -moz-linear-gradient(bottom right,rgb(17, 223, 236),rgb(6, 16, 246)););
   background: linear-gradient(to bottom right,rgb(17, 223, 236),rgb(6, 16, 246)););
 }
+#humidity-data {
+  position: absolute;
+  font-size: 20px;
+  color: rgb(255, 255, 255);
+  top: 16px;
+  right: 16%;
+  /* border: 3px solid #cdcdcd; */
+}
 div.history {
   position: absolute;
   bottom: 10px;
