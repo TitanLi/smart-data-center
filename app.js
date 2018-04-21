@@ -9,6 +9,7 @@ const co = require('co');
 const mqtt = require('mqtt');
 const http = require('http');
 const socket = require('socket.io');
+const mongoDB = require('./lib/mongoDB.js');
 
 const app = new koa();
 const router = Router();
@@ -16,7 +17,8 @@ const server = http.createServer(app.callback());
 const io = socket(server);
 // io.emit('news',{url:url});
 
-var mqttClient = mqtt.connect('mqtt://10.20.0.90:1883');
+const mqttClient = mqtt.connect('mqtt://10.20.0.90:1883');
+
 //power-meter MQTT input data
 var powerMeterMqttData;
 //power-meter data
@@ -27,6 +29,10 @@ var upsMqttData;
 var inputVolt_A,inputFreq_A,outputVolt_A,outputFreq_A,outputAmp_A,outputWatt_A,systemMode_A,outputPercent_A,batteryHealth_A,batteryCharge_Mode_A,batteryTemp_A,batteryRemain_A;
 //UPS2 data
 var inputVolt_B,inputFreq_B,outputVolt_B,outputFreq_B,outputAmp_B,outputWatt_B,systemMode_B,outputPercent_B,batteryHealth_B,batteryCharge_Mode_B,batteryTemp_B,batteryRemain_B;
+//database
+var db;
+
+var mongodb = new mongoDB(io,co);
 
 mqttClient.on('connect',() => {
   mqttClient.subscribe('UPS_Monitor');
@@ -34,7 +40,7 @@ mqttClient.on('connect',() => {
 });
 
 mqttClient.on('message',(topic,message) => {
-  console.log(topic,JSON.parse(message));
+  // console.log(topic,JSON.parse(message));
   switch (topic) {
     case "current":
       powerMeterMqttData = JSON.parse(message);
@@ -77,8 +83,14 @@ mqttClient.on('message',(topic,message) => {
       console.log('pass');
   }
 });
+
 //UPS MQTT Topic
 //mosquitto_sub -h 10.20.0.90 -t UPS_Monitor
+
+//每小時更新圓餅圖
+setInterval(() => {
+  mongodb.aggregateLastHoursAvgPieData();
+},3600000);
 
 app.use(json());
 app.use(logger());
@@ -86,6 +98,7 @@ app.use(bodyParser());
 app.use(serve(__dirname+'/public/img'));
 app.use(serve(__dirname+'/public/css'));
 app.use(serve(__dirname+'/public/script'));
+app.use(serve(__dirname+'/lib'));
 app.use(router.routes());
 
 app.context.render = co.wrap(render({
@@ -101,7 +114,12 @@ router.get('/pie',pie);
 router.get('/temperature',temperature);
 
 async function index(ctx){
-  ctx.body = await ctx.render('smart');
+  var piePercent = await mongodb.aggregateLastHoursAvgPieData();
+  ctx.body = await ctx.render('smart',{
+                                       "powerMeterPower":piePercent[0].y,
+                                       "upsPower_A":piePercent[1].y,
+                                       "upsPower_B":piePercent[2].y
+                                     });
 }
 
 async function test(ctx){

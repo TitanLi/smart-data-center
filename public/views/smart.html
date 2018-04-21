@@ -19,6 +19,12 @@
     <link rel="stylesheet" type="text/css" href="mystyle.css">
     <script type="text/javascript" src="config.js"></script> -->
     <script>
+    var piePercent = [
+        { name: '冷氣', y: parseInt("{{powerMeterPower}}") },
+        { name: 'UPS1', y: parseInt("{{upsPower_A}}") },
+        { name: 'UPS2', y: parseInt("{{upsPower_B}}") }
+    ];
+    console.log(piePercent);
     function a(){
       var styleElem = document.head.appendChild(document.createElement("style"));
       styleElem.innerHTML = "#battery1-ups::before {height: 100%;}";
@@ -118,13 +124,13 @@
         			       <img id="therm-bottom" src="glassBottom.png"></img>
         			       <div id="therm-tooltip">
         				           <img class="tip-left" src="tooltipPoint.png"></img>
-        				           <div class="tip-middle"><p>0°C</p></div>
+        				           <div class="tip-middle"><p id="temperature">0°C</p></div>
         				           <img class="tip-right" src="tooltipButt.png"></img>
         			       </div>
         		    </div>
           </div>
         </div>
-        <div id="humidity"></div>
+        <div id="humidity"><p id="humidity-data"></p></div>
       </div>
       <div class="history">
         <p class="data-title">Robot 24-hour monitoring</p>
