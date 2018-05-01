@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "co": "^4.6.0",
+    "crypto": "^1.0.1",
     "dotenv": "^5.0.1",
     "koa": "^2.5.1",
     "koa-bodyparser": "^4.2.0",
@@ -19,10 +20,11 @@
     "koa-logger": "^3.2.0",
     "koa-router": "^7.4.0",
     "koa-static": "^4.0.2",
-    "koa-swig": "^2.2.1"
+    "koa-swig": "^2.2.1",
+    "request-promise": "^4.2.2"
   },
   "devDependencies": {
-    "request": "^2.81.0",
+    "request": "^2.85.0",
     "tape": "^4.7.0"
   },
   "repository": {
