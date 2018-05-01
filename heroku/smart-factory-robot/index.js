@@ -49,7 +49,6 @@ router.get('/',async (ctx) => {
 //   }
 // ]}
 router.post('/webhooks', async (ctx, next) => {
-  test = "123";
   const channelSecret = "54695245827351a6d0ca224daaf8290a";
   const koaRequest = ctx.request;
   const hash = crypto
@@ -60,33 +59,94 @@ router.post('/webhooks', async (ctx, next) => {
       // User 送來的訊息
       userMessages = ctx.request.body.events[0];
       test = JSON.stringify(ctx.request.body);
-
-      // 回覆給 User 的訊息
-      let options = {
-        method: 'POST',
-        uri: 'https://api.line.me/v2/bot/message/reply',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${lineBotToken}`
-        },
-        body: {
-          replyToken: userMessages.replyToken,
-          messages: [{
-              type: "text",
-              text: "是文字"
-            }]
-        },
-        json: true
+      var messageText = userMessages.message.text;
+      if(/電流/.test(messageText)){
+        // 回覆給 User 的訊息
+        let options = {
+          method: 'POST',
+          uri: 'https://api.line.me/v2/bot/message/reply',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${lineBotToken}`
+          },
+          body: {
+            replyToken: userMessages.replyToken,
+            messages: [{
+                type: "text",
+                text: "現在電流是"+Math.random()*100
+              }]
+          },
+          json: true
+        }
+        await request(options);
+      }else if (/濕度/.test(messageText)) {
+        // 回覆給 User 的訊息
+        let options = {
+          method: 'POST',
+          uri: 'https://api.line.me/v2/bot/message/reply',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${lineBotToken}`
+          },
+          body: {
+            replyToken: userMessages.replyToken,
+            messages: [{
+                type: "text",
+                text: "現在濕度是"+Math.random()*100
+              }]
+          },
+          json: true
+        }
+        await request(options);
+      }else if (/溫度/.test(messageText)) {
+        // 回覆給 User 的訊息
+        let options = {
+          method: 'POST',
+          uri: 'https://api.line.me/v2/bot/message/reply',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${lineBotToken}`
+          },
+          body: {
+            replyToken: userMessages.replyToken,
+            messages: [{
+                type: "text",
+                text: "現在溫度是"+Math.random()*100
+              }]
+          },
+          json: true
+        }
+        await request(options);
       }
-
-      await request(options);
       ctx.status = 200;
   //
     } else {
       ctx.body = 'Unauthorized! Channel Serect and Request header aren\'t the same.';
-      test = 789;
       ctx.status = 401;
     }
+});
+
+router.get("/push",async function(ctx,next){
+  // 回覆給 User 的訊息
+  let options = {
+    method: 'POST',
+    uri: 'https://api.line.me/v2/bot/message/push',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${lineBotToken}`
+    },
+    body: {
+      to: "C6ea16291a849fb2c591598bd47e06da9",
+      messages: [{
+          type: "text",
+          text: "是文字"
+        }]
+    },
+    json: true
+  }
+
+  await request(options);
+  ctx.status = 200;
 });
 
 app.use(router.routes());
