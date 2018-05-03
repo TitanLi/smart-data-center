@@ -1,17 +1,17 @@
 const MongoLocalClient = require('mongodb').MongoClient;
 const mqtt = require('mqtt');
-const mqttClient = mqtt.connect('mqtt://10.20.0.90:1883');
+const dotenv = require('dotenv').load();
+const mqttClient = mqtt.connect(process.env.MQTT);
 const MongoLabClient = require('mongodb').MongoClient;
-const MONGO_URL = 'mongodb://nutc.iot:nutciot5891@ds161041.mlab.com:61041/smart-factory';
 var localDB,mLabDB;
 
-MongoLocalClient.connect("mongodb://localhost:27017/", (err, client) => {
+MongoLocalClient.connect(process.env.MONGODB, (err, client) => {
     localDB = client.db("smart-factory");
     console.log("connect mongodb on 27017 port");
     localInsert();
 });
 
-MongoLabClient.connect(MONGO_URL, (err, db) => {
+MongoLabClient.connect(process.env.MONGO_URL, (err, db) => {
   if (err) {
     return console.log(err);
   }
