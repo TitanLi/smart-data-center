@@ -173,3 +173,9 @@ socket.on("batteryRemain_Percent_B", function (data) {
   styleElem.innerHTML = "#battery2-ups::before {height: "+data+"%;}";
   console.log(data);
 });
+
+socket.on("yesterdayPower", function (data) {
+  var textarea = $("#messageList").append("機房每日報告\n"+new Date().toLocaleString('zh-tw')+"\n"+"冷氣昨日消耗："+data.powerMeterPower+"度電\n"+"ups_A昨日消耗："+data.upsPower_A+"度電\n"+"ups_B昨日消耗："+data.upsPower_B+"度電");
+  textarea.scrollTop(textarea[0].scrollHeight - textarea.height());
+  console.log(data);
+});

@@ -32,7 +32,7 @@ var inputVolt_B,inputFreq_B,outputVolt_B,outputFreq_B,outputAmp_B,outputWatt_B,s
 //database
 var db;
 
-var mongodb = new mongoDB(io,co);
+var mongodb = new mongoDB(io);
 
 mqttClient.on('connect',() => {
   mqttClient.subscribe('UPS_Monitor');
@@ -87,10 +87,20 @@ mqttClient.on('message',(topic,message) => {
 //UPS MQTT Topic
 //mosquitto_sub -h 10.20.0.90 -t UPS_Monitor
 
-//每小時更新圓餅圖
+//更新圓餅圖
 setInterval(() => {
-  mongodb.aggregateLastHoursAvgPieData();
-},3600000);
+  mongodb.aggregateAvgPieData();
+},600000);
+
+// setInterval(() => {
+//   mongodb.aggregateYesterdayAvgPowerRobot();
+// },10000);
+
+setInterval(() => {
+  if(new Date().toLocaleString('zh-tw').split(' ')[1] == "18:47:01"){
+    mongodb.aggregateYesterdayAvgPowerRobot();
+  }
+},1000);
 
 app.use(json());
 app.use(logger());
@@ -114,7 +124,7 @@ router.get('/pie',pie);
 router.get('/temperature',temperature);
 
 async function index(ctx){
-  var piePercent = await mongodb.aggregateLastHoursAvgPieData();
+  var piePercent = await mongodb.aggregateAvgPieData();
   ctx.body = await ctx.render('smart',{
                                        "powerMeterPower":piePercent[0].y,
                                        "upsPower_A":piePercent[1].y,

@@ -23,7 +23,7 @@ socket.on("piePercent", function (data) {
             },
             verticalAlign: 'top',
             y:36,
-            text: '前一小時消耗功率比例<br>(每小時更新一次)</br>'
+            text: '消耗功率比例<br>(每10分鐘更新一次)</br>'
         },
         tooltip: {
             pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -93,7 +93,7 @@ Highcharts.chart('container', {
         },
         verticalAlign: 'top',
         y:36,
-        text: '前一小時消耗功率比例<br>(每小時更新一次)</br>'
+        text: '消耗功率比例<br>(每10分鐘更新一次)</br>'
     },
     tooltip: {
         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
