@@ -1,28 +1,40 @@
-const MongoClient = require('mongodb').MongoClient;
+const MongoLocalClient = require('mongodb').MongoClient;
 const mqtt = require('mqtt');
 const mqttClient = mqtt.connect('mqtt://10.20.0.90:1883');
-var db;
+const MongoLabClient = require('mongodb').MongoClient;
+const MONGO_URL = 'mongodb://nutc.iot:nutciot5891@ds161041.mlab.com:61041/smart-factory';
+var localDB,mLabDB;
 
-MongoClient.connect("mongodb://localhost:27017/", (err, client) => {
-    db = client.db("smart-factory");
+MongoLocalClient.connect("mongodb://localhost:27017/", (err, client) => {
+    localDB = client.db("smart-factory");
     console.log("connect mongodb on 27017 port");
-    mqttConnect();
+    localInsert();
 });
 
-function mqttConnect(){
-  mqttClient.on('connect',() => {
-    mqttClient.subscribe('UPS_Monitor');
-    mqttClient.subscribe('current');
-  });
+MongoLabClient.connect(MONGO_URL, (err, db) => {
+  if (err) {
+    return console.log(err);
+  }
+  console.log("connect MongoLabClient on 27017 port");
+  mLabDB = db;
+  mLabInsert();
+});
 
+//MQTT connect
+mqttClient.on('connect',() => {
+  mqttClient.subscribe('UPS_Monitor');
+  mqttClient.subscribe('current');
+});
+
+function localInsert(){
   mqttClient.on('message',(topic,message) => {
     console.log(topic,JSON.parse(message));
     switch (topic) {
       case "current":
         powerMeterMqttData = JSON.parse(message);
         powerMeterMqttData.time = new Date();
-        var collectionPowerMeterLogs = db.collection('powerMeter');
-        var collectionPowerMeterPower = db.collection('powerMeterPower');
+        var collectionPowerMeterLogs = localDB.collection('powerMeter');
+        var collectionPowerMeterPower = localDB.collection('powerMeterPower');
         if (powerMeterMqttData) {
           collectionPowerMeterLogs.insert(powerMeterMqttData,(err, data) => {
             if (err) {
@@ -43,9 +55,9 @@ function mqttConnect(){
       case "UPS_Monitor":
         upsMqttData = JSON.parse(message);
         upsMqttData.time = new Date();
-        var collectionUpsLogs = db.collection('ups');
-        var collectionUpsPower_A = db.collection('upsPower_A');
-        var collectionUpsPower_B = db.collection('upsPower_B');
+        var collectionUpsLogs = localDB.collection('ups');
+        var collectionUpsPower_A = localDB.collection('upsPower_A');
+        var collectionUpsPower_B = localDB.collection('upsPower_B');
         if (upsMqttData) {
           collectionUpsLogs.insert(upsMqttData,(err, data) => {
                   if (err) {
@@ -68,6 +80,86 @@ function mqttConnect(){
               console.log('collectionUpsPower_B data insert successfully');
             }
           });
+        }
+        break;
+      default:
+        console.log('pass');
+    }
+  });
+}
+
+function mLabInsert(){
+  mqttClient.on('message',(topic,message) => {
+    switch (topic) {
+      case "current":
+        powerMeterMqttData = JSON.parse(message);
+        powerMeterMqttData.time = new Date();
+        var collectionPowerMeter = mLabDB.collection('powerMeter');
+        if (powerMeterMqttData) {
+          collectionPowerMeter.update(
+            {},
+            {
+              $set : powerMeterMqttData
+            },
+            {upsert : true },
+            function (err, res) {
+              if (err) {
+                return console.log(err);
+              }else{
+                console.log('mLab powerMeter data insert successfully');
+              }
+            }
+          );
+        }
+        break;
+      case "UPS_Monitor":
+        upsMqttData = JSON.parse(message);
+        upsMqttData.time = new Date();
+        var collectionUps_A = mLabDB.collection('ups_A');
+        var collectionUps_B = mLabDB.collection('ups_B');
+        if (upsMqttData) {
+          collectionUps_A.update(
+            {},
+            {
+              $set : {
+                "connect_A" : upsMqttData.connect_A,
+                "ups_Life_A" : upsMqttData.ups_Life_A,
+                "input_A" : upsMqttData.input_A,
+                "output_A" : upsMqttData.output_A,
+                "battery_A" : upsMqttData.battery_A,
+                "time" : upsMqttData.time
+              }
+            },
+            {upsert : true },
+            function (err, res) {
+              if (err) {
+                return console.log(err);
+              }else{
+                console.log('mLab ups_A data insert successfully');
+              }
+            }
+          );
+          collectionUps_B.update(
+            {},
+            {
+              $set : {
+                "connect_B" : upsMqttData.connect_B,
+                "ups_Life_B" : upsMqttData.ups_Life_B,
+                "input_B" : upsMqttData.input_B,
+                "output_B" : upsMqttData.output_B,
+                "battery_B" : upsMqttData.battery_B,
+                "time" : upsMqttData.time
+              }
+            },
+            {upsert : true },
+            function (err, res) {
+              if (err) {
+                return console.log(err);
+              }else{
+                console.log('mLab ups_B data insert successfully');
+              }
+            }
+          );
         }
         break;
       default:
