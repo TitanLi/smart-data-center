@@ -164,5 +164,5 @@ async function temperature(ctx){
 }
 
 server.listen(process.env.PORT,function(){
-  console.log('listening on port 3000');
+  console.log('listening on port 3006');
 });
