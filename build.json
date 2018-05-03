@@ -1,11 +1,11 @@
 {
     "apps": [
         {
-          "name": "app",
+          "name": "smart-factory",
           "script": "./app.js"
         },
         {
-          "name": "mqtt-test",
+          "name": "smart-factory-smartmongodb",
           "script": "./test/mqtt.js"
         }
     ]
