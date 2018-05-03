@@ -1,7 +1,7 @@
 var outputAmp_B = 0;
 socket.on("outputAmp_B", function (data) {
   if (data) {
-    outputAmp_B = parseInt(data);
+    outputAmp_B = Number(data);
   }
 });
 

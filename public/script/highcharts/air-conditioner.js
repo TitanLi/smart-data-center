@@ -1,7 +1,7 @@
 var current = 0;
 socket.on("current", function (data) {
   if (data) {
-    current = parseInt(data);
+    current = Number(data);
   }
 });
 
