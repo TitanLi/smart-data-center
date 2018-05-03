@@ -6,7 +6,7 @@
         },
         {
           "name": "smart-factory-mongodb",
-          "script": "./mongodb.js"
+          "script": "./mongoDB.js"
         }
     ]
 }
