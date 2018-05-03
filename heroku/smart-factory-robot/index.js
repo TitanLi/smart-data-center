@@ -233,7 +233,8 @@ router.post('/webhooks', async (ctx, next) => {
     }
 });
 
-router.get("/push",async function(ctx,next){
+router.post("/push",async function(ctx,next){
+  var data = ctx.request.body;
   // 回覆給 User 的訊息
   let options = {
     method: 'POST',
@@ -246,7 +247,7 @@ router.get("/push",async function(ctx,next){
       to: "C6ea16291a849fb2c591598bd47e06da9",
       messages: [{
           type: "text",
-          text: "是文字"
+          text: "昨日冷氣消耗度數："+data.powerMeterPower+"度\n"+"昨日ups_A消耗度數："+data.upsPower_A+"度\n"+"昨日ups_B消耗度數："+data.upsPower_B+"度"
         }]
     },
     json: true

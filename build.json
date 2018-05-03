@@ -5,8 +5,8 @@
           "script": "./app.js"
         },
         {
-          "name": "smart-factory-smartmongodb",
-          "script": "./test/mqtt.js"
+          "name": "smart-factory-mongodb",
+          "script": "./mongodb.js"
         }
     ]
 }
