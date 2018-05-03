@@ -30,6 +30,8 @@
     "koa-swig": "^2.2.1",
     "mongodb": "^2.2.35",
     "mqtt": "^2.17.0",
+    "request": "^2.85.0",
+    "request-promise": "^4.2.2",
     "socket.io": "^2.1.0"
   }
 }

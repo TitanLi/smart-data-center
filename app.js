@@ -10,6 +10,7 @@ const mqtt = require('mqtt');
 const http = require('http');
 const socket = require('socket.io');
 const dotenv = require('dotenv').load();
+const request = require('request-promise');
 const mongoDB = require('./lib/mongoDB.js');
 
 const app = new koa();
@@ -99,7 +100,24 @@ setInterval(() => {
 
 setInterval(() => {
   if(new Date().toLocaleString('zh-tw').split(' ')[1] == "08:01:00"){
-    mongodb.aggregateYesterdayAvgPowerRobot();
+    var push = async () => {
+      var data = await mongodb.aggregateYesterdayAvgPowerRobot();
+      let options = {
+        method: 'POST',
+        uri: 'https://smart-factory-robot.herokuapp.com/push',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: {
+          powerMeterPower : data.powerMeterPower,
+          upsPower_A : data.upsPower_A,
+          upsPower_B : data.upsPower_B
+        },
+        json: true
+      }
+      await request(options);
+    }
+    push();
   }
 },1000);
 
