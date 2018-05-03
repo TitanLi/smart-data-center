@@ -66,14 +66,14 @@ function localInsert(){
                       console.log('collectionUpsLogs data insert successfully');
                   }
               });
-          collectionUpsPower_A.insert({"power":parseInt(upsMqttData.output_A.outputWatt_A),"time":new Date()},(err, data) => {
+          collectionUpsPower_A.insert({"power":Number(upsMqttData.output_A.outputWatt_A),"time":new Date()},(err, data) => {
             if (err) {
               console.log('collectionUpsPower_A data insert failed');
             } else {
               console.log('collectionUpsPower_A data insert successfully');
             }
           });
-          collectionUpsPower_B.insert({"power":parseInt(upsMqttData.output_B.outputWatt_B),"time":new Date()},(err, data) => {
+          collectionUpsPower_B.insert({"power":Number(upsMqttData.output_B.outputWatt_B),"time":new Date()},(err, data) => {
             if (err) {
               console.log('collectionUpsPower_B data insert failed');
             } else {
