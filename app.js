@@ -9,6 +9,7 @@ const co = require('co');
 const mqtt = require('mqtt');
 const http = require('http');
 const socket = require('socket.io');
+const dotenv = require('dotenv').load();
 const mongoDB = require('./lib/mongoDB.js');
 
 const app = new koa();
@@ -17,7 +18,7 @@ const server = http.createServer(app.callback());
 const io = socket(server);
 // io.emit('news',{url:url});
 
-const mqttClient = mqtt.connect('mqtt://10.20.0.90:1883');
+const mqttClient = mqtt.connect(process.env.MQTT);
 
 //power-meter MQTT input data
 var powerMeterMqttData;
@@ -97,7 +98,7 @@ setInterval(() => {
 // },10000);
 
 setInterval(() => {
-  if(new Date().toLocaleString('zh-tw').split(' ')[1] == "18:47:01"){
+  if(new Date().toLocaleString('zh-tw').split(' ')[1] == "08:01:00"){
     mongodb.aggregateYesterdayAvgPowerRobot();
   }
 },1000);
@@ -144,6 +145,6 @@ async function temperature(ctx){
   ctx.body = await ctx.render('temperature');
 }
 
-server.listen(3000,function(){
+server.listen(process.env.PORT,function(){
   console.log('listening on port 3000');
 });

@@ -19,6 +19,7 @@
   "homepage": "https://github.com/TitanLi/smart-factory#readme",
   "dependencies": {
     "co": "^4.6.0",
+    "dotenv": "^5.0.1",
     "http": "0.0.0",
     "koa": "^2.5.0",
     "koa-bodyparser": "^4.2.0",
