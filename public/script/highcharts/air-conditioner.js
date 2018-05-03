@@ -42,10 +42,7 @@ $(document).ready(function() {
       }
     };
     var yAxis = {
-      allowDecimals:true,
-      softMax:16,
       tickInterval: 0.01,
-      tickPixelInterval : 10,
       title: {
         text: '電流（A)',
         style:{
