@@ -7,7 +7,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script type="text/javascript">
-      var socket = io.connect("127.0.0.1:3000");
+      var socket = io.connect("127.0.0.1:3006");
     </script>
     <link rel="stylesheet" type="text/css" href="mystyle.css">
     <script src="http://code.highcharts.com/highcharts.js"></script>
@@ -25,21 +25,21 @@
         { name: 'UPS2', y: parseInt("{{upsPower_B}}") }
     ];
     console.log(piePercent);
-    function a(){
-      var styleElem = document.head.appendChild(document.createElement("style"));
-      styleElem.innerHTML = "#battery1-ups::before {height: 100%;}";
-    }
-    function button(){
-      var textarea = $("#messageList").append("Fifth Avenue, New York City\n");
-      textarea.scrollTop(textarea[0].scrollHeight - textarea.height());
-    }
+    // function a(){
+    //   var styleElem = document.head.appendChild(document.createElement("style"));
+    //   styleElem.innerHTML = "#battery1-ups::before {height: 100%;}";
+    // }
+    // function button(){
+    //   var textarea = $("#messageList").append("Fifth Avenue, New York City\n");
+    //   textarea.scrollTop(textarea[0].scrollHeight - textarea.height());
+    // }
     </script>
   </head>
   <body style="background-color:#000000;">
     <div class="main1">
       <div class="factory-info">
         <div class="title">
-          <p class="title">Smart Factory</p>
+          <p class="title">Smart Data Center</p>
         </div>
         <div class="data">
           <p class="data-title">機房不斷電系統狀態</p>
