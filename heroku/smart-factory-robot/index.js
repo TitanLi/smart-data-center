@@ -11,99 +11,95 @@ const dotenv = require('dotenv').load();
 const request = require('request-promise');
 // 載入 crypto ，等下要加密
 const crypto = require('crypto');
-// 放 Line Bot 的 Channel Secret
-// const channelSecret = '54695245827351a6d0ca224daaf8290a';
-
-// Line Bot 的 Channel Token
-const lineBotToken = 'KGxb2GR2KBfc9QaUUq7kws9wHWWr47IzEpm4rzN4YqWNQKFwghMAVuZST8U/lzhuYiCiriNMs6TgOhNdkj2mf34Qb6eS+SMX7hiTkkOxaKS4x7BwGtU4+snfITPFoFkX74jhZjhYcw5sGvXcOi5jkAdB04t89/1O/w1cDnyilFU=';
-const MongoLabClient = require('mongodb').MongoClient;
-const MONGO_URL = 'mongodb://nutc.iot:nutciot5891@ds161041.mlab.com:61041/smart-factory';
+const Linebot = require('./lib/linebot.js');
 
 const app = new koa();
 const router = Router();
+
+const linebot = new Linebot(process.env.channelSecret,process.env.lineBotToken);
 
 var test = "Hello Koa";
 var userMessages;
 var dbMsg;
 
-var mongoLab = function * (msgText){
-  console.log(msgText);
-  yield function(done){
-    MongoLabClient.connect(MONGO_URL, (err, db) => {
-      if (err) {
-        return console.log(err);
-      }
-      console.log("connect MongoLabClient on 27017 port");
-      var collectionPowerMeter = db.collection('powerMeter');
-      var collectionUps_A = db.collection('ups_A');
-      var collectionUps_B = db.collection('ups_B');
-      switch (msgText) {
-        case '冷氣電流':
-          collectionPowerMeter.findOne({},(err,data) => {
-              if (err) {
-                return console.log(err);
-              }else{
-                dbMsg='冷氣目前電流：' + data.currents.toFixed(2) + '(A)';
-                console.log(dbMsg);
-                done();
-              }
-            }
-          );
-          break;
-        case 'ups_A電流':
-          collectionUps_A.findOne({},(err,data) => {
-              if (err) {
-                return console.log(err);
-              }else{
-                dbMsg='ups_A目前電流：' + Number(data.output_A.outputAmp_A).toFixed(2) + '(A)';
-                console.log(dbMsg);
-                done();
-              }
-            }
-          );
-          break;
-        case 'ups_B電流':
-          collectionUps_B.findOne({},(err,data) => {
-              if (err) {
-                return console.log(err);
-              }else{
-                dbMsg='ups_B目前電流：' + Number(data.output_B.outputAmp_B).toFixed(2) + '(A)';
-                console.log(dbMsg);
-                done();
-              }
-            }
-          );
-          break;
-        case '濕度':
-          collectionPowerMeter.findOne({},(err,data) => {
-              if (err) {
-                return console.log(err);
-              }else{
-                dbMsg='目前濕度：' + data.Humidity.toFixed(2) + '(%)';
-                console.log(dbMsg);
-                done();
-              }
-            }
-          );
-          break;
-        case '溫度':
-          collectionPowerMeter.findOne({},(err,data) => {
-              if (err) {
-                return console.log(err);
-              }else{
-                dbMsg='目前溫度：' + data.Temperature.toFixed(2) + '(°C)';
-                console.log(dbMsg);
-                done();
-              }
-            }
-          );
-          break;
-        default:
-          console.log('pass');
-      }
-    });
-  }
-}
+// var mongoLab = function * (msgText){
+//   console.log(msgText);
+//   yield function(done){
+//     MongoLabClient.connect(process.env.MONGO_URL, (err, db) => {
+//       if (err) {
+//         return console.log(err);
+//       }
+//       console.log("connect MongoLabClient on 27017 port");
+//       var collectionPowerMeter = db.collection('powerMeter');
+//       var collectionUps_A = db.collection('ups_A');
+//       var collectionUps_B = db.collection('ups_B');
+//       switch (msgText) {
+//         case '冷氣電流':
+//           collectionPowerMeter.findOne({},(err,data) => {
+//               if (err) {
+//                 return console.log(err);
+//               }else{
+//                 dbMsg='冷氣目前電流：' + data.currents.toFixed(2) + '(A)';
+//                 console.log(dbMsg);
+//                 done();
+//               }
+//             }
+//           );
+//           break;
+//         case 'ups_A電流':
+//           collectionUps_A.findOne({},(err,data) => {
+//               if (err) {
+//                 return console.log(err);
+//               }else{
+//                 dbMsg='ups_A目前電流：' + Number(data.output_A.outputAmp_A).toFixed(2) + '(A)';
+//                 console.log(dbMsg);
+//                 done();
+//               }
+//             }
+//           );
+//           break;
+//         case 'ups_B電流':
+//           collectionUps_B.findOne({},(err,data) => {
+//               if (err) {
+//                 return console.log(err);
+//               }else{
+//                 dbMsg='ups_B目前電流：' + Number(data.output_B.outputAmp_B).toFixed(2) + '(A)';
+//                 console.log(dbMsg);
+//                 done();
+//               }
+//             }
+//           );
+//           break;
+//         case '濕度':
+//           collectionPowerMeter.findOne({},(err,data) => {
+//               if (err) {
+//                 return console.log(err);
+//               }else{
+//                 dbMsg='目前濕度：' + data.Humidity.toFixed(2) + '(%)';
+//                 console.log(dbMsg);
+//                 done();
+//               }
+//             }
+//           );
+//           break;
+//         case '溫度':
+//           collectionPowerMeter.findOne({},(err,data) => {
+//               if (err) {
+//                 return console.log(err);
+//               }else{
+//                 dbMsg='目前溫度：' + data.Temperature.toFixed(2) + '(°C)';
+//                 console.log(dbMsg);
+//                 done();
+//               }
+//             }
+//           );
+//           break;
+//         default:
+//           console.log('pass');
+//       }
+//     });
+//   }
+// }
 
 app.use(json());
 app.use(logger());
@@ -132,15 +128,14 @@ router.get('/',async (ctx) => {
 //   }
 // ]}
 router.post('/webhooks', async (ctx, next) => {
-  const channelSecret = "54695245827351a6d0ca224daaf8290a";
-  const koaRequest = ctx.request;
-  const hash = crypto
-                    .createHmac('sha256', channelSecret)
-                    .update(JSON.stringify(koaRequest.body))
-                    .digest('base64');
+  // const koaRequest = ctx.request;
+  // const hash = crypto
+  //                   .createHmac('sha256', process.env.channelSecret)
+  //                   .update(JSON.stringify(koaRequest.body))
+  //                   .digest('base64');
   var resMsg = "";
   dbMsg = "";
-  if ( koaRequest.headers['x-line-signature'] === hash ) {
+  if ( ctx.status == 200 ) {
       // User 送來的訊息
       userMessages = ctx.request.body.events[0];
       test = JSON.stringify(ctx.request.body);
@@ -170,7 +165,7 @@ router.post('/webhooks', async (ctx, next) => {
           uri: 'https://api.line.me/v2/bot/message/reply',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${lineBotToken}`
+            'Authorization': `Bearer ${process.env.lineBotToken}`
           },
           body: {
             replyToken: userMessages.replyToken,
@@ -191,7 +186,7 @@ router.post('/webhooks', async (ctx, next) => {
           uri: 'https://api.line.me/v2/bot/message/reply',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${lineBotToken}`
+            'Authorization': `Bearer ${process.env.lineBotToken}`
           },
           body: {
             replyToken: userMessages.replyToken,
@@ -212,7 +207,7 @@ router.post('/webhooks', async (ctx, next) => {
           uri: 'https://api.line.me/v2/bot/message/reply',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${lineBotToken}`
+            'Authorization': `Bearer ${process.env.lineBotToken}`
           },
           body: {
             replyToken: userMessages.replyToken,
@@ -241,7 +236,7 @@ router.post("/push",async function(ctx,next){
     uri: 'https://api.line.me/v2/bot/message/push',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${lineBotToken}`
+      'Authorization': `Bearer ${process.env.lineBotToken}`
     },
     body: {
       to: "C6ea16291a849fb2c591598bd47e06da9",
@@ -257,7 +252,9 @@ router.post("/push",async function(ctx,next){
   ctx.status = 200;
 });
 
-app.use(router.routes());
+app
+  .use(linebot.middleware())
+  .use(router.routes());
 
 // //因為 express 預設走 port 3000，而 heroku 上預設卻不是，要透過下列程式轉換
 var server = app.listen(process.env.PORT || 8080, function() {
