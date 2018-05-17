@@ -12,6 +12,8 @@ const request = require('request-promise');
 // 載入 crypto ，等下要加密
 const crypto = require('crypto');
 const Linebot = require('./lib/linebot.js');
+const mongoLab = require('./lib/mongoLab.js');
+// const MongoLabClient = require('mongodb').MongoClient;
 
 const app = new koa();
 const router = Router();
@@ -24,23 +26,24 @@ var dbMsg;
 
 // var mongoLab = function * (msgText){
 //   console.log(msgText);
+//   let findData;
 //   yield function(done){
 //     MongoLabClient.connect(process.env.MONGO_URL, (err, db) => {
 //       if (err) {
 //         return console.log(err);
 //       }
 //       console.log("connect MongoLabClient on 27017 port");
-//       var collectionPowerMeter = db.collection('powerMeter');
-//       var collectionUps_A = db.collection('ups_A');
-//       var collectionUps_B = db.collection('ups_B');
+//       let collectionPowerMeter = db.collection('powerMeter');
+//       let collectionUps_A = db.collection('ups_A');
+//       let collectionUps_B = db.collection('ups_B');
 //       switch (msgText) {
 //         case '冷氣電流':
 //           collectionPowerMeter.findOne({},(err,data) => {
 //               if (err) {
 //                 return console.log(err);
 //               }else{
-//                 dbMsg='冷氣目前電流：' + data.currents.toFixed(2) + '(A)';
-//                 console.log(dbMsg);
+//                 findData='冷氣目前電流：' + data.currents.toFixed(2) + '(A)';
+//                 console.log(findData);
 //                 done();
 //               }
 //             }
@@ -51,8 +54,8 @@ var dbMsg;
 //               if (err) {
 //                 return console.log(err);
 //               }else{
-//                 dbMsg='ups_A目前電流：' + Number(data.output_A.outputAmp_A).toFixed(2) + '(A)';
-//                 console.log(dbMsg);
+//                 findData='ups_A目前電流：' + Number(data.output_A.outputAmp_A).toFixed(2) + '(A)';
+//                 console.log(findData);
 //                 done();
 //               }
 //             }
@@ -63,8 +66,8 @@ var dbMsg;
 //               if (err) {
 //                 return console.log(err);
 //               }else{
-//                 dbMsg='ups_B目前電流：' + Number(data.output_B.outputAmp_B).toFixed(2) + '(A)';
-//                 console.log(dbMsg);
+//                 findData='ups_B目前電流：' + Number(data.output_B.outputAmp_B).toFixed(2) + '(A)';
+//                 console.log(findData);
 //                 done();
 //               }
 //             }
@@ -75,8 +78,8 @@ var dbMsg;
 //               if (err) {
 //                 return console.log(err);
 //               }else{
-//                 dbMsg='目前濕度：' + data.Humidity.toFixed(2) + '(%)';
-//                 console.log(dbMsg);
+//                 findData='目前濕度：' + data.Humidity.toFixed(2) + '(%)';
+//                 console.log(findData);
 //                 done();
 //               }
 //             }
@@ -87,8 +90,8 @@ var dbMsg;
 //               if (err) {
 //                 return console.log(err);
 //               }else{
-//                 dbMsg='目前溫度：' + data.Temperature.toFixed(2) + '(°C)';
-//                 console.log(dbMsg);
+//                 findData='目前溫度：' + data.Temperature.toFixed(2) + '(°C)';
+//                 console.log(findData);
 //                 done();
 //               }
 //             }
@@ -99,6 +102,7 @@ var dbMsg;
 //       }
 //     });
 //   }
+//   return findData;
 // }
 
 app.use(json());
@@ -135,6 +139,9 @@ router.post('/webhooks', async (ctx, next) => {
   //                   .digest('base64');
   var resMsg = "";
   dbMsg = "";
+  let mLabData = "";
+  // let mLabData = await co(mongoLab.findData('冷氣電流'));
+  // ctx.body = mLabData;
   if ( ctx.status == 200 ) {
       // User 送來的訊息
       userMessages = ctx.request.body.events[0];
@@ -143,21 +150,21 @@ router.post('/webhooks', async (ctx, next) => {
       if(/電流/.test(messageText)){
         // 回覆給 User 的訊息
         if(/冷氣/.test(messageText)){
-          await co(mongoLab('冷氣電流'));
-          resMsg = dbMsg;
+          mLabData = await co(mongoLab.findData('冷氣電流'));
+          resMsg = mLabData;
         }else if (/ups_A/.test(messageText)) {
-          await co(mongoLab('ups_A電流'));
-          resMsg = dbMsg;
+          mLabData = await co(mongoLab.findData('ups_A電流'));
+          resMsg = mLabData;
         }else if (/ups_B/.test(messageText)) {
-          await co(mongoLab('ups_B電流'));
-          resMsg = dbMsg;
+          mLabData = await co(mongoLab.findData('ups_B電流'));
+          resMsg = mLabData;
         }else{
-          await co(mongoLab('冷氣電流'));
-          resMsg = resMsg + dbMsg + '\n';
-          await co(mongoLab('ups_A電流'));
-          resMsg = resMsg + dbMsg + '\n';
-          await co(mongoLab('ups_B電流'));
-          resMsg = resMsg + dbMsg;
+          mLabData = await co(mongoLab.findData('冷氣電流'));
+          resMsg = resMsg + mLabData + '\n';
+          mLabData = await co(mongoLab.findData('ups_A電流'));
+          resMsg = resMsg + mLabData + '\n';
+          mLabData = await co(mongoLab.findData('ups_B電流'));
+          resMsg = resMsg + mLabData;
         }
 
         let options = {
@@ -179,8 +186,8 @@ router.post('/webhooks', async (ctx, next) => {
         await request(options);
       }else if (/濕度/.test(messageText)) {
         // 回覆給 User 的訊息
-        await co(mongoLab('濕度'));
-        resMsg = dbMsg;
+        mLabData = await co(mongoLab.findData('濕度'));
+        resMsg = mLabData;
         let options = {
           method: 'POST',
           uri: 'https://api.line.me/v2/bot/message/reply',
@@ -200,8 +207,8 @@ router.post('/webhooks', async (ctx, next) => {
         await request(options);
       }else if (/溫度/.test(messageText)) {
         // 回覆給 User 的訊息
-        await co(mongoLab('溫度'));
-        resMsg = dbMsg;
+        mLabData = await co(mongoLab.findData('溫度'));
+        resMsg = mLabData;
         let options = {
           method: 'POST',
           uri: 'https://api.line.me/v2/bot/message/reply',
