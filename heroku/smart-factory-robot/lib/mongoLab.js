@@ -82,10 +82,57 @@ module.exports = {
       }
       return findData;
     }) ,
-    age : () => {
-      console.log(20);
-    } ,
-    believe : () => {
-      console.log('I can do it');
-    }
+    controlUpdate : (controlET7044) => (function * (){
+      yield function(done){
+        MongoLabClient.connect(process.env.MONGO_URL, (err, db) => {
+          if (err) {
+            return console.log(err);
+          }
+          console.log("connect MongoLabClient on 27017 port");
+          let collectionControl = db.collection('control');
+          collectionControl.update(
+            {},
+            {
+              $set : controlET7044
+            },
+            {upsert : true },
+            function (err, res) {
+              if (err) {
+                return console.log(err);
+              }else{
+                console.log('mLab control data insert successfully');
+              }
+              done();
+            }
+          );
+        });
+      }
+      return 'mLab control data insert successfully';
+    }) ,
+    controlFind : () => (function * (){
+      let findData = {};
+      yield function(done){
+        MongoLabClient.connect(process.env.MONGO_URL, (err, db) => {
+          if (err) {
+            return console.log(err);
+          }
+          console.log("connect MongoLabClient on 27017 port");
+          let collectionControl = db.collection('control');
+          collectionControl.findOne(
+            {},
+            function (err, data) {
+              if (err) {
+                return console.log(err);
+              }else{
+                if(data != null){
+                  findData = data;
+                }
+              }
+              done();
+            }
+          );
+        });
+      }
+      return findData;
+    })
   }
