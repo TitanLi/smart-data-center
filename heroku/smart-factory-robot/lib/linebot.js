@@ -10,34 +10,59 @@ module.exports = function(channelSecret,lineBotToken){
 /*
   ctx.request.body處理
   return Object
+
+  message:
   {
-    'replyToken' : replyToken, @string
     'type' : type, @string
-    'sourceType' : sourceType, @string
+    'replyToken' : replyToken, @string
     'sourceUserId' : sourceUserId, @string
+    'sourceType' : sourceType, @string
     'messageType' : messageType, @string
     'messageText' : messageText @string
+  }
+
+  postback:
+  {
+    'type' : type, @string
+    'replyToken' : replyToken, @string
+    'sourceUserId' : sourceUserId, @string
+    'sourceType' : sourceType, @string
+    'postbackData' : postbackData, @string
   }
 */
   this.requestHandle = (ctx) => {
     let userMessages = ctx.request.body.events;
     if(ctx.status == 200){
-      let replyToken,type,sourceType,sourceUserId,messageType,messageText;
+      let replyToken,type,sourceType,sourceUserId,messageType,messageText,postbackData;
       userMessages.map(function(item, index, array){
-        replyToken = item.replyToken;
         type = item.type;
-        sourceType = item.source.sourceType;
+        replyToken = item.replyToken;
         sourceUserId = item.source.userId;
-        messageType = item.message.messageType;
-        messageText = item.message.text;
+        sourceType = item.source.type;
+        if(type == 'message'){
+          messageType = item.message.type;
+          messageText = item.message.text;
+        }else if(type == 'postback'){
+          postbackData = item.postback.data;
+        }
       });
-      return {
-        'replyToken' : replyToken,
-        'type' : type,
-        'sourceType' : sourceType,
-        'sourceUserId' : sourceUserId,
-        'messageType' : messageType,
-        'messageText' : messageText
+      if(type == 'message'){
+        return {
+          'type' : type,
+          'replyToken' : replyToken,
+          'sourceUserId' : sourceUserId,
+          'sourceType' : sourceType,
+          'messageType' : messageType,
+          'messageText' : messageText
+        }
+      }else if(type == 'postback'){
+        return {
+          'type' : type,
+          'replyToken' : replyToken,
+          'sourceUserId' : sourceUserId,
+          'sourceType' : sourceType,
+          'postbackData' : postbackData
+        }
       }
     }else {
       return false;
@@ -102,6 +127,81 @@ module.exports = function(channelSecret,lineBotToken){
               },
               json: true
             }
+      return request(options);
+    }else{
+      ctx.body = "hash error";
+    }
+  };
+
+/*
+  自動回復carousel template
+  參考資料：https://developers.line.me/en/docs/messaging-api/reference/#carousel
+  property              Type        Description
+  events                Object      JSON(requestHandle)
+  altText               String      user received message
+  thumbnailImageUrl     Object      user received image url
+                                      Image URL (Max: 1000 characters)
+                                      HTTPS
+                                      JPEG or PNG
+                                      Aspect ratio: 1:1.51
+                                      Max width: 1024px
+                                      Max: 1 MB
+  imageBackgroundColor  Object      user received image background color
+  title                 Object      user received title
+                                      Max: 40 characters
+  text                  Object      user received message text
+                                      Max: 120 characters (no image or title)
+                                      Max: 60 characters 
+  defaultAction         Object      Action when image is tapped
+                                      set for the entire image, title, and text area
+  actions               Object      Action when tapped
+                                      Max: 3
+                                    
+  return request-promise
+
+  success
+  response  {}
+  return request-promise
+*/
+  this.responseCarouselTemplate = (events,altText,thumbnailImageUrl,imageBackgroundColor,title,text,defaultAction,actions) => {
+    if (events) {
+      console.log(events);
+      let data = events.messageText;
+      console.log(data);
+      let options = {
+              method: 'POST',
+              uri: 'https://api.line.me/v2/bot/message/reply',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${lineBotToken}`
+              },
+              body: {
+                replyToken: events.replyToken,
+                messages: [{
+                  "type": "template",
+                  "altText": altText,
+                  "template": {
+                      "type": "carousel",
+                      "columns": [],
+                      "imageAspectRatio": "rectangle",
+                      "imageSize": "cover"
+                  }
+                }]
+              },
+              json: true
+            }
+      for(let i = 0 ;i<thumbnailImageUrl.length;i++){
+        options.body.messages[0].template.columns.push(
+          {
+            "thumbnailImageUrl": thumbnailImageUrl[i],
+            "imageBackgroundColor": imageBackgroundColor[i],
+            "title": title[i],
+            "text": text[i],
+            "defaultAction": defaultAction[i],
+            "actions": actions[i]
+          }
+        )
+      }
       return request(options);
     }else{
       ctx.body = "hash error";
