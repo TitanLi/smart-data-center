@@ -13,6 +13,7 @@ const request = require('request-promise');
 const crypto = require('crypto');
 const Linebot = require('./lib/linebot.js');
 const mongoLab = require('./lib/mongoLab.js');
+const linebotUse = require('./lib/linebotUse.js');
 
 const app = new koa();
 const router = Router();
@@ -33,75 +34,108 @@ router.get('/',async (ctx) => {
 // {
 //   "events":[
 //   {
-//     "type":"message",
-//     "replyToken":"d6cd336f934547e2a255d2d515ad862d",
-//     "source":{
-//       "userId":"U6ac46864e9646bd5bd954471f0060194",
-//       "type":"user"
+//     "type": "message",
+//     "replyToken": "567feb1e12d644c2a5aa49d35aeab618",
+//     "source": {
+//       "userId": "U6ac46864e9646bd5bd954471f0060194",
+//       "type": "user"
 //     },
-//     "timestamp":1525163147449,
-//     "message":{
-//       "type":"text",
-//       "id":"7884652587754",
-//       "text":"哈囉"
+//     "timestamp": 1526787595580,
+//     "message": {
+//       "type": "text",
+//       "id": "7986854301445",
+//       "text": "哈囉"
+//     }
+//   }]
+// }
+
+// [
+//   {
+//     "type": "postback",
+//     "replyToken": "8ac478901b044eb586060e1e84c53cef",
+//     "source": {
+//       "userId": "U6ac46864e9646bd5bd954471f0060194",
+//       "type": "user"
+//     },
+//     "timestamp": 1526787216000,
+//     "postback": {
+//       "data": "action=buy&itemid=111"
 //     }
 //   }
-// ]}
+// ]
 router.post('/webhooks', async (ctx, next) => {
   let resMsg = '';
   let mLabData = "";
   let useMsg = "";
+  // test = ctx.request.body.events;
   let events = linebot.requestHandle(ctx);
-
   if (events) {
-      test = JSON.stringify(events);
-      let messageText = events.messageText;
-      if(/電流/.test(messageText)){
-        // 回覆給 User 的訊息
-        if(/冷氣/.test(messageText)){
-          mLabData = await co(mongoLab.findData('冷氣電流'));
-          events.messageText = '冷氣電流';
-          await linebot.responseText(events,{
-            '冷氣電流':mLabData
-          });
-        }else if (/ups_A/.test(messageText)) {
-          mLabData = await co(mongoLab.findData('ups_A電流'));
-          events.messageText = 'ups_A電流';
-          await linebot.responseText(events,{
-            'ups_A電流':mLabData
-          });
-        }else if (/ups_B/.test(messageText)) {
-          mLabData = await co(mongoLab.findData('ups_B電流'));
-          events.messageText = 'ups_B電流';
-          await linebot.responseText(events,{
-            'ups_B電流':mLabData
-          });
-        }else{
-          mLabData = await co(mongoLab.findData('冷氣電流'));
-          resMsg = resMsg + mLabData + '\n';
-          mLabData = await co(mongoLab.findData('ups_A電流'));
-          resMsg = resMsg + mLabData + '\n';
-          mLabData = await co(mongoLab.findData('ups_B電流'));
-          resMsg = resMsg + mLabData;
-          events.messageText = '電流';
-          await linebot.responseText(events,{
-            '電流':resMsg
-          });
-        }
-      }else if (/濕度/.test(messageText)) {
-        // 回覆給 User 的訊息
-        mLabData = await co(mongoLab.findData('濕度'));
-        events.messageText = '濕度';
-        await linebot.responseText(events,{
-          '濕度':mLabData
-        });
-      }else if (/溫度/.test(messageText)) {
-        // 回覆給 User 的訊息
-        mLabData = await co(mongoLab.findData('溫度'));
-        events.messageText = '溫度';
-        await linebot.responseText(events,{
-          '溫度':mLabData
-        });
+      if(events.type == 'message'){
+          test = JSON.stringify(events);
+          let messageText = events.messageText;
+          if(/電流/.test(messageText)){
+              // 回覆給 User 的訊息
+              if(/冷氣/.test(messageText)){
+                  mLabData = await co(mongoLab.findData('冷氣電流'));
+                  events.messageText = '冷氣電流';
+                  await linebot.responseText(events,{
+                      '冷氣電流':mLabData
+                  });
+              }else if (/ups_A/.test(messageText)) {
+                  mLabData = await co(mongoLab.findData('ups_A電流'));
+                  events.messageText = 'ups_A電流';
+                  await linebot.responseText(events,{
+                      'ups_A電流':mLabData
+                  });
+              }else if (/ups_B/.test(messageText)) {
+                  mLabData = await co(mongoLab.findData('ups_B電流'));
+                  events.messageText = 'ups_B電流';
+                  await linebot.responseText(events,{
+                      'ups_B電流':mLabData
+                  });
+              }else{
+                  mLabData = await co(mongoLab.findData('冷氣電流'));
+                  resMsg = resMsg + mLabData + '\n';
+                  mLabData = await co(mongoLab.findData('ups_A電流'));
+                  resMsg = resMsg + mLabData + '\n';
+                  mLabData = await co(mongoLab.findData('ups_B電流'));
+                  resMsg = resMsg + mLabData;
+                  events.messageText = '電流';
+                  await linebot.responseText(events,{
+                      '電流':resMsg
+                  });
+              }
+          }else if (/濕度/.test(messageText)) {
+              // 回覆給 User 的訊息
+              mLabData = await co(mongoLab.findData('濕度'));
+              events.messageText = '濕度';
+              await linebot.responseText(events,{
+                  '濕度':mLabData
+              });
+          }else if (/溫度/.test(messageText)) {
+              // 回覆給 User 的訊息
+              mLabData = await co(mongoLab.findData('溫度'));
+              events.messageText = '溫度';
+              await linebot.responseText(events,{
+                  '溫度':mLabData
+              });
+          }else if(/控制/.test(messageText)) {
+              let controlStatus = await co(mongoLab.controlFind());
+              await linebotUse.carouselTemplateControl(linebot,events,`狀態：${controlStatus.outputFan}`,`狀態：${controlStatus.inputFan}`,`狀態：${controlStatus.humidity}`);
+          }
+      }else if(events.type == 'postback'){
+          //postback 控制資訊         
+          let controlET7044 = events.postbackData.split('#');
+          let value = controlET7044[1];
+          if(controlET7044[0] == 'outputFan'){
+              let data = await co(mongoLab.controlUpdate({'outputFan':value}));
+          }else if(controlET7044[0] == 'inputFan'){
+              let data = await co(mongoLab.controlUpdate({'inputFan':value}));
+          }else if(controlET7044[0] == 'humidity'){
+              let data = await co(mongoLab.controlUpdate({'humidity':value}));
+          }
+          test = JSON.stringify(events);
+          test = data;
       }
       ctx.status = 200;
     } else {
@@ -120,76 +154,18 @@ router.post('/push',async function(ctx,next){
   ctx.body = data;
 });
 
+router.post('/message',async function(ctx,next){
+  let requestData = ctx.request.body;
+  let imacGroupID = process.env.imacGroupID;
+  let messageText = requestData.message;
+  // 發送給imac group
+  let data = await linebot.sendText(imacGroupID,messageText);
+  ctx.status = 200;
+  ctx.body = data;
+});
+
 router.get('/test',async function(ctx,next){
-  let userId = 'U6ac46864e9646bd5bd954471f0060194';
-  let altText = '遠端控制';
-  let thumbnailImageUrl = ['https://i.imgur.com/O8lp0mk.png','https://i.imgur.com/icAeax3.png','https://i.imgur.com/0GJsShU.jpg'];
-  let imageBackgroundColor = ['#FFEE99','#FFEE99','#FFEE99'];
-  let title = ['排風風扇','進風風扇','加溼器'];
-  let text = ['狀態','狀態','狀態'];
-  let defaultAction = [
-    {
-      'type': 'message',
-      'label': '排風風扇',
-      'text':'排風風扇'
-    },
-    {
-      'type': 'message',
-      'label': '進風風扇',
-      'text':'進風風扇'
-    },
-    {
-      'type': 'message',
-      'label': '加溼器',
-      'text':'加溼器'
-    }
-  ];
-  let actions = [
-    [
-      {
-        "type": "postback",
-        "label": "開啟",
-        "data":"action=buy&itemid=111"
-      },
-      {
-        "type": "postback",
-        "label": "關閉",
-        "data":"action=buy&itemid=111"
-      }
-    ],
-    [
-      {
-        "type": "postback",
-        "label": "開啟",
-        "data":"action=buy&itemid=111"
-      },
-      {
-        "type": "postback",
-        "label": "關閉",
-        "data":"action=buy&itemid=111"
-      }
-    ],
-    [
-      {
-        "type": "postback",
-        "label": "開啟",
-        "data":"action=buy&itemid=111"
-      },
-      {
-        "type": "postback",
-        "label": "關閉",
-        "data":"action=buy&itemid=111"
-      }
-    ]
-  ];
-  let data = await linebot.carouselTemplate(userId,
-                                            altText,
-                                            thumbnailImageUrl,
-                                            imageBackgroundColor,
-                                            title,
-                                            text,
-                                            defaultAction,
-                                            actions);
+  let data = await co(mongoLab.controlFind());
   ctx.status = 200;
   ctx.body = data;
 });
