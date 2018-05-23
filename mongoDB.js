@@ -237,57 +237,65 @@ function mLabContronUpdate(){
               }
             }
           );
-        }
-        //當line開啟，web關閉時驅動
-        if(JSON.parse(outputFan) != et7044Status[0] || JSON.parse(inputFan) != et7044Status[1] || JSON.parse(humidity) != et7044Status[2]){        
-          outputFan = et7044Status[0];
-          inputFan = et7044Status[1];
-          humidity = et7044Status[2];
-        }
 
-        function getStatus(status){
+          //當line開啟裝置，web關閉裝置時驅動
+          if(JSON.parse(outputFan) != et7044Status[0] || JSON.parse(inputFan) != et7044Status[1] || JSON.parse(humidity) != et7044Status[2]){        
+            outputFan = et7044Status[0];
+            inputFan = et7044Status[1];
+            humidity = et7044Status[2];
+          }
+
+          //ET7044 status translate
+          function getStatus(status){
             if(status){
               return '開啟';
             }else{
               return '關閉';
             }
-        }
+          }
 
-        let options = {
-          method: 'POST',
-          uri: 'https://smart-factory-robot.herokuapp.com/message',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: {
-            message : "",
-          },
-          json: true
-        };
+          //line bot push message api on heroku
+          let options = {
+            method: 'POST',
+            uri: 'https://smart-factory-robot.herokuapp.com/message',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: {
+              message : "",
+            },
+            json: true
+          };
 
-        if(D0 != et7044Status[0]){
-          options.body.message = `排風風扇：${getStatus(et7044Status[0])}`;
-          console.log(`排風風扇：${getStatus(et7044Status[0])}`);
-          request(options);
-        }
+          //D0狀態被改變時驅動
+          if(D0 != et7044Status[0]){
+            options.body.message = `排風風扇：${getStatus(et7044Status[0])}`;
+            console.log(`排風風扇：${getStatus(et7044Status[0])}`);
+            request(options);
+          }
 
-        if(D1 != et7044Status[1]){
-          options.body.message = `進風風扇：${getStatus(et7044Status[1])}`;
-          console.log(`進風風扇：${getStatus(et7044Status[1])}`);
-          request(options);
-        }
+          //D1狀態被改變時驅動
+          if(D1 != et7044Status[1]){
+            options.body.message = `進風風扇：${getStatus(et7044Status[1])}`;
+            console.log(`進風風扇：${getStatus(et7044Status[1])}`);
+            request(options);
+          }
 
-        if(D2 != et7044Status[2]){
-          options.body.message = `加溼器：${getStatus(et7044Status[2])}`;
-          console.log(`加溼器：${getStatus(et7044Status[2])}`);
-          request(options);
+          //D2狀態被改變時驅動
+          if(D2 != et7044Status[2]){
+            options.body.message = `加溼器：${getStatus(et7044Status[2])}`;
+            console.log(`加溼器：${getStatus(et7044Status[2])}`);
+            request(options);
+          }
+
+          //更新ET7044 D0~D3狀態
+          D0 = et7044Status[0];
+          D1 = et7044Status[1];
+          D2 = et7044Status[2];
         }
-        D0 = et7044Status[0];
-        D1 = et7044Status[1];
-        D2 = et7044Status[2];
         break;
       default:
-        // console.log('pass');
+        console.log('pass');
     }
   });
 }
