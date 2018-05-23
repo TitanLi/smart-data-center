@@ -1,0 +1,37 @@
+{
+  "name": "smart-factory",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "pm2 start build.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TitanLi/smart-factory.git"
+  },
+  "author": "Titan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TitanLi/smart-factory/issues"
+  },
+  "homepage": "https://github.com/TitanLi/smart-factory#readme",
+  "dependencies": {
+    "co": "^4.6.0",
+    "dotenv": "^5.0.1",
+    "http": "0.0.0",
+    "koa": "^2.5.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-json": "^2.0.2",
+    "koa-logger": "^3.1.0",
+    "koa-router": "^7.3.0",
+    "koa-static": "^2.0.0",
+    "koa-swig": "^2.2.1",
+    "mongodb": "^2.2.35",
+    "mqtt": "^2.17.0",
+    "request": "^2.85.0",
+    "request-promise": "^4.2.2",
+    "socket.io": "^2.1.0"
+  }
+}
