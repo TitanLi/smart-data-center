@@ -134,5 +134,58 @@ module.exports = {
         });
       }
       return findData;
+    }),
+    arduinoControlUpdate : (controlArduino) => (function * (){
+      yield function(done){
+        MongoLabClient.connect(process.env.MONGO_URL, (err, db) => {
+          if (err) {
+            return console.log(err);
+          }
+          console.log("connect MongoLabClient on 27017 port");
+          let collectionControl = db.collection('arduinoControl');
+          collectionControl.update(
+            {},
+            {
+              $set : controlArduino
+            },
+            {upsert : true },
+            function (err, res) {
+              if (err) {
+                return console.log(err);
+              }else{
+                console.log('mLab arduino control data insert successfully');
+              }
+              done();
+            }
+          );
+        });
+      }
+      return 'mLab control data insert successfully';
+    }) ,
+    arduinoControlFind : () => (function * (){
+      let findData = {};
+      yield function(done){
+        MongoLabClient.connect(process.env.MONGO_URL, (err, db) => {
+          if (err) {
+            return console.log(err);
+          }
+          console.log("connect MongoLabClient on 27017 port");
+          let collectionControl = db.collection('arduinoControl');
+          collectionControl.findOne(
+            {},
+            function (err, data) {
+              if (err) {
+                return console.log(err);
+              }else{
+                if(data != null){
+                  findData = data;
+                }
+              }
+              done();
+            }
+          );
+        });
+      }
+      return findData;
     })
   }

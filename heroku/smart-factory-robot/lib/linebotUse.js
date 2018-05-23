@@ -68,5 +68,58 @@ module.exports = {
                                                 text,
                                                 defaultAction,
                                                 actions);
-    }
+    },
+    arduinoCarouselTemplateControl : (linebot,events,text1,text2) => {
+        let altText = 'arduino遠端控制';
+        let thumbnailImageUrl = ['https://i.imgur.com/q8dNbS9.jpg','https://i.imgur.com/q8dNbS9.jpg'];
+        let imageBackgroundColor = ['#FFEE99','#FFEE99'];
+        let title = ['繼電器1','繼電器2'];
+        let text = [text1,text2];
+        let defaultAction = [
+          {
+            'type': 'message',
+            'label': '繼電器1',
+            'text':'繼電器1'
+          },
+          {
+            'type': 'message',
+            'label': '繼電器2',
+            'text':'繼電器2'
+          }
+        ];
+        let actions = [
+          [
+            {
+              "type": "postback",
+              "label": "開啟",
+              "data": "relay1#true"
+            },
+            {
+              "type": "postback",
+              "label": "關閉",
+              "data": "relay1#false"
+            }
+          ],
+          [
+            {
+              "type": "postback",
+              "label": "開啟",
+              "data": "relay2#true"
+            },
+            {
+              "type": "postback",
+              "label": "關閉",
+              "data": "relay2#false"
+            }
+          ]
+        ];
+        return linebot.responseCarouselTemplate(events,
+                                                altText,
+                                                thumbnailImageUrl,
+                                                imageBackgroundColor,
+                                                title,
+                                                text,
+                                                defaultAction,
+                                                actions);
+  }
   }

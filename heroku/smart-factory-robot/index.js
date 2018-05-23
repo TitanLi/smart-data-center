@@ -120,8 +120,13 @@ router.post('/webhooks', async (ctx, next) => {
                   '溫度':mLabData
               });
           }else if(/控制/.test(messageText)) {
-              let controlStatus = await co(mongoLab.controlFind());
-              await linebotUse.carouselTemplateControl(linebot,events,`狀態：${controlStatus.outputFan}`,`狀態：${controlStatus.inputFan}`,`狀態：${controlStatus.humidity}`);
+              if(/arduino/.test(messageText)) {
+                let controlStatus = await co(mongoLab.arduinoControlFind());
+                await linebotUse.arduinoCarouselTemplateControl(linebot,events,`狀態：${controlStatus.relay1}`,`狀態：${controlStatus.relay2}`);
+              }else{
+                let controlStatus = await co(mongoLab.controlFind());
+                await linebotUse.carouselTemplateControl(linebot,events,`狀態：${controlStatus.outputFan}`,`狀態：${controlStatus.inputFan}`,`狀態：${controlStatus.humidity}`);
+              }
           }
       }else if(events.type == 'postback'){
           //postback 控制資訊         
@@ -133,6 +138,10 @@ router.post('/webhooks', async (ctx, next) => {
               let data = await co(mongoLab.controlUpdate({'inputFan':value}));
           }else if(controlET7044[0] == 'humidity'){
               let data = await co(mongoLab.controlUpdate({'humidity':value}));
+          }else if(controlET7044[0] == 'relay1'){
+            let data = await co(mongoLab.arduinoControlUpdate({'relay1':value}));
+          }else if(controlET7044[0] == 'relay2'){
+            let data = await co(mongoLab.arduinoControlUpdate({'relay2':value}));
           }
           test = JSON.stringify(events);
           test = data;
