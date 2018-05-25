@@ -202,7 +202,7 @@ async function lineBotControl(){
     });
 
     if(JSON.stringify(findData) != '{}'){
-        if(findData.outputFan != outputFan || findData.inputFan != inputFan || findData.humidity != humidity){
+        if(findData.inputFan != inputFan || findData.humidity != humidity || findData.outputFan != outputFan){
             let et7044Status = [JSON.parse(findData.inputFan),JSON.parse(findData.humidity),JSON.parse(findData.outputFan),false,false,false,false,false];
             mqttClient.publish('ET7044/write',JSON.stringify(et7044Status));          
             outputFan = findData.outputFan;
