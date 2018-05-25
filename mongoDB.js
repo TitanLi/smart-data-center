@@ -269,22 +269,22 @@ function mLabContronUpdate(){
 
           //D0狀態被改變時驅動
           if(D0 != et7044Status[0]){
-            options.body.message = `排風風扇：${getStatus(et7044Status[0])}`;
-            console.log(`排風風扇：${getStatus(et7044Status[0])}`);
+            options.body.message = `進風風扇：${getStatus(et7044Status[0])}`;
+            console.log(`進風風扇：${getStatus(et7044Status[0])}`);
             request(options);
           }
 
           //D1狀態被改變時驅動
           if(D1 != et7044Status[1]){
-            options.body.message = `進風風扇：${getStatus(et7044Status[1])}`;
-            console.log(`進風風扇：${getStatus(et7044Status[1])}`);
+            options.body.message = `加溼器：${getStatus(et7044Status[1])}`;
+            console.log(`加溼器：${getStatus(et7044Status[1])}`);
             request(options);
           }
 
           //D2狀態被改變時驅動
           if(D2 != et7044Status[2]){
-            options.body.message = `加溼器：${getStatus(et7044Status[2])}`;
-            console.log(`加溼器：${getStatus(et7044Status[2])}`);
+            options.body.message = `排風風扇：${getStatus(et7044Status[2])}`;
+            console.log(`排風風扇：${getStatus(et7044Status[2])}`);
             request(options);
           }
 
