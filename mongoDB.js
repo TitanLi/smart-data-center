@@ -223,9 +223,9 @@ function mLabContronUpdate(){
             {},
             {
               $set : {
-                      'outputFan' : et7044Status[0],
-                      'inputFan' : et7044Status[1],
-                      'humidity' : et7044Status[2]
+                      'inputFan' : et7044Status[0],
+                      'humidity' : et7044Status[1],
+                      'outputFan' : et7044Status[2]
                     }
             },
             {upsert : true },
@@ -240,9 +240,9 @@ function mLabContronUpdate(){
 
           //當line開啟裝置，web關閉裝置時驅動
           if(JSON.parse(outputFan) != et7044Status[0] || JSON.parse(inputFan) != et7044Status[1] || JSON.parse(humidity) != et7044Status[2]){        
-            outputFan = et7044Status[0];
-            inputFan = et7044Status[1];
-            humidity = et7044Status[2];
+            inputFan = et7044Status[0];
+            humidity = et7044Status[1];
+            outputFan = et7044Status[2];
           }
 
           //ET7044 status translate
