@@ -17,6 +17,9 @@ const app = new koa();
 const router = Router();
 const server = http.createServer(app.callback());
 const io = socket(server);
+//database
+const mongodb = new mongoDB(io);
+// const db;
 // io.emit('news',{url:url});
 
 const mqttClient = mqtt.connect(process.env.MQTT);
@@ -31,10 +34,6 @@ var upsMqttData;
 var inputVolt_A,inputFreq_A,outputVolt_A,outputFreq_A,outputAmp_A,outputWatt_A,systemMode_A,outputPercent_A,batteryHealth_A,batteryCharge_Mode_A,batteryTemp_A,batteryRemain_A;
 //UPS2 data
 var inputVolt_B,inputFreq_B,outputVolt_B,outputFreq_B,outputAmp_B,outputWatt_B,systemMode_B,outputPercent_B,batteryHealth_B,batteryCharge_Mode_B,batteryTemp_B,batteryRemain_B;
-//database
-var db;
-
-var mongodb = new mongoDB(io);
 
 mqttClient.on('connect',() => {
   mqttClient.subscribe('UPS_Monitor');
@@ -99,9 +98,10 @@ setInterval(() => {
 // },10000);
 
 setInterval(() => {
+  //取得台灣時間
   if(new Date().toLocaleString('zh-tw').split(' ')[1] == "08:01:00"){
-    var push = async () => {
-      var data = await mongodb.aggregateYesterdayAvgPowerRobot();
+    let push = async () => {
+      let data = await mongodb.aggregateYesterdayAvgPowerRobot();
       let options = {
         method: 'POST',
         uri: 'https://smart-factory-robot.herokuapp.com/push',
@@ -143,7 +143,7 @@ router.get('/pie',pie);
 router.get('/temperature',temperature);
 
 async function index(ctx){
-  var piePercent = await mongodb.aggregateAvgPieData();
+  let piePercent = await mongodb.aggregateAvgPieData();
   ctx.body = await ctx.render('smart',{
                                        "powerMeterPower":piePercent[0].y,
                                        "upsPower_A":piePercent[1].y,
@@ -163,6 +163,7 @@ async function temperature(ctx){
   ctx.body = await ctx.render('temperature');
 }
 
-server.listen(process.env.PORT,function(){
-  console.log('listening on port 3006');
+server.listen(process.env.PORT, function() {
+  let port = server.address().port;
+    console.log("App now running on port", port);
 });
