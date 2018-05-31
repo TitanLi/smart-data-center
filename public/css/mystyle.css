@@ -1,3 +1,226 @@
+@media only screen and (max-width: 970px) {
+  .factoryInfoStyle{
+    height: 668px;
+    /* border-radius:30px;
+    background-color: rgba(165, 36, 156, 0.71); */
+  }
+  .immediateStyle{
+    height: 960px;
+    left: 10px;
+    /* border-radius:30px;
+    background-color: rgba(165, 36, 156, 0.71); */
+  }
+  .pieStyle{
+    height: 480px;
+    /* border-radius:30px;
+    background-color: rgba(165, 36, 156, 0.71); */
+  }
+  .chartStyle{
+    height: 420px;  
+    /* border-radius:30px;
+    background-color: rgba(165, 36, 156, 0.71); */
+  }
+}
+
+@media only screen and (min-width: 970px) {
+  .factoryInfoStyle{
+    height: 75%;
+    /* border-radius:30px;
+    background-color: rgba(165, 36, 156, 0.71); */
+  }
+  .immediateStyle{
+    height: 75%;
+    /* border-radius:30px;
+    background-color: rgba(165, 36, 156, 0.71); */
+  }
+  .pieStyle{
+    position: absolute;
+    height: 90%;
+    left: 0px;
+    bottom: 0px;
+    /* border-radius:30px;
+    background-color: rgba(165, 36, 156, 0.71); */
+  }
+  .chartStyle{
+    position: absolute;
+    top:0px;
+    right: 0px;
+    bottom: 0px;
+    /* border-radius:30px;
+    background-color: rgba(165, 36, 156, 0.71); */
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  p.title {
+    font-size: 36px;
+    color: rgb(255, 255, 255);
+  }
+  .data-title {
+    font-size: 24px;
+    color: rgb(255, 255, 255);
+  }
+  .mainStyle2{
+    height: 400px;
+  }
+  #humidity {
+    position: absolute;
+    top: 68%;
+    right: 30%;
+    width: 60px;
+    height: 60px;
+    border-radius:250px 0 170px 80px / 170px 0 250px 80px;
+    background: -webkit-linear-gradient(left top,rgb(17, 223, 236),rgb(6, 16, 246));
+    background: -o-linear-gradient(bottom right,rgb(17, 223, 236),rgb(6, 16, 246));
+    background: -moz-linear-gradient(bottom right,rgb(17, 223, 236),rgb(6, 16, 246));
+    background: linear-gradient(to bottom right,rgb(17, 223, 236),rgb(6, 16, 246));
+  }
+  #humidity::before {
+    content: '';
+    position: absolute;
+    right: 30px;
+    top: -30px;
+    width: 30px;
+    height: 30px;
+    border-radius:250px 0 170px 80px / 170px 0 250px 80px;
+    background: -webkit-linear-gradient(left top,rgb(17, 223, 236),rgb(6, 16, 246));
+    background: -o-linear-gradient(bottom right,rgb(17, 223, 236),rgb(6, 16, 246));
+    background: -moz-linear-gradient(bottom right,rgb(17, 223, 236),rgb(6, 16, 246));
+    background: linear-gradient(to bottom right,rgb(17, 223, 236),rgb(6, 16, 246));
+  }
+  #humidity::after {
+    content: '';
+    position: absolute;
+    left: 73px;
+    top: -31px;
+    width: 40px;
+    height: 40px;
+    border-radius:250px 0 170px 80px / 170px 0 250px 80px;
+    background: -webkit-linear-gradient(left top,rgb(17, 223, 236),rgb(6, 16, 246));
+    background: -o-linear-gradient(bottom right,rgb(17, 223, 236),rgb(6, 16, 246));
+    background: -moz-linear-gradient(bottom right,rgb(17, 223, 236),rgb(6, 16, 246));
+    background: linear-gradient(to bottom right,rgb(17, 223, 236),rgb(6, 16, 246));
+  }
+  #humidity-data {
+    position: absolute;
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+    top: 16px;
+    right: 16%;
+    /* border: 3px solid #cdcdcd; */
+  }
+  #rebot {
+    position: absolute;
+    left: 36px;
+    width: 66px;
+    top: 40px;
+    height: 120px;
+  }
+  .lineBot {
+    position: absolute;
+    right: 10px;
+    bottom: 60%;
+    border: none;
+    border-radius:10px;
+    width: 90px;
+    height: 90px;
+  }
+  #messageList {
+    position: absolute;
+    bottom: 6%;
+    height: 160px;
+    width: 94%;
+    left: 10px;
+    width: auto 0;
+    border: none;
+    background-color: rgba(186, 246, 244, 0.63);
+    border-radius:10px;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  p.title {
+    font-size: 51px;
+    color: rgb(255, 255, 255);
+  }
+  .data-title {
+    font-size: 30px;
+    color: rgb(255, 255, 255);
+  }
+  .mainStyle2{
+    height: 25%;
+  }
+  #humidity {
+    position: absolute;
+    top: 60px;
+    right: 30%;
+    width: 60px;
+    height: 60px;
+    border-radius:250px 0 170px 80px / 170px 0 250px 80px;
+    background: -webkit-linear-gradient(left top,rgb(17, 223, 236),rgb(6, 16, 246));
+    background: -o-linear-gradient(bottom right,rgb(17, 223, 236),rgb(6, 16, 246));
+    background: -moz-linear-gradient(bottom right,rgb(17, 223, 236),rgb(6, 16, 246));
+    background: linear-gradient(to bottom right,rgb(17, 223, 236),rgb(6, 16, 246));
+  }
+  #humidity::before {
+    content: '';
+    position: absolute;
+    right: 30px;
+    top: -30px;
+    width: 30px;
+    height: 30px;
+    border-radius:250px 0 170px 80px / 170px 0 250px 80px;
+    background: -webkit-linear-gradient(left top,rgb(17, 223, 236),rgb(6, 16, 246));
+    background: -o-linear-gradient(bottom right,rgb(17, 223, 236),rgb(6, 16, 246));
+    background: -moz-linear-gradient(bottom right,rgb(17, 223, 236),rgb(6, 16, 246));
+    background: linear-gradient(to bottom right,rgb(17, 223, 236),rgb(6, 16, 246));
+  }
+  #humidity::after {
+    content: '';
+    position: absolute;
+    left: 73px;
+    top: -31px;
+    width: 40px;
+    height: 40px;
+    border-radius:250px 0 170px 80px / 170px 0 250px 80px;
+    background: -webkit-linear-gradient(left top,rgb(17, 223, 236),rgb(6, 16, 246));
+    background: -o-linear-gradient(bottom right,rgb(17, 223, 236),rgb(6, 16, 246));
+    background: -moz-linear-gradient(bottom right,rgb(17, 223, 236),rgb(6, 16, 246));
+    background: linear-gradient(to bottom right,rgb(17, 223, 236),rgb(6, 16, 246));
+  }
+  #humidity-data {
+    position: absolute;
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+    top: 16px;
+    right: 16%;
+    /* border: 3px solid #cdcdcd; */
+  }
+  #rebot {
+    width: 190px;
+    bottom: 10%;
+    height: 60%;
+  }
+  .lineBot {
+    position: absolute;
+    right: 10px;
+    bottom: 6%;
+    border: none;
+    border-radius:10px;
+    width: 90px;
+    height: 90px;
+  }
+  #messageList {
+    position: absolute;
+    bottom: 6%;
+    border: none;
+    background-color: rgba(186, 246, 244, 0.63);
+    border-radius:10px;
+    width: 50%;
+    height: 60%;
+  }
+}
+
 .color1{
   background-color:yellow;
   height:300px;
@@ -8,31 +231,22 @@
 }
 .factory-info {
   position: absolute;
-  top:10px;
   left: 10px;
-  width: 40%;
-  height: 75%;
+  width: 100%;
+  height: 100%;
 }
 div.title {
   position: absolute;
   left: 10px;
 }
-p.title {
-  font-size: 51px;
-  color: rgb(255, 255, 255);
-}
 .data {
   position: absolute;
   top:74px;
-  width: 100%;
+  width: 96%;
   bottom: 0px;
   border-radius:10px;
   background-color: rgba(43, 40, 40, 0.71);
   /* border: 6px solid rgba(43, 40, 40, 0.71); */
-}
-.data-title {
-  font-size: 30px;
-  color: rgb(255, 255, 255);
 }
 .battery1-info {
   position: absolute;
@@ -159,109 +373,40 @@ div.immediate {
   position: absolute;
   top: 10px;
   right: 10px;
-  width: 57%;
-  height: 75%;
+  width: 98%;
+  bottom: 0px;
   border-radius:10px;
   background-color: rgba(43, 40, 40, 0.71);
 }
 div.message {
   position: absolute;
-  bottom: 10px;
+  top: 20px;
+  right: 10px;
   left: 10px;
-  width: 48.5%;
-  height: 20%;
+  bottom: 10px;
   border-radius:10px;
   background-color: rgba(43, 40, 40, 0.71);
 }
 .current {
-  width:60%;
+  width:100%;
   height: 30%;
-  margin-left: 40%;
+  /* margin-left: 40%; */
 }
 #pie {
   position: absolute;
-  bottom: 0px;
-  left: 0px;
-  width: 40%;
-  height: 90%;
+  top: 30px;
+  bottom: 10px;
+  right: 10px;
+  left: 10px;
   border-radius:10px;
-  /* border: 3px solid #cdcdcd; */
-}
-#humidity {
-  position: absolute;
-  top: 60px;
-  right: 30%;
-  width: 60px;
-  height: 60px;
-  border-radius:250px 0 170px 80px / 170px 0 250px 80px;
-  background: -webkit-linear-gradient(left top,rgb(17, 223, 236),rgb(6, 16, 246));
-  background: -o-linear-gradient(bottom right,rgb(17, 223, 236),rgb(6, 16, 246)););
-  background: -moz-linear-gradient(bottom right,rgb(17, 223, 236),rgb(6, 16, 246)););
-  background: linear-gradient(to bottom right,rgb(17, 223, 236),rgb(6, 16, 246)););
-}
-#humidity::before {
-  content: '';
-  position: absolute;
-  right: 30px;
-  top: -30px;
-  width: 30px;
-  height: 30px;
-  border-radius:250px 0 170px 80px / 170px 0 250px 80px;
-  background: -webkit-linear-gradient(left top,rgb(17, 223, 236),rgb(6, 16, 246));
-  background: -o-linear-gradient(bottom right,rgb(17, 223, 236),rgb(6, 16, 246)););
-  background: -moz-linear-gradient(bottom right,rgb(17, 223, 236),rgb(6, 16, 246)););
-  background: linear-gradient(to bottom right,rgb(17, 223, 236),rgb(6, 16, 246)););
-}
-#humidity::after {
-  content: '';
-  position: absolute;
-  left: 73px;
-  top: -31px;
-  width: 40px;
-  height: 40px;
-  border-radius:250px 0 170px 80px / 170px 0 250px 80px;
-  background: -webkit-linear-gradient(left top,rgb(17, 223, 236),rgb(6, 16, 246));
-  background: -o-linear-gradient(bottom right,rgb(17, 223, 236),rgb(6, 16, 246)););
-  background: -moz-linear-gradient(bottom right,rgb(17, 223, 236),rgb(6, 16, 246)););
-  background: linear-gradient(to bottom right,rgb(17, 223, 236),rgb(6, 16, 246)););
-}
-#humidity-data {
-  position: absolute;
-  font-size: 20px;
-  color: rgb(255, 255, 255);
-  top: 16px;
-  right: 16%;
   /* border: 3px solid #cdcdcd; */
 }
 div.history {
   position: absolute;
   bottom: 10px;
+  top: 20px;
   right: 10px;
-  width: 48.5%;
-  height: 20%;
+  left: 10px;
   border-radius:10px;
   background-color: rgba(43, 40, 40, 0.71);
-}
-#rebot {
-  width: 190px;
-  bottom: 10%;
-  height: 60%;
-}
-#messageList {
-  position: absolute;
-  bottom: 6%;
-  border: none;
-  background-color: rgba(186, 246, 244, 0.63);
-  border-radius:10px;
-  width: 50%;
-  height: 60%;
-}
-.lineBot {
-  position: absolute;
-  right: 10px;
-  bottom: 6%;
-  border: none;
-  border-radius:10px;
-  width: 90px;
-  height: 90px;
 }
