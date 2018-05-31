@@ -19,7 +19,6 @@ const server = http.createServer(app.callback());
 const io = socket(server);
 //database
 const mongodb = new mongoDB(io);
-// const db;
 // io.emit('news',{url:url});
 
 const mqttClient = mqtt.connect(process.env.MQTT);
@@ -98,7 +97,6 @@ setInterval(() => {
 // },10000);
 
 setInterval(() => {
-  //取得台灣時間
   if(new Date().toLocaleString('zh-tw').split(' ')[1] == "08:01:00"){
     let push = async () => {
       let data = await mongodb.aggregateYesterdayAvgPowerRobot();
@@ -164,6 +162,6 @@ async function temperature(ctx){
 }
 
 server.listen(process.env.PORT, function() {
-  let port = server.address().port;
+    let port = server.address().port;
     console.log("App now running on port", port);
-});
+  });

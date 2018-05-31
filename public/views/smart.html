@@ -1,28 +1,39 @@
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script type="text/javascript">
-      var socket = io.connect("127.0.0.1:3006");
-    </script>
-    <link rel="stylesheet" type="text/css" href="mystyle.css">
-    <script src="http://code.highcharts.com/highcharts.js"></script>
-    <script src="http://cdn.hcharts.cn/highcharts/highcharts-3d.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <link rel="stylesheet" type="text/css" href="temperature.css">
-    <!-- <script src="/socket.io/socket.io.js"></script>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
+  <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+  <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
+  <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+  <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+    crossorigin="anonymous">
+  <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+  <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script type="text/javascript">
+    var socket = io.connect("127.0.0.1:3006");
+  </script>
+  <link rel="stylesheet" type="text/css" href="mystyle.css">
+  <script src="http://code.highcharts.com/highcharts.js"></script>
+  <script src="http://cdn.hcharts.cn/highcharts/highcharts-3d.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+  <link rel="stylesheet" type="text/css" href="temperature.css">
+  <!-- <script src="/socket.io/socket.io.js"></script>
     <link rel="stylesheet" type="text/css" href="mystyle.css">
     <script type="text/javascript" src="config.js"></script> -->
-    <script>
+  <script>
     var piePercent = [
-        { name: '冷氣', y: parseInt("{{powerMeterPower}}") },
-        { name: 'UPS1', y: parseInt("{{upsPower_A}}") },
-        { name: 'UPS2', y: parseInt("{{upsPower_B}}") }
+      { name: '冷氣', y: parseInt("{{powerMeterPower}}") },
+      { name: 'UPS1', y: parseInt("{{upsPower_A}}") },
+      { name: 'UPS2', y: parseInt("{{upsPower_B}}") }
     ];
     console.log(piePercent);
     // function a(){
@@ -33,117 +44,177 @@
     //   var textarea = $("#messageList").append("Fifth Avenue, New York City\n");
     //   textarea.scrollTop(textarea[0].scrollHeight - textarea.height());
     // }
-    </script>
-  </head>
-  <body style="background-color:#000000;">
-    <div class="main1">
-      <div class="factory-info">
-        <div class="title">
-          <p class="title">Smart Data Center</p>
-        </div>
-        <div class="data">
-          <p class="data-title">機房不斷電系統狀態</p>
-          <div class="battery1-info">
-            <div class="battery1">
-              <div id="battery1-ups"></div>
-              <div class="battery-name">
-                <p>UPS1</br><h id="battery1-status"></h></p>
-              </div>
+  </script>
+</head>
+
+<body style="background-color:#000000;">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="main1">
+        <div class="col-md-5 col-sm-12 factoryInfoStyle">
+          <div class="factory-info">
+            <div class="title">
+              <p class="title">Smart Data Center</p>
             </div>
-            <div class="battery-data">
-              <div class="data-left battery-value">
-                輸入電壓:<h id="inputVolt_A"></h>(V)</br>
-                輸出電壓:<h id="outputVolt_A"></h>(V)</br>
-                輸出電流:<h id="outputAmp_A"></h>(A)</br>
-                輸出狀態:<h id="systemMode_A"></h></br>
-                電池健康狀態:<h id="batteryHealth_A"></h></br>
-                ups內部溫度:<h id="batteryTemp_A">(˚C)</h></br>
+            <div class="data">
+              <p class="data-title">機房不斷電系統狀態</p>
+              <div class="battery1-info">
+                <div class="battery1">
+                  <div id="battery1-ups"></div>
+                  <div class="battery-name">
+                    <p>UPS1</br>
+                      <h id="battery1-status"></h>
+                    </p>
+                  </div>
+                </div>
+                <div class="battery-data">
+                  <div class="data-left battery-value">
+                    輸入電壓:
+                    <h id="inputVolt_A"></h>(V)</br>
+                    輸出電壓:
+                    <h id="outputVolt_A"></h>(V)</br>
+                    輸出電流:
+                    <h id="outputAmp_A"></h>(A)</br>
+                    輸出狀態:
+                    <h id="systemMode_A"></h>
+                    </br>
+                    電池健康狀態:
+                    <h id="batteryHealth_A"></h>
+                    </br>
+                    ups內部溫度:
+                    <h id="batteryTemp_A">(˚C)</h>
+                    </br>
+                  </div>
+                  <div class="data-right battery-value">
+                    輸入頻率:
+                    <h id="inputFreq_A"></h>(Hz)</br>
+                    輸出頻率:
+                    <h id="outputFreq_A"></h>(Hz)</br>
+                    輸出瓦特:
+                    <h id="outputWatt_A"></h>(kw)</br>
+                    輸出負載比:
+                    <h id="outputPercent_A"></h>(%)</br>
+                    充電模式:
+                    <h id="batteryCharge_Mode_A"></h>
+                    </br>
+                    剩餘輸出時間:
+                    <h id="batteryRemain_A"></h>
+                    </br>
+                  </div>
+                </div>
               </div>
-              <div class="data-right battery-value">
-                輸入頻率:<h id="inputFreq_A"></h>(Hz)</br>
-                輸出頻率:<h id="outputFreq_A"></h>(Hz)</br>
-                輸出瓦特:<h id="outputWatt_A"></h>(kw)</br>
-                輸出負載比:<h id="outputPercent_A"></h>(%)</br>
-                充電模式:<h id="batteryCharge_Mode_A"></h></br>
-                剩餘輸出時間:<h id="batteryRemain_A"></h></br>
+              <div class="battery2-info">
+                <div class="battery2">
+                  <div id="battery2-ups"></div>
+                  <div class="battery-name">
+                    <p>UPS2</br>
+                      <h id="battery2-status"></h>
+                    </p>
+                  </div>
+                </div>
+                <div class="battery-data">
+                  <div class="data-left battery-value">
+                    輸入電壓:
+                    <h id="inputVolt_B"></h>(V)</br>
+                    輸出電壓:
+                    <h id="outputVolt_B"></h>(V)</br>
+                    輸出電流:
+                    <h id="outputAmp_B"></h>(A)</br>
+                    輸出狀態:
+                    <h id="systemMode_B"></h>
+                    </br>
+                    電池健康狀態:
+                    <h id="batteryHealth_B"></h>
+                    </br>
+                    ups內部溫度:
+                    <h id="batteryTemp_B">(˚C)</h>
+                    </br>
+                  </div>
+                  <div class="data-right battery-value">
+                    輸入頻率:
+                    <h id="inputFreq_B"></h>(Hz)</br>
+                    輸出頻率:
+                    <h id="outputFreq_B"></h>(Hz)</br>
+                    輸出瓦特:
+                    <h id="outputWatt_B"></h>(kw)</br>
+                    輸出負載比:
+                    <h id="outputPercent_B"></h>(%)</br>
+                    充電模式:
+                    <h id="batteryCharge_Mode_B"></h>
+                    </br>
+                    剩餘輸出時間:
+                    <h id="batteryRemain_B"></h>
+                    </br>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-          <div class="battery2-info">
-            <div class="battery2">
-              <div id="battery2-ups"></div>
-              <div class="battery-name">
-                <p>UPS2</br><h id="battery2-status"></h></p>
+        </div>
+        <div class="col-md-7 col-sm-12 immediateStyle">
+          <div class="immediate">
+            <p class="data-title">電流統計</p>
+            <div class="row">
+              <div class="col-md-5 col-xs-12 pieStyle">
+                <div id="pie">
+                  <div id="container"></div>
+                </div>
               </div>
-            </div>
-            <div class="battery-data">
-              <div class="data-left battery-value">
-                輸入電壓:<h id="inputVolt_B"></h>(V)</br>
-                輸出電壓:<h id="outputVolt_B"></h>(V)</br>
-                輸出電流:<h id="outputAmp_B"></h>(A)</br>
-                輸出狀態:<h id="systemMode_B"></h></br>
-                電池健康狀態:<h id="batteryHealth_B"></h></br>
-                ups內部溫度:<h id="batteryTemp_B">(˚C)</h></br>
-              </div>
-              <div class="data-right battery-value">
-                輸入頻率:<h id="inputFreq_B"></h>(Hz)</br>
-                輸出頻率:<h id="outputFreq_B"></h>(Hz)</br>
-                輸出瓦特:<h id="outputWatt_B"></h>(kw)</br>
-                輸出負載比:<h id="outputPercent_B"></h>(%)</br>
-                充電模式:<h id="batteryCharge_Mode_B"></h></br>
-                剩餘輸出時間:<h id="batteryRemain_B"></h></br>
+              <div class="col-md-7 col-xs-12 chartStyle">
+                <div id="air-conditioner" class="current"></div>
+                <div id="ups1" class="current"></div>
+                <div id="ups2" class="current"></div>
               </div>
             </div>
           </div>
-          <!-- <button type="button" onclick="a()">Click Me!</button> -->
         </div>
-      </div>
-      <div class="immediate">
-        <p class="data-title">電流統計</p>
-        <div id="pie">
-          <div id="container"></div>
-        </div>
-        <div id="air-conditioner" class="current"></div>
-        <div id="ups1" class="current"></div>
-        <div id="ups2" class="current"></div>
       </div>
     </div>
-    <div class="main2">
-      <div class="message">
-        <p class="data-title">機房溫溼度</p>
-        <div id="centered">
-          <!--add this line to the html where you want the thermometer-->
-          <div id="goal-thermometer">
-            <div id="therm-numbers">
-        		  </div>
-        		    <div id="therm-graphics">
-        			       <img id="therm-top" src="glassTop.png"></img>
-        			       <img id="therm-body-bg" src="glassBody.png"></img>
-        			       <img id="therm-body-mercury" src="redVertical.png"></img>
-        			       <div id="therm-body-fore"></div>
-        			       <img id="therm-bottom" src="glassBottom.png"></img>
-        			       <div id="therm-tooltip">
-        				           <img class="tip-left" src="tooltipPoint.png"></img>
-        				           <div class="tip-middle"><p id="temperature">0°C</p></div>
-        				           <img class="tip-right" src="tooltipButt.png"></img>
-        			       </div>
-        		    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-12 mainStyle2">
+        <div class="message">
+          <p class="data-title">機房溫溼度</p>
+          <div id="centered">
+            <div id="goal-thermometer">
+              <div id="therm-numbers">
+              </div>
+              <div id="therm-graphics">
+                <img id="therm-top" src="glassTop.png"></img>
+                <img id="therm-body-bg" src="glassBody.png"></img>
+                <img id="therm-body-mercury" src="redVertical.png"></img>
+                <div id="therm-body-fore"></div>
+                <img id="therm-bottom" src="glassBottom.png"></img>
+                <div id="therm-tooltip">
+                  <img class="tip-left" src="tooltipPoint.png"></img>
+                  <div class="tip-middle">
+                    <p id="temperature">0°C</p>
+                  </div>
+                  <img class="tip-right" src="tooltipButt.png"></img>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="humidity">
+            <p id="humidity-data"></p>
           </div>
         </div>
-        <div id="humidity"><p id="humidity-data"></p></div>
       </div>
-      <div class="history">
-        <p class="data-title">Robot 24-hour monitoring</p>
-        <img src="8851f1e225910baa24be1fa547e103ec.png" alt="rebot" id="rebot">
-        <textarea name="messageList" id="messageList" disabled="true"></textarea>
-        <img src="lineBot.png" alt="lineBot" class="lineBot">
+      <div class="col-md-6 col-sm-12 mainStyle2">
+        <div class="history">
+          <p class="data-title">Robot 24-hour monitoring</p>
+          <img src="8851f1e225910baa24be1fa547e103ec.png" alt="rebot" id="rebot">
+          <textarea name="messageList" id="messageList" disabled="true"></textarea>
+          <img src="lineBot.png" alt="lineBot" class="lineBot">
+        </div>
       </div>
     </div>
-    <script language="JavaScript" src="/highcharts/air-conditioner.js"></script>
-    <script language="JavaScript" src="/highcharts/ups1.js"></script>
-    <script language="JavaScript" src="/highcharts/ups2.js"></script>
-    <script language="JavaScript" src="/highcharts/pie.js"></script>
-    <script type="text/javascript" src="/temperature/temperature.js"></script>
-    <script type="text/javascript" src="socket.js"></script>
-  </body>
+  </div>
+  <script language="JavaScript" src="/highcharts/air-conditioner.js"></script>
+  <script language="JavaScript" src="/highcharts/ups1.js"></script>
+  <script language="JavaScript" src="/highcharts/ups2.js"></script>
+  <script language="JavaScript" src="/highcharts/pie.js"></script>
+  <script type="text/javascript" src="/temperature/temperature.js"></script>
+  <script type="text/javascript" src="socket.js"></script>
+</body>
+
 </html>
