@@ -1,13 +1,13 @@
 //power-meter
-socket.on("humidity", function (data) {
-  var humidity = document.getElementById("humidity-data");
-  humidity.innerHTML = data + "%";
+socket.on("temperature", function (data) {
+  var temperature = document.getElementById("temperature-data");
+  temperature.innerHTML = data + "°C";
   console.log(data);
 });
 
-socket.on("temperature", function (data) {
-  var temperature = document.getElementById("temperature");
-  temperature.innerHTML = data + "°C";
+socket.on("humidity", function (data) {
+  var humidity = document.getElementById("humidity-data");
+  humidity.innerHTML = data + "%";
   console.log(data);
 });
 
