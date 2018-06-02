@@ -92,7 +92,7 @@ $(document).ready(function() {
       enabled: false
     };
     var series= [{
-      name: 'Random data',
+      name: 'UPS2',
       data: (function () {
         // generate an array of random data
         var data = [],time = (new Date()).getTime(),i;
