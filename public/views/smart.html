@@ -44,6 +44,59 @@
     //   var textarea = $("#messageList").append("Fifth Avenue, New York City\n");
     //   textarea.scrollTop(textarea[0].scrollHeight - textarea.height());
     // }
+    function D0(){
+      $.ajax({
+          type:"POST",
+          url:"ET7044",
+          dataType:"text",
+          data:{
+            data:"D0"
+          },
+          success: function (data) {
+            console.log(data);
+          },
+          error:function(data){
+            console.error(data);
+            return false;
+          }
+        });
+    }
+
+    function D1(){
+      $.ajax({
+          type:"POST",
+          url:"ET7044",
+          dataType:"text",
+          data:{
+            data:"D1"
+          },
+          success: function (data) {
+            console.log(data);
+          },
+          error:function(data){
+            console.error(data);
+            return false;
+          }
+        });
+    }
+
+    function D2(){
+      $.ajax({
+          type:"POST",
+          url:"ET7044",
+          dataType:"text",
+          data:{
+            data:"D2"
+          },
+          success: function (data) {
+            console.log(data);
+          },
+          error:function(data){
+            console.error(data);
+            return false;
+          }
+        });
+    }
   </script>
 </head>
 
@@ -204,7 +257,7 @@
                 進風風扇：
               </div>
               <div class="col-md-7 col-sm-6 col-xs-7">
-                <button class="btn btn-primary">true</button>
+                <button class="btn btn-primary" id="D0" onclick="D0()">waiting data</button>
               </div>
             </div>
             <div class="col-md-4 col-sm-4">
@@ -212,7 +265,7 @@
                 加溼器：
               </div>
               <div class="col-md-7 col-sm-6 col-xs-7">
-                <button class="btn btn-primary">true</button>
+                <button class="btn btn-primary" id="D1" onclick="D1()">waiting data</button>
               </div>
             </div>
             <div class="col-md-4 col-sm-4">
@@ -220,7 +273,7 @@
                 排風風扇：
               </div>
               <div class="col-md-7 col-sm-6 col-xs-7">
-                <button class="btn btn-primary">true</button>
+                <button class="btn btn-primary" id="D2" onclick="D2()">waiting data</button>
               </div>
             </div>
           </div>

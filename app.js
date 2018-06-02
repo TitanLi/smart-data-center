@@ -23,33 +23,34 @@ const mongodb = new mongoDB(io);
 
 const mqttClient = mqtt.connect(process.env.MQTT);
 
-//power-meter MQTT input data
-var powerMeterMqttData;
+//ET7044 status
+var et7044Status;
 //power-meter data
-var humidity,temperature,powerMeterCurrent;
-//UPS MQTT input data
-var upsMqttData;
+// var humidity,temperature,powerMeterCurrent;
 //UPS1 data
-var inputVolt_A,inputFreq_A,outputVolt_A,outputFreq_A,outputAmp_A,outputWatt_A,systemMode_A,outputPercent_A,batteryHealth_A,batteryCharge_Mode_A,batteryTemp_A,batteryRemain_A;
+// var inputVolt_A,inputFreq_A,outputVolt_A,outputFreq_A,outputAmp_A,outputWatt_A,systemMode_A,outputPercent_A,batteryHealth_A,batteryCharge_Mode_A,batteryTemp_A,batteryRemain_A;
 //UPS2 data
-var inputVolt_B,inputFreq_B,outputVolt_B,outputFreq_B,outputAmp_B,outputWatt_B,systemMode_B,outputPercent_B,batteryHealth_B,batteryCharge_Mode_B,batteryTemp_B,batteryRemain_B;
+// var inputVolt_B,inputFreq_B,outputVolt_B,outputFreq_B,outputAmp_B,outputWatt_B,systemMode_B,outputPercent_B,batteryHealth_B,batteryCharge_Mode_B,batteryTemp_B,batteryRemain_B;
 
 mqttClient.on('connect',() => {
   mqttClient.subscribe('UPS_Monitor');
   mqttClient.subscribe('current');
+  mqttClient.subscribe('ET7044/DOstatus');
 });
 
 mqttClient.on('message',(topic,message) => {
   // console.log(topic,JSON.parse(message));
   switch (topic) {
-    case "current":
-      powerMeterMqttData = JSON.parse(message);
+    //power-meter MQTT input data
+    case 'current':
+      let powerMeterMqttData = JSON.parse(message);
       io.emit('humidity',powerMeterMqttData.Humidity);
       io.emit('temperature',powerMeterMqttData.Temperature);
       io.emit('current',powerMeterMqttData.currents);
       break;
-    case "UPS_Monitor":
-      upsMqttData = JSON.parse(message);
+    //UPS MQTT input data
+    case 'UPS_Monitor':
+      let upsMqttData = JSON.parse(message);
       io.emit('inputVolt_A',upsMqttData.input_A.inputVolt_A);
       io.emit('inputFreq_A',upsMqttData.input_A.inputFreq_A);
       io.emit('outputVolt_A',upsMqttData.output_A.outputVolt_A);
@@ -78,6 +79,12 @@ mqttClient.on('message',(topic,message) => {
       io.emit('batteryRemain_B',upsMqttData.battery_B.status.batteryRemain_Min_B == "None By Charging (充電中)" || upsMqttData.battery_B.status.batteryRemain_Sec_B == "None By Charging (充電中)" ?
                                 "充電中" : upsMqttData.battery_B.status.batteryRemain_Min_B + ":" + upsMqttData.battery_B.status.batteryRemain_Sec_B);
       io.emit('batteryRemain_Percent_B',upsMqttData.battery_B.status.batteryRemain_Percent_B);
+      break;
+    case 'ET7044/DOstatus':
+      et7044Status = JSON.parse(message);
+      io.emit('D0',et7044Status[0]);
+      io.emit('D1',et7044Status[1]);
+      io.emit('D2',et7044Status[2]);
       break;
     default:
       console.log('pass');
@@ -139,6 +146,7 @@ router.get('/',index);
 router.get('/test',test);
 router.get('/pie',pie);
 router.get('/temperature',temperature);
+router.post('/ET7044',et7044);
 
 async function index(ctx){
   let piePercent = await mongodb.aggregateAvgPieData();
@@ -159,6 +167,29 @@ async function pie(ctx){
 
 async function temperature(ctx){
   ctx.body = await ctx.render('temperature');
+}
+
+async function et7044(ctx){
+  let et7044 = ctx.request.body.data;
+  switch (et7044) {
+    case 'D0':
+      et7044Status[0] = !et7044Status[0];
+      mqttClient.publish('ET7044/write',JSON.stringify(et7044Status));
+      break;
+    case 'D1':
+      et7044Status[1] = !et7044Status[1];
+      mqttClient.publish('ET7044/write',JSON.stringify(et7044Status));
+      break;
+    case 'D2':
+      et7044Status[2] = !et7044Status[2];
+      mqttClient.publish('ET7044/write',JSON.stringify(et7044Status));
+      break;
+    default:
+      console.log('pass');
+      break;
+  }
+  console.log(et7044);
+  ctx.body = et7044;
 }
 
 server.listen(process.env.PORT, function() {
