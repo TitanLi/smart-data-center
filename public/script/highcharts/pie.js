@@ -22,7 +22,7 @@ socket.on("piePercent", function (data) {
               color:"#ffffff"
             },
             verticalAlign: 'top',
-            y:36,
+            y:6,
             text: '消耗功率比例<br>(每10分鐘更新一次)</br>'
         },
         tooltip: {
@@ -92,7 +92,7 @@ Highcharts.chart('container', {
           color:"#ffffff"
         },
         verticalAlign: 'top',
-        y:36,
+        y:6,
         text: '消耗功率比例<br>(每10分鐘更新一次)</br>'
     },
     tooltip: {
