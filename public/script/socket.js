@@ -179,3 +179,18 @@ socket.on("yesterdayPower", function (data) {
   textarea.scrollTop(textarea[0].scrollHeight - textarea.height());
   console.log(data);
 });
+
+socket.on("D0", function (data) {
+  document.getElementById("D0").innerHTML = data;
+  console.log(data);
+});
+
+socket.on("D1", function (data) {
+  document.getElementById("D1").innerHTML = data;
+  console.log(data);
+});
+
+socket.on("D2", function (data) {
+  document.getElementById("D2").innerHTML = data;
+  console.log(data);
+});
