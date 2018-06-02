@@ -6,7 +6,6 @@
   }
   .immediateStyle{
     height: 960px;
-    left: 10px;
     /* border-radius:30px;
     background-color: rgba(165, 36, 156, 0.71); */
   }
@@ -43,6 +42,13 @@
     border-radius:10px;
     width: 76%;
     height: 60%;
+  }
+  .control-item{
+    font-size: 14px;
+    text-align: center;
+    height: 48px;
+    line-height: 48px;
+    color: #1ea4b6
   }
 }
 
@@ -97,9 +103,16 @@
     width: 70%;
     height: 60%;
   }
+  .control-item{
+    font-size: 16px;
+    text-align: center;
+    height: 48px;
+    line-height: 48px;
+    color: #1ea4b6
+  }
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 768px) {
   p.title {
     font-size: 31px;
     color: rgb(255, 255, 255);
@@ -200,9 +213,19 @@
     background-color: rgba(186, 246, 244, 0.63);
     border-radius:10px;
   }
+  .mainStyle3{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    left: 10px;
+    margin-bottom: 10px;
+    height: 196px;
+    border-radius:10px;
+    background-color: rgba(43, 40, 40, 0.71);
+  }
 }
 
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 768px) {
   p.title {
     font-size: 51px;
     color: rgb(255, 255, 255);
@@ -276,20 +299,25 @@
     right: 16%;
     /* border: 3px solid #cdcdcd; */
   }
+  .mainStyle3{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    left: 10px;
+    margin-bottom: 10px;
+    height: 89px;
+    border-radius:10px;
+    background-color: rgba(43, 40, 40, 0.71);
+  }
 }
-.color1{
-  background-color:yellow;
-  height:300px;
-}
-.color2{
-  background-color:blue;
-  height:300px;
-}
-.factory-info {
-  position: absolute;
-  left: 10px;
-  width: 100%;
-  height: 100%;
+@media only screen and (max-width: 300px) {
+  .control-item{
+    font-size: 10px;
+    text-align: center;
+    height: 48px;
+    line-height: 48px;
+    color: #1ea4b6
+  }
 }
 div.title {
   position: absolute;
@@ -298,7 +326,8 @@ div.title {
 .data {
   position: absolute;
   top:74px;
-  width: 96%;
+  left: 10px;
+  right: 10px;
   bottom: 0px;
   border-radius:10px;
   background-color: rgba(43, 40, 40, 0.71);
@@ -428,8 +457,8 @@ div.title {
 div.immediate {
   position: absolute;
   top: 10px;
+  left: 10px;
   right: 10px;
-  width: 98%;
   bottom: 0px;
   border-radius:10px;
   background-color: rgba(43, 40, 40, 0.71);
@@ -470,4 +499,15 @@ div.history {
   height: 102.63px;
   line-height: 102.63px;
   color: white;
+}
+.btnStyle{
+  position: absolute;
+  top: 36px;
+  right: 10px;
+  left: 10px;
+}
+.btn{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 100%;
 }
