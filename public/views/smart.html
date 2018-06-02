@@ -18,7 +18,7 @@
     crossorigin="anonymous"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script type="text/javascript">
-    var socket = io.connect("127.0.0.1:3006");
+    var socket = io.connect("192.168.43.204:3006");
   </script>
   <link rel="stylesheet" type="text/css" href="mystyle.css">
   <script src="http://code.highcharts.com/highcharts.js"></script>
@@ -50,121 +50,117 @@
 <body style="background-color:#000000;">
   <div class="container-fluid">
     <div class="row">
-      <div class="main1">
-        <div class="col-md-5 col-sm-12 factoryInfoStyle">
-          <div class="factory-info">
-            <div class="title">
-              <p class="title">Smart Data Center</p>
-            </div>
-            <div class="data">
-              <p class="data-title">機房不斷電系統狀態</p>
-              <div class="battery1-info">
-                <div class="battery1">
-                  <div id="battery1-ups"></div>
-                  <div class="battery-name">
-                    <p>UPS1</br>
-                      <h id="battery1-status"></h>
-                    </p>
-                  </div>
-                </div>
-                <div class="battery-data">
-                  <div class="data-left battery-value">
-                    輸入電壓:
-                    <h id="inputVolt_A"></h>(V)</br>
-                    輸出電壓:
-                    <h id="outputVolt_A"></h>(V)</br>
-                    輸出電流:
-                    <h id="outputAmp_A"></h>(A)</br>
-                    輸出狀態:
-                    <h id="systemMode_A"></h>
-                    </br>
-                    電池健康狀態:
-                    <h id="batteryHealth_A"></h>
-                    </br>
-                    ups內部溫度:
-                    <h id="batteryTemp_A">(˚C)</h>
-                    </br>
-                  </div>
-                  <div class="data-right battery-value">
-                    輸入頻率:
-                    <h id="inputFreq_A"></h>(Hz)</br>
-                    輸出頻率:
-                    <h id="outputFreq_A"></h>(Hz)</br>
-                    輸出瓦特:
-                    <h id="outputWatt_A"></h>(kw)</br>
-                    輸出負載比:
-                    <h id="outputPercent_A"></h>(%)</br>
-                    充電模式:
-                    <h id="batteryCharge_Mode_A"></h>
-                    </br>
-                    剩餘輸出時間:
-                    <h id="batteryRemain_A"></h>
-                    </br>
-                  </div>
-                </div>
+      <div class="col-md-5 col-sm-12 factoryInfoStyle">
+        <div class="title">
+          <p class="title">Smart Data Center</p>
+        </div>
+        <div class="data">
+          <p class="data-title">機房不斷電系統狀態</p>
+          <div class="battery1-info">
+            <div class="battery1">
+              <div id="battery1-ups"></div>
+              <div class="battery-name">
+                <p>UPS1</br>
+                  <h id="battery1-status"></h>
+                </p>
               </div>
-              <div class="battery2-info">
-                <div class="battery2">
-                  <div id="battery2-ups"></div>
-                  <div class="battery-name">
-                    <p>UPS2</br>
-                      <h id="battery2-status"></h>
-                    </p>
-                  </div>
-                </div>
-                <div class="battery-data">
-                  <div class="data-left battery-value">
-                    輸入電壓:
-                    <h id="inputVolt_B"></h>(V)</br>
-                    輸出電壓:
-                    <h id="outputVolt_B"></h>(V)</br>
-                    輸出電流:
-                    <h id="outputAmp_B"></h>(A)</br>
-                    輸出狀態:
-                    <h id="systemMode_B"></h>
-                    </br>
-                    電池健康狀態:
-                    <h id="batteryHealth_B"></h>
-                    </br>
-                    ups內部溫度:
-                    <h id="batteryTemp_B">(˚C)</h>
-                    </br>
-                  </div>
-                  <div class="data-right battery-value">
-                    輸入頻率:
-                    <h id="inputFreq_B"></h>(Hz)</br>
-                    輸出頻率:
-                    <h id="outputFreq_B"></h>(Hz)</br>
-                    輸出瓦特:
-                    <h id="outputWatt_B"></h>(kw)</br>
-                    輸出負載比:
-                    <h id="outputPercent_B"></h>(%)</br>
-                    充電模式:
-                    <h id="batteryCharge_Mode_B"></h>
-                    </br>
-                    剩餘輸出時間:
-                    <h id="batteryRemain_B"></h>
-                    </br>
-                  </div>
-                </div>
+            </div>
+            <div class="battery-data">
+              <div class="data-left battery-value">
+                輸入電壓:
+                <h id="inputVolt_A"></h>(V)</br>
+                輸出電壓:
+                <h id="outputVolt_A"></h>(V)</br>
+                輸出電流:
+                <h id="outputAmp_A"></h>(A)</br>
+                輸出狀態:
+                <h id="systemMode_A"></h>
+                </br>
+                電池健康狀態:
+                <h id="batteryHealth_A"></h>
+                </br>
+                ups內部溫度:
+                <h id="batteryTemp_A">(˚C)</h>
+                </br>
+              </div>
+              <div class="data-right battery-value">
+                輸入頻率:
+                <h id="inputFreq_A"></h>(Hz)</br>
+                輸出頻率:
+                <h id="outputFreq_A"></h>(Hz)</br>
+                輸出瓦特:
+                <h id="outputWatt_A"></h>(kw)</br>
+                輸出負載比:
+                <h id="outputPercent_A"></h>(%)</br>
+                充電模式:
+                <h id="batteryCharge_Mode_A"></h>
+                </br>
+                剩餘輸出時間:
+                <h id="batteryRemain_A"></h>
+                </br>
+              </div>
+            </div>
+          </div>
+          <div class="battery2-info">
+            <div class="battery2">
+              <div id="battery2-ups"></div>
+              <div class="battery-name">
+                <p>UPS2</br>
+                  <h id="battery2-status"></h>
+                </p>
+              </div>
+            </div>
+            <div class="battery-data">
+              <div class="data-left battery-value">
+                輸入電壓:
+                <h id="inputVolt_B"></h>(V)</br>
+                輸出電壓:
+                <h id="outputVolt_B"></h>(V)</br>
+                輸出電流:
+                <h id="outputAmp_B"></h>(A)</br>
+                輸出狀態:
+                <h id="systemMode_B"></h>
+                </br>
+                電池健康狀態:
+                <h id="batteryHealth_B"></h>
+                </br>
+                ups內部溫度:
+                <h id="batteryTemp_B">(˚C)</h>
+                </br>
+              </div>
+              <div class="data-right battery-value">
+                輸入頻率:
+                <h id="inputFreq_B"></h>(Hz)</br>
+                輸出頻率:
+                <h id="outputFreq_B"></h>(Hz)</br>
+                輸出瓦特:
+                <h id="outputWatt_B"></h>(kw)</br>
+                輸出負載比:
+                <h id="outputPercent_B"></h>(%)</br>
+                充電模式:
+                <h id="batteryCharge_Mode_B"></h>
+                </br>
+                剩餘輸出時間:
+                <h id="batteryRemain_B"></h>
+                </br>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-md-7 col-sm-12 immediateStyle">
-          <div class="immediate">
-            <p class="data-title">電流統計</p>
-            <div class="row">
-              <div class="col-md-5 col-xs-12 pieStyle">
-                <div id="pie">
-                  <div id="container"></div>
-                </div>
+      </div>
+      <div class="col-md-7 col-sm-12 immediateStyle">
+        <div class="immediate">
+          <p class="data-title">電流統計</p>
+          <div class="row">
+            <div class="col-md-5 col-xs-12 pieStyle">
+              <div id="pie">
+                <div id="container"></div>
               </div>
-              <div class="col-md-7 col-xs-12 chartStyle">
-                <div id="air-conditioner" class="current"></div>
-                <div id="ups1" class="current"></div>
-                <div id="ups2" class="current"></div>
-              </div>
+            </div>
+            <div class="col-md-7 col-xs-12 chartStyle">
+              <div id="air-conditioner" class="current"></div>
+              <div id="ups1" class="current"></div>
+              <div id="ups2" class="current"></div>
             </div>
           </div>
         </div>
@@ -176,13 +172,8 @@
           <p class="data-title">機房溫溼度</p>
           <div>
             <div class="row">
-              <!-- <div class="col-md-4 col-md-offset-4 col-xs-4 col-xs-offset-4"> -->
-                <img src="temperature.png" alt="temperature" id="temperature">
-                <div id="temperature-data">26°C</div>
-              <!-- </div> -->
-              <!-- <div class="col-md-4 col-xs-4 temperature-data">
-                hi
-              </div> -->
+              <img src="temperature.png" alt="temperature" id="temperature">
+              <div id="temperature-data">26°C</div>
             </div>
           </div>
           <div id="humidity">
@@ -199,13 +190,48 @@
         </div>
       </div>
     </div>
-  </div>
-  <script language="JavaScript" src="/highcharts/air-conditioner.js"></script>
-  <script language="JavaScript" src="/highcharts/ups1.js"></script>
-  <script language="JavaScript" src="/highcharts/ups2.js"></script>
-  <script language="JavaScript" src="/highcharts/pie.js"></script>
-  <script type="text/javascript" src="/temperature/temperature.js"></script>
-  <script type="text/javascript" src="socket.js"></script>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="mainStyle3">
+          <div class="row">
+            <div class="col-md-4">
+              <p class="data-title">ET7044</p>
+            </div>
+          </div>
+          <div class="row btnStyle">
+            <div class="col-md-4 col-sm-4">
+              <div class="col-md-5 col-sm-6 col-xs-5 control-item">
+                進風風扇：
+              </div>
+              <div class="col-md-7 col-sm-6 col-xs-7">
+                <button class="btn btn-primary">true</button>
+              </div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+              <div class="col-md-5 col-sm-6 col-xs-5 control-item">
+                加溼器：
+              </div>
+              <div class="col-md-7 col-sm-6 col-xs-7">
+                <button class="btn btn-primary">true</button>
+              </div>
+            </div>
+            <div class="col-md-4 col-sm-4">
+              <div class="col-md-5 col-sm-6 col-xs-5 control-item">
+                排風風扇：
+              </div>
+              <div class="col-md-7 col-sm-6 col-xs-7">
+                <button class="btn btn-primary">true</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script language="JavaScript" src="/highcharts/air-conditioner.js"></script>
+      <script language="JavaScript" src="/highcharts/ups1.js"></script>
+      <script language="JavaScript" src="/highcharts/ups2.js"></script>
+      <script language="JavaScript" src="/highcharts/pie.js"></script>
+      <script type="text/javascript" src="/temperature/temperature.js"></script>
+      <script type="text/javascript" src="socket.js"></script>
 </body>
 
 </html>
