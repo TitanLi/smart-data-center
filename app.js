@@ -24,7 +24,7 @@ const mongodb = new mongoDB(io);
 const mqttClient = mqtt.connect(process.env.MQTT);
 
 //ET7044 status
-var et7044Status;
+var et7044Status,D0,D1,D2;
 //power-meter data
 // var humidity,temperature,powerMeterCurrent;
 //UPS1 data
@@ -85,6 +85,33 @@ mqttClient.on('message',(topic,message) => {
       io.emit('D0',et7044Status[0]);
       io.emit('D1',et7044Status[1]);
       io.emit('D2',et7044Status[2]);
+      //ET7044 status translate
+      function getStatus(status){
+        if(status){
+          return '開啟';
+        }else{
+          return '關閉';
+        }
+      }
+      //D0狀態被改變時驅動
+      if(D0 != et7044Status[0]){
+        io.emit('ET7044',`${new Date().toLocaleString('zh-tw')} 進風風扇：${getStatus(et7044Status[0])}\n`);
+      }
+
+      //D1狀態被改變時驅動
+      if(D1 != et7044Status[1]){
+        io.emit('ET7044',`${new Date().toLocaleString('zh-tw')} 加溼器：${getStatus(et7044Status[1])}\n`);
+      }
+
+      //D2狀態被改變時驅動
+      if(D2 != et7044Status[2]){
+        io.emit('ET7044',`${new Date().toLocaleString('zh-tw')} 排風風扇：${getStatus(et7044Status[2])}\n`);
+      }
+
+      //更新ET7044 D0~D3狀態
+      D0 = et7044Status[0];
+      D1 = et7044Status[1];
+      D2 = et7044Status[2];
       break;
     default:
       console.log('pass');

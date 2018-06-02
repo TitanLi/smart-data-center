@@ -194,3 +194,9 @@ socket.on("D2", function (data) {
   document.getElementById("D2").innerHTML = data;
   console.log(data);
 });
+
+socket.on("ET7044", function (data) {
+  var textarea = $("#messageList").append(data);
+  textarea.scrollTop(textarea[0].scrollHeight - textarea.height());
+  console.log(data);
+});
