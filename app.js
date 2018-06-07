@@ -180,7 +180,8 @@ async function index(ctx){
   ctx.body = await ctx.render('smart',{
                                        "powerMeterPower":piePercent[0].y,
                                        "upsPower_A":piePercent[1].y,
-                                       "upsPower_B":piePercent[2].y
+                                       "upsPower_B":piePercent[2].y,
+                                       "socket":process.env.SOCKET
                                      });
 }
 
