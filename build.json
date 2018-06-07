@@ -1,11 +1,11 @@
 {
     "apps": [
         {
-          "name": "smart-factory",
+          "name": "smart-data-center",
           "script": "./app.js"
         },
         {
-          "name": "smart-factory-mongodb",
+          "name": "smart-data-center-mongodb",
           "script": "./mongoDB.js"
         }
     ]
