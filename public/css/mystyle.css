@@ -114,12 +114,19 @@
 
 @media only screen and (max-width: 768px) {
   p.title {
+    height: 68px;
     font-size: 31px;
-    color: rgb(255, 255, 255);
+    line-height:68px;
+    background: -webkit-linear-gradient(top,#0bfdfd 0,#2b63a3 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
   }
   .data-title {
     font-size: 24px;
-    color: rgb(255, 255, 255);
+    background: -webkit-linear-gradient(top,#0bfdfd 0,#2b87a3 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
   .mainStyle2{
     height: 400px;
@@ -130,15 +137,26 @@
     top: 31px;
     left: 41%;
   }
-  #temperature-data{
+  #temperature-style{
     position: absolute;
     top: 63px;
     left: 66%;
+    height: 31px;
     padding: 5px;
     width: 60px;
-    background-color: white;
+    background: -webkit-linear-gradient(left top,#fbff00,#f38c06);
+    background: -o-linear-gradient(bottom right,#fbff00,#f38c06);
+    background: -moz-linear-gradient(bottom right,#fbff00,#f38c06);
+    background: linear-gradient(to bottom right,#fbff00,#f38c06);
     border-radius:360px 160px 160px 360px / 160px 66px 66px 160px;     
     text-align: center;
+  }
+  #temperature-data{
+    position: absolute;
+    font-size: 16px;
+    right: 10px;
+    color: rgb(255, 255, 255);
+    /* right: 16%; */
   }
   #humidity {
     position: absolute;
@@ -228,11 +246,15 @@
 @media only screen and (min-width: 768px) {
   p.title {
     font-size: 51px;
-    color: rgb(255, 255, 255);
+    background: -webkit-linear-gradient(top,#0bfdfd 0,#2b63a3 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
   .data-title {
     font-size: 30px;
-    color: rgb(255, 255, 255);
+    background: -webkit-linear-gradient(top,#0bfdfd 0,#2b87a3 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
   .mainStyle2{
     height: 25%;
@@ -243,15 +265,26 @@
     bottom: 14px;
     left: 33%;
   }
-  #temperature-data{
+  #temperature-style{
     position: absolute;
-    top: 43px;
+    top: 50%;
     left: 46%;
+    height: 31px;
     padding: 5px;
     width: 60px;
-    background-color: white;
+    background: -webkit-linear-gradient(left top,#fbff00,#f38c06);
+    background: -o-linear-gradient(bottom right,#fbff00,#f38c06);
+    background: -moz-linear-gradient(bottom right,#fbff00,#f38c06);
+    background: linear-gradient(to bottom right,#fbff00,#f38c06);
     border-radius:360px 160px 160px 360px / 160px 66px 66px 160px;    
     text-align: center;
+  }
+  #temperature-data{
+    position: absolute;
+    font-size: 16px;
+    right: 10px;
+    color: rgb(0, 0, 0);
+    /* right: 16%; */
   }
   #humidity {
     position: absolute;
@@ -319,10 +352,10 @@
     color: #1ea4b6
   }
 }
-div.title {
+/* div.title {
   position: absolute;
   left: 10px;
-}
+} */
 .data {
   position: absolute;
   top:74px;
@@ -495,11 +528,11 @@ div.history {
   border-radius:10px;
   background-color: rgba(43, 40, 40, 0.71);
 }
-.temperature-data{
+/* .temperature-data{
   height: 102.63px;
   line-height: 102.63px;
   color: white;
-}
+} */
 .btnStyle{
   position: absolute;
   top: 36px;
