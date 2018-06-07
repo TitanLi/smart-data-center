@@ -18,7 +18,7 @@
     crossorigin="anonymous"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script type="text/javascript">
-    var socket = io.connect("192.168.43.204:3006");
+    var socket = io.connect("{{socket}}");
   </script>
   <link rel="stylesheet" type="text/css" href="mystyle.css">
   <script src="http://code.highcharts.com/highcharts.js"></script>
@@ -104,7 +104,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-5 col-sm-12 factoryInfoStyle">
-        <div class="title">
+        <div>
           <p class="title">Smart Data Center</p>
         </div>
         <div class="data">
@@ -226,7 +226,9 @@
           <div>
             <div class="row">
               <img src="temperature.png" alt="temperature" id="temperature">
-              <div id="temperature-data">26°C</div>
+              <div id="temperature-style">
+                <p id="temperature-data">26°C</p>
+              </div>
             </div>
           </div>
           <div id="humidity">
