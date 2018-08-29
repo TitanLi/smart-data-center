@@ -18,7 +18,7 @@ const linebotUse = require('./lib/linebotUse.js');
 const app = new koa();
 const router = Router();
 
-const linebot = new Linebot(process.env.channelSecret,process.env.lineBotToken);
+const linebot = new Linebot(process.env.channelSecret, process.env.lineBotToken);
 
 var test = "Hello Koa";
 // var userId = '';
@@ -27,8 +27,8 @@ app.use(json());
 app.use(logger());
 app.use(bodyParser());
 
-router.get('/',async (ctx) => {
-  ctx.body = test;
+router.get('/', async (ctx) => {
+    ctx.body = test;
 });
 
 // {
@@ -64,127 +64,137 @@ router.get('/',async (ctx) => {
 //   }
 // ]
 router.post('/webhooks', async (ctx, next) => {
-  let resMsg = '';
-  let mLabData = "";
-  let useMsg = "";
-  // test = ctx.request.body.events;
-  let events = linebot.requestHandle(ctx);
-  if (events) {
-      if(events.type == 'message'){
-          test = JSON.stringify(events);
-          let messageText = events.messageText;
-          if(/電流/.test(messageText)){
-              // 回覆給 User 的訊息
-              if(/冷氣/.test(messageText)){
-                  mLabData = await co(mongoLab.findData('冷氣電流'));
-                  events.messageText = '冷氣電流';
-                  await linebot.responseText(events,{
-                      '冷氣電流':mLabData
-                  });
-              }else if (/ups_A/.test(messageText)) {
-                  mLabData = await co(mongoLab.findData('ups_A電流'));
-                  events.messageText = 'ups_A電流';
-                  await linebot.responseText(events,{
-                      'ups_A電流':mLabData
-                  });
-              }else if (/ups_B/.test(messageText)) {
-                  mLabData = await co(mongoLab.findData('ups_B電流'));
-                  events.messageText = 'ups_B電流';
-                  await linebot.responseText(events,{
-                      'ups_B電流':mLabData
-                  });
-              }else{
-                  mLabData = await co(mongoLab.findData('冷氣電流'));
-                  resMsg = resMsg + mLabData + '\n';
-                  mLabData = await co(mongoLab.findData('ups_A電流'));
-                  resMsg = resMsg + mLabData + '\n';
-                  mLabData = await co(mongoLab.findData('ups_B電流'));
-                  resMsg = resMsg + mLabData;
-                  events.messageText = '電流';
-                  await linebot.responseText(events,{
-                      '電流':resMsg
-                  });
-              }
-          }else if (/濕度/.test(messageText)) {
-              // 回覆給 User 的訊息
-              mLabData = await co(mongoLab.findData('濕度'));
-              events.messageText = '濕度';
-              await linebot.responseText(events,{
-                  '濕度':mLabData
-              });
-          }else if (/溫度/.test(messageText)) {
-              // 回覆給 User 的訊息
-              mLabData = await co(mongoLab.findData('溫度'));
-              events.messageText = '溫度';
-              await linebot.responseText(events,{
-                  '溫度':mLabData
-              });
-          }else if(/控制/.test(messageText)) {
-              if(/arduino/.test(messageText)) {
-                let controlStatus = await co(mongoLab.arduinoControlFind());
-                await linebotUse.arduinoCarouselTemplateControl(linebot,events,`狀態：${controlStatus.relay1}`,`狀態：${controlStatus.relay2}`);
-              }else{
-                let controlStatus = await co(mongoLab.controlFind());
-                await linebotUse.carouselTemplateControl(linebot,events,`狀態：${controlStatus.outputFan}`,`狀態：${controlStatus.inputFan}`,`狀態：${controlStatus.humidity}`);
-              }
-          }
-      }else if(events.type == 'postback'){
-          //postback 控制資訊         
-          let controlET7044 = events.postbackData.split('#');
-          let value = controlET7044[1];
-          if(controlET7044[0] == 'outputFan'){
-              let data = await co(mongoLab.controlUpdate({'outputFan':value}));
-          }else if(controlET7044[0] == 'inputFan'){
-              let data = await co(mongoLab.controlUpdate({'inputFan':value}));
-          }else if(controlET7044[0] == 'humidity'){
-              let data = await co(mongoLab.controlUpdate({'humidity':value}));
-          }else if(controlET7044[0] == 'relay1'){
-            let data = await co(mongoLab.arduinoControlUpdate({'relay1':value}));
-          }else if(controlET7044[0] == 'relay2'){
-            let data = await co(mongoLab.arduinoControlUpdate({'relay2':value}));
-          }
-          test = JSON.stringify(events);
-          test = data;
-      }
-      ctx.status = 200;
+    let resMsg = '';
+    let mLabData = "";
+    let useMsg = "";
+    // test = ctx.request.body.events;
+    let events = linebot.requestHandle(ctx);
+    if (events) {
+        if (events.type == 'message') {
+            test = JSON.stringify(events);
+            let messageText = events.messageText;
+            if (/電流/.test(messageText)) {
+                // 回覆給 User 的訊息
+                if (/冷氣/.test(messageText)) {
+                    mLabData = await co(mongoLab.findData('冷氣電流'));
+                    events.messageText = '冷氣電流';
+                    await linebot.responseText(events, {
+                        '冷氣電流': mLabData
+                    });
+                } else if (/ups_A/.test(messageText)) {
+                    mLabData = await co(mongoLab.findData('ups_A電流'));
+                    events.messageText = 'ups_A電流';
+                    await linebot.responseText(events, {
+                        'ups_A電流': mLabData
+                    });
+                } else if (/ups_B/.test(messageText)) {
+                    mLabData = await co(mongoLab.findData('ups_B電流'));
+                    events.messageText = 'ups_B電流';
+                    await linebot.responseText(events, {
+                        'ups_B電流': mLabData
+                    });
+                } else {
+                    mLabData = await co(mongoLab.findData('冷氣電流'));
+                    resMsg = resMsg + mLabData + '\n';
+                    mLabData = await co(mongoLab.findData('ups_A電流'));
+                    resMsg = resMsg + mLabData + '\n';
+                    mLabData = await co(mongoLab.findData('ups_B電流'));
+                    resMsg = resMsg + mLabData;
+                    events.messageText = '電流';
+                    await linebot.responseText(events, {
+                        '電流': resMsg
+                    });
+                }
+            } else if (/濕度/.test(messageText)) {
+                // 回覆給 User 的訊息
+                mLabData = await co(mongoLab.findData('濕度'));
+                events.messageText = '濕度';
+                await linebot.responseText(events, {
+                    '濕度': mLabData
+                });
+            } else if (/溫度/.test(messageText)) {
+                // 回覆給 User 的訊息
+                mLabData = await co(mongoLab.findData('溫度'));
+                events.messageText = '溫度';
+                await linebot.responseText(events, {
+                    '溫度': mLabData
+                });
+            } else if (/控制/.test(messageText)) {
+                if (/arduino/.test(messageText)) {
+                    let controlStatus = await co(mongoLab.arduinoControlFind());
+                    await linebotUse.arduinoCarouselTemplateControl(linebot, events, `狀態：${controlStatus.relay1}`, `狀態：${controlStatus.relay2}`);
+                } else {
+                    let controlStatus = await co(mongoLab.controlFind());
+                    await linebotUse.carouselTemplateControl(linebot, events, `狀態：${controlStatus.outputFan}`, `狀態：${controlStatus.inputFan}`, `狀態：${controlStatus.humidity}`);
+                }
+            }
+        } else if (events.type == 'postback') {
+            //postback 控制資訊         
+            let controlET7044 = events.postbackData.split('#');
+            let value = controlET7044[1];
+            if (controlET7044[0] == 'outputFan') {
+                let data = await co(mongoLab.controlUpdate({ 'outputFan': value }));
+            } else if (controlET7044[0] == 'inputFan') {
+                let data = await co(mongoLab.controlUpdate({ 'inputFan': value }));
+            } else if (controlET7044[0] == 'humidity') {
+                let data = await co(mongoLab.controlUpdate({ 'humidity': value }));
+            } else if (controlET7044[0] == 'relay1') {
+                let data = await co(mongoLab.arduinoControlUpdate({ 'relay1': value }));
+            } else if (controlET7044[0] == 'relay2') {
+                let data = await co(mongoLab.arduinoControlUpdate({ 'relay2': value }));
+            }
+            test = JSON.stringify(events);
+            test = data;
+        }
+        ctx.status = 200;
     } else {
-      ctx.body = 'Unauthorized! Channel Serect and Request header aren\'t the same.';
-      ctx.status = 401;
+        ctx.body = 'Unauthorized! Channel Serect and Request header aren\'t the same.';
+        ctx.status = 401;
     }
 });
 
-router.post('/push',async function(ctx,next){
-  let requestData = ctx.request.body;
-  let imacGroupID = process.env.imacGroupID;
-  let messageText = '昨日冷氣消耗度數：'+requestData.powerMeterPower+'度\n'+'昨日ups_A消耗度數：'+requestData.upsPower_A+'度\n'+'昨日ups_B消耗度數：'+requestData.upsPower_B+'度';
-  // 發送給imac group
-  let data = await linebot.sendText(imacGroupID,messageText);
-  ctx.status = 200;
-  ctx.body = data;
+router.post('/post/push', async function (ctx, next) {
+    let requestData = ctx.request.body;
+    let imacGroupID = process.env.imacGroupID;
+    let messageText = '昨日冷氣消耗度數：' + requestData.powerMeterPower + '度\n' + '昨日ups_A消耗度數：' + requestData.upsPower_A + '度\n' + '昨日ups_B消耗度數：' + requestData.upsPower_B + '度';
+    // 發送給imac group
+    let data = await linebot.sendText(imacGroupID, messageText);
+    ctx.status = 200;
+    ctx.body = data;
 });
 
-router.post('/message',async function(ctx,next){
-  let requestData = ctx.request.body;
-  let imacGroupID = process.env.imacGroupID;
-  let messageText = requestData.message;
-  // 發送給imac group
-  let data = await linebot.sendText(imacGroupID,messageText);
-  ctx.status = 200;
-  ctx.body = data;
+router.post('/post/control/message', async function (ctx, next) {
+    let requestData = ctx.request.body;
+    let imacGroupID = process.env.imacGroupID;
+    let messageText = requestData.message;
+    // 發送給imac group
+    let data = await linebot.sendText(imacGroupID, messageText);
+    ctx.status = 200;
+    ctx.body = data;
 });
 
-router.get('/test',async function(ctx,next){
-  let data = await co(mongoLab.controlFind());
-  ctx.status = 200;
-  ctx.body = data;
+router.post('/message', async function (ctx, next) {
+    let requestData = ctx.request.body;
+    let imacGroupID = process.env.imacGroupID;
+    let messageText = requestData.message;
+    // 發送給imac group
+    let data = await linebot.sendText(imacGroupID, messageText);
+    ctx.status = 200;
+    ctx.body = data;
+});
+
+router.get('/test', async function (ctx, next) {
+    let data = await co(mongoLab.controlFind());
+    ctx.status = 200;
+    ctx.body = data;
 });
 
 app
-  .use(linebot.middleware())
-  .use(router.routes());
+    .use(linebot.middleware())
+    .use(router.routes());
 
 // //因為 koa 預設走 port 3000，而 heroku 上預設卻不是，要透過下列程式轉換
-var server = app.listen(process.env.PORT || 8080, function() {
-var port = server.address().port;
-  console.log("App now running on port", port);
+var server = app.listen(process.env.PORT || 8080, function () {
+    var port = server.address().port;
+    console.log("App now running on port", port);
 });
