@@ -136,7 +136,7 @@ let piePercentCount = async function () {
   piePercent = await mongodb.aggregateAvgPieData();
 }
 
-// piePercentCount();
+piePercentCount();
 
 // setInterval(() => {
 //   mongodb.aggregateYesterdayAvgPowerRobot();
