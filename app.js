@@ -19,6 +19,7 @@ const router = Router();
 const server = http.createServer(app.callback());
 const io = socket(server);
 //database
+let mongodb;
 let piePercent = [
   { name: '冷氣', y: 100 },
   { name: 'UPS1', y: 100 },
@@ -26,7 +27,7 @@ let piePercent = [
 ];
 MongoClient.connect(process.env.MONGODB, (err, client) => {
   db = client.db("smart-factory");
-  const mongodb = new mongoDB(db, io);
+  mongodb = new mongoDB(db, io);
   new Promise(function (resolve, reject) {
     resolve(mongodb.aggregateAvgPieData());
   }).then(function (value) {
