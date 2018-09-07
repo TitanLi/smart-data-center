@@ -19,10 +19,9 @@ const router = Router();
 const server = http.createServer(app.callback());
 const io = socket(server);
 //database
-const mongodb;
 MongoClient.connect(process.env.MONGODB, (err, client) => {
   db = client.db("smart-factory");
-  mongodb = new mongoDB(db, io);
+  const mongodb = new mongoDB(db, io);
   piePercent = mongodb.aggregateAvgPieData();
 });
 // io.emit('news',{url:url});
