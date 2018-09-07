@@ -137,7 +137,11 @@ mqttClient.on('message', (topic, message) => {
 
 //更新圓餅圖
 setInterval(() => {
-  piePercent = mongodb.aggregateAvgPieData();
+  new Promise(function (resolve, reject) {
+    resolve(mongodb.aggregateAvgPieData());
+  }).then(function (value) {
+    piePercent = value;
+  });
 }, 600000);
 
 // setInterval(() => {
