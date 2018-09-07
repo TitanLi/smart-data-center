@@ -23,6 +23,7 @@ MongoClient.connect(process.env.MONGODB, (err, client) => {
   db = client.db("smart-factory");
   const mongodb = new mongoDB(db, io);
   piePercent = mongodb.aggregateAvgPieData();
+  console.log("test" + piePercent);
 });
 // io.emit('news',{url:url});
 
