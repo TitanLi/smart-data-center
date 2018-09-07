@@ -11,6 +11,7 @@ const http = require('http');
 const socket = require('socket.io');
 const dotenv = require('dotenv').load();
 const request = require('request-promise');
+const MongoClient = require('mongodb').MongoClient;
 const mongoDB = require('./lib/mongoDB.js');
 
 const app = new koa();
@@ -18,7 +19,12 @@ const router = Router();
 const server = http.createServer(app.callback());
 const io = socket(server);
 //database
-const mongodb = new mongoDB(io);
+const mongodb;
+MongoClient.connect(process.env.MONGODB, (err, client) => {
+  db = client.db("smart-factory");
+  mongodb = new mongoDB(db, io);
+  piePercent = mongodb.aggregateAvgPieData();
+});
 // io.emit('news',{url:url});
 
 const mqttClient = mqtt.connect(process.env.MQTT);
@@ -130,13 +136,6 @@ mqttClient.on('message', (topic, message) => {
 setInterval(() => {
   piePercent = mongodb.aggregateAvgPieData();
 }, 600000);
-
-
-let piePercentCount = async function () {
-  piePercent = await mongodb.aggregateAvgPieData();
-}
-
-piePercentCount();
 
 // setInterval(() => {
 //   mongodb.aggregateYesterdayAvgPowerRobot();
