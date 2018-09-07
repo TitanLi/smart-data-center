@@ -19,6 +19,11 @@ const router = Router();
 const server = http.createServer(app.callback());
 const io = socket(server);
 //database
+let piePercent = [
+  { name: '冷氣', y: 100 },
+  { name: 'UPS1', y: 100 },
+  { name: 'UPS2', y: 100 }
+];
 MongoClient.connect(process.env.MONGODB, (err, client) => {
   db = client.db("smart-factory");
   const mongodb = new mongoDB(db, io);
@@ -26,7 +31,6 @@ MongoClient.connect(process.env.MONGODB, (err, client) => {
     resolve(mongodb.aggregateAvgPieData());
   }).then(function (value) {
     piePercent = value;
-    console.log("test" + piePercent);
   });
 });
 // io.emit('news',{url:url});
@@ -41,11 +45,6 @@ let et7044Status, D0, D1, D2;
 // var inputVolt_A,inputFreq_A,outputVolt_A,outputFreq_A,outputAmp_A,outputWatt_A,systemMode_A,outputPercent_A,batteryHealth_A,batteryCharge_Mode_A,batteryTemp_A,batteryRemain_A;
 //UPS2 data
 // var inputVolt_B,inputFreq_B,outputVolt_B,outputFreq_B,outputAmp_B,outputWatt_B,systemMode_B,outputPercent_B,batteryHealth_B,batteryCharge_Mode_B,batteryTemp_B,batteryRemain_B;
-let piePercent = [
-  { name: '冷氣', y: 100 },
-  { name: 'UPS1', y: 100 },
-  { name: 'UPS2', y: 100 }
-];
 
 mqttClient.on('connect', () => {
   mqttClient.subscribe('UPS_Monitor');
