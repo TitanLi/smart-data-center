@@ -24,13 +24,14 @@ const mongodb = new mongoDB(io);
 const mqttClient = mqtt.connect(process.env.MQTT);
 
 //ET7044 status
-var et7044Status, D0, D1, D2;
+let et7044Status, D0, D1, D2;
 //power-meter data
 // var humidity,temperature,powerMeterCurrent;
 //UPS1 data
 // var inputVolt_A,inputFreq_A,outputVolt_A,outputFreq_A,outputAmp_A,outputWatt_A,systemMode_A,outputPercent_A,batteryHealth_A,batteryCharge_Mode_A,batteryTemp_A,batteryRemain_A;
 //UPS2 data
 // var inputVolt_B,inputFreq_B,outputVolt_B,outputFreq_B,outputAmp_B,outputWatt_B,systemMode_B,outputPercent_B,batteryHealth_B,batteryCharge_Mode_B,batteryTemp_B,batteryRemain_B;
+let piePercent
 
 mqttClient.on('connect', () => {
   mqttClient.subscribe('UPS_Monitor');
@@ -123,8 +124,15 @@ mqttClient.on('message', (topic, message) => {
 
 //更新圓餅圖
 setInterval(() => {
-  mongodb.aggregateAvgPieData();
+  piePercent = mongodb.aggregateAvgPieData();
 }, 600000);
+
+
+let piePercentCount = async function () {
+  piePercent = await mongodb.aggregateAvgPieData();
+}
+
+piePercentCount();
 
 // setInterval(() => {
 //   mongodb.aggregateYesterdayAvgPowerRobot();
@@ -182,7 +190,6 @@ router.get('/temperature', temperature);
 router.post('/ET7044', et7044);
 
 async function index(ctx) {
-  let piePercent = await mongodb.aggregateAvgPieData();
   ctx.body = await ctx.render('smart', {
     "powerMeterPower": piePercent[0].y,
     "upsPower_A": piePercent[1].y,
