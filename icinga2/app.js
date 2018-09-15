@@ -64,6 +64,6 @@ router.get('/', function* () {
 
 app.use(router.routes());
 app.listen(process.env.PORT, function () {
-    let port = server.address().port;
+    let port = app.address().port;
     console.log("App now running on port", port);
 });
