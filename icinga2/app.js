@@ -1,10 +1,13 @@
 const koa = require('koa');
 const Router = require('koa-router');
 const mqtt = require('mqtt');
+const logger = require('koa-logger');
 const dotenv = require('dotenv').load();
 
 const app = new koa();
 const router = Router();
+
+app.use(logger());
 
 const mqttClient = mqtt.connect(process.env.MQTT);
 
@@ -49,8 +52,8 @@ mqttClient.on('message', function (topic, message) {
     topic = ""; //目前topic歸零
 })
 
-router.get('/', function* () {
-    this.body = {
+router.get('/', async function (ctx) {
+    ctx.body = {
         "DL303_co2": DL303_co2,
         "DL303_humi": DL303_humi,
         "DL303_temp": DL303_temp,
@@ -64,6 +67,5 @@ router.get('/', function* () {
 
 app.use(router.routes());
 app.listen(process.env.PORT, function () {
-    let port = app.address().port;
-    console.log("App now running on port", port);
+    console.log("App now running on port", 3001);
 });

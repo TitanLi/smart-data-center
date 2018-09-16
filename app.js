@@ -31,6 +31,7 @@ MongoClient.connect(process.env.MONGODB, (err, client) => {
   new Promise(function (resolve, reject) {
     resolve(mongodb.aggregateAvgPieData());
   }).then(function (value) {
+    console.log(new Date() + JSON.stringify(value));
     piePercent = value;
   });
 });
@@ -141,6 +142,7 @@ setInterval(() => {
   new Promise(function (resolve, reject) {
     resolve(mongodb.aggregateAvgPieData());
   }).then(function (value) {
+    console.log(new Date() + JSON.stringify(value));
     piePercent = value;
   });
 }, 600000);
