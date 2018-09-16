@@ -1,12 +1,16 @@
 {
-    "apps": [
-        {
-          "name": "smart-data-center",
-          "script": "./app.js"
-        },
-        {
-          "name": "smart-data-center-mongodb",
-          "script": "./mongoDB.js"
-        }
-    ]
+  "apps": [
+    {
+      "name": "smart-data-center",
+      "script": "./app.js"
+    },
+    {
+      "name": "smart-data-center-mongodb",
+      "script": "./mongoDB.js"
+    },
+    {
+      "name": "smart-data-center-icinga2",
+      "script": "./icinga2/icinga2.js"
+    }
+  ]
 }

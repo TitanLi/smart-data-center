@@ -66,6 +66,6 @@ router.get('/', async function (ctx) {
 });
 
 app.use(router.routes());
-app.listen(process.env.PORT, function () {
+app.listen(process.env.ICINGA2_PORT, function () {
     console.log("App now running on port", 3001);
 });
