@@ -11,6 +11,10 @@
     {
       "name": "smart-data-center-icinga2",
       "script": "./icinga2/icinga2.js"
+    },
+    {
+      "name": "smart-data-center-ET7044",
+      "script": "./ET7044/ET7044_finish.js"
     }
   ]
 }
