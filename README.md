@@ -2,11 +2,11 @@
 
 ## 作品展示
 
-1.mobile:[https://www.youtube.com/watch?v=frStPQSN2lY](https://www.youtube.com/watch?v=frStPQSN2lY)
+1.mobile demo:[https://www.youtube.com/watch?v=frStPQSN2lY](https://www.youtube.com/watch?v=frStPQSN2lY)
 
 2.linebot demo:[https://www.youtube.com/watch?v=kMMYxFdER4M](https://www.youtube.com/watch?v=kMMYxFdER4M)
 
-3.raspberry pi3 touch panel:[https://www.youtube.com/watch?v=LIEXDQloP2w](https://www.youtube.com/watch?v=LIEXDQloP2w)
+3.raspberry pi3 touch panel demo:[https://www.youtube.com/watch?v=LIEXDQloP2w](https://www.youtube.com/watch?v=LIEXDQloP2w)
 
 ## 實作環境
 
@@ -60,7 +60,7 @@ port.on('open', function () {
 });
 ```
 
-### 2.工業級數位訊號輸入控制器ET7044（https://github.com/TitanLi/smart-data-center/tree/master/ET7044）
+### 2.工業級數位訊號輸入控制器ET7044（[範例程式](https://github.com/TitanLi/smart-data-center/tree/master/ET7044)）
 （1）引用設定檔
 ```javascript
 const config = require('./config.js');
@@ -141,3 +141,13 @@ mqttClient.on('message', function (topic, message) {
     console.log(writeData);
 });
 ```
+
+### 3.工業級環境監控設備DL303([測試程式](https://github.com/TitanLi/smart-data-center/tree/master/DL303))
+`內建MQTT功能可將資料直接推送到指定Broker`
+
+MQTT Topic    | Description  | Message |
+--------------|--------------|---------|
+DL303/CO2     |CO2測量        |0 to 9999 ppm (NDIR) |
+DL303/RH      |相對溼度測量    |0 to 100% RH|
+DL303/TC      |溫度測量       |-10 to +50°C|  
+DL303/DC      |露點溫度       |由溫度與相對溼度計算而得|
