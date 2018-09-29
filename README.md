@@ -29,16 +29,17 @@
 
 ## 終端監控設備控制程式
 
-1. 自製電源及環境監測裝置[https://github.com/TitanLi/smart-data-center/tree/master/power-meter](https://github.com/TitanLi/smart-data-center/tree/master/power-meter)
+### 1. 自製電源及環境監測裝置（[https://github.com/TitanLi/smart-data-center/tree/master/power-meter](https://github.com/TitanLi/smart-data-center/tree/master/power-meter)）
 
 * Arduino電路圖
 ![](https://github.com/TitanLi/smart-data-center/blob/master/picture/power-meter.png)
-* Raspberry pi3 service push data to MQTT broker<br>
-1.引用設定檔
+* Raspberry pi3 service push data to MQTT broker
+
+（1）引用設定檔
 ```javascript
 const config = require('./config.js');
 ```
-3.MQTT connect
+（2）MQTT connect
 ```javascript
 const client = mqtt.connect(config.MQTT);
 client.on('connect', function () {
@@ -46,7 +47,7 @@ client.on('connect', function () {
     client.subscribe('current');
 });
 ```
-2.Opening a port and publish the message to MQTT broker
+（3） Opening a port and publish the message to MQTT broker
 ```javascript
 const port = new SerialPort(config.serialport, {
     parser: SerialPort.parsers.readline('\n')
