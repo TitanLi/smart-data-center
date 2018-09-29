@@ -24,6 +24,37 @@
 `mosquitto`
 
 ## 架構圖
-dsfsvdfdsa
 
 ![](https://github.com/TitanLi/smart-data-center/blob/master/picture/%E6%9E%B6%E6%A7%8B%E5%9C%96.png)
+
+## 終端監控設備控制程式
+
+1. 自製電源及環境監測裝置[https://github.com/TitanLi/smart-data-center/tree/master/power-meter](https://github.com/TitanLi/smart-data-center/tree/master/power-meter)
+
+* Arduino電路圖
+![](https://github.com/TitanLi/smart-data-center/blob/master/picture/power-meter.png)
+* Raspberry pi3 service push data to MQTT broker<br>
+1.引用設定檔
+```javascript
+const config = require('./config.js');
+```
+3.MQTT connect
+```javascript
+const client = mqtt.connect(config.MQTT);
+client.on('connect', function () {
+    console.log('on connect');
+    client.subscribe('current');
+});
+```
+2.Opening a port and publish the message to MQTT broker
+```javascript
+const port = new SerialPort(config.serialport, {
+    parser: SerialPort.parsers.readline('\n')
+});
+port.on('open', function () {
+    port.on('data', function (data) {
+        console.log(data);
+        client.publish('current', data.toString());
+    });
+});
+```
