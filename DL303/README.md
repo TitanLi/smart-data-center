@@ -15,7 +15,7 @@ $ npm install mqtt
 ```javascript
 const client = mqtt.connect('mqtt://MQTT-BROKER-IP:PORT');
 ```
-3. Run test
+3. Run test
 ```
 $ node DL303mqtt.js
 ```
