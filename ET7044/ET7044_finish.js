@@ -1,12 +1,12 @@
-// create an empty modbus client
-var mqtt = require('mqtt');
-var ModbusRTU = require("modbus-serial");
+const mqtt = require('mqtt');
+const ModbusRTU = require("modbus-serial");
+const config = require("./config.json");
 var client = new ModbusRTU();
 var timeoutRunRef = null;
 var timeoutConnectRef = null;
 var networkErrors = ["ESOCKETTIMEDOUT", "ETIMEDOUT", "ECONNRESET", "ECONNREFUSED"];
 var writeData = [false, false, false, false, false, false, false, false];
-var config = require("./config.json");
+var DOstatus;
 
 function checkError(e) {
     if (e.errno && networkErrors.includes(e.errno)) {
@@ -25,7 +25,6 @@ function connect() {
     if (client.isOpen()) {
         run();
     }
-
     client.connectTCP(config.ET7044, { port: 502 })
         .then(setClient)
         .then(function () {
@@ -43,7 +42,7 @@ function setClient() {
     // run program
     run();
 }
-var DOstatus;
+
 function run() {
     // clear pending timeouts
     clearTimeout(timeoutRunRef);
@@ -67,8 +66,9 @@ function run() {
 }
 // connect and start logging
 connect();
+
 // Mqtt connecting and pub
-var mqttClient = mqtt.connect(config.MQTT);
+const mqttClient = mqtt.connect(config.MQTT);
 mqttClient.on('connect', function () {
     console.log('connect to MQTT server');
     mqttClient.subscribe('ET7044/write');
@@ -78,5 +78,4 @@ mqttClient.on('message', function (topic, message) {
     // message is Buffer
     writeData = JSON.parse(message);
     console.log(writeData);
-
 });
