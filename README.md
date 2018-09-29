@@ -59,3 +59,85 @@ port.on('open', function () {
     });
 });
 ```
+
+### 2.工業級數位訊號輸入控制器ET7044（https://github.com/TitanLi/smart-data-center/tree/master/ET7044）
+（1）引用設定檔
+```javascript
+const config = require('./config.js');
+```
+（2）Using ModbusRTU protocol control ET7044
+```javascript
+function checkError(e) {
+    if (e.errno && networkErrors.includes(e.errno)) {
+        console.log("we have to reconnect");
+        // close port
+        client.close();
+        // re open client
+        client = new ModbusRTU();
+        timeoutConnectRef = setTimeout(connect, 1000);
+    }
+}
+function connect() {
+    // clear pending timeouts
+    clearTimeout(timeoutConnectRef);
+    // if client already open, just run
+    if (client.isOpen()) {
+        run();
+    }
+    client.connectTCP(config.ET7044, { port: 502 })
+    .then(setClient)
+    .then(function () {
+        console.log("Connected");
+    })
+    .catch(function (e) {
+        console.log(e.message);
+    });
+}
+function setClient() {
+    // set the client's unit id
+    client.setID(1);
+    // set a timout for requests default is null (no timeout)
+    client.setTimeout(3000);
+    // run program
+    run();
+}
+
+function run() {
+    // clear pending timeouts
+    clearTimeout(timeoutRunRef);
+    client.writeCoils(0, writeData);
+    client.readCoils(0, 8)
+    .then(function (d) {
+        //DOstatus = d.data.toString();
+        DOstatus = JSON.stringify(d.data);
+        console.log(DOstatus);
+        console.log("Receive:", d.data);
+        mqttClient.publish('ET7044/DOstatus', DOstatus);
+    })
+    .then(function () {
+        timeoutRunRef = setTimeout(run, 5000);
+    })
+    .catch(function (e) {
+        checkError(e);
+        console.log(e.message);
+    });
+}
+// connect and start logging
+connect();
+```
+
+（3）Using MQTT protocol sync ET-7044 status
+```javascript
+// Mqtt connecting and pub
+const mqttClient = mqtt.connect(config.MQTT);
+mqttClient.on('connect', function () {
+    console.log('connect to MQTT server');
+    mqttClient.subscribe('ET7044/write');
+});
+
+mqttClient.on('message', function (topic, message) {
+    // message is Buffer
+    writeData = JSON.parse(message);
+    console.log(writeData);
+});
+```
