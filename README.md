@@ -158,4 +158,14 @@ MQTT Topic    | Description  | Message |
 --------------|--------------|---------|
 PM3133/A      |比流器1        | |
 PM3133/B      |比流器2        | |
-PM3133/C      |比流器3        | |  
+PM3133/C      |比流器3        | |
+
+### 5.web service & socket.io service（[範例程式]](https://github.com/TitanLi/smart-data-center/blob/master/app.js)）
+
+(1)web service
+
+MQTT Topic    | Description  | Message |
+--------------|--------------|---------|
+PM3133/A      |比流器1        | |
+PM3133/B      |比流器2        | |
+PM3133/C      |比流器3        | |
