@@ -164,7 +164,7 @@ PM3133/C      |比流器3        | |
 
 (1)web service
 
-MQTT Topic    | Description  | Message |
+Method    | Description  | Message |
 --------------|--------------|---------|
 PM3133/A      |比流器1        | |
 PM3133/B      |比流器2        | |
