@@ -162,10 +162,50 @@ PM3133/C      |比流器3        | |
 
 ### 5.web service & socket.io service（[範例程式]](https://github.com/TitanLi/smart-data-center/blob/master/app.js)）
 
-(1)web service
+（1）web service
 
-Method    | Description  | Message |
---------------|--------------|---------|
-PM3133/A      |比流器1        | |
-PM3133/B      |比流器2        | |
-PM3133/C      |比流器3        | |
+Method    | API          | Description   |
+----------|--------------|---------------|
+GET       |/             | web dashboard |
+POST      |/ET7044       | ET7044 control|
+
+（2）socket.io
+
+Event                  | Source                 | JSON KEY    |
+-----------------------|------------------------|-------------|
+humidity               | MQTT topic current     | Humidity    |
+temperature            | MQTT topic current     | Temperature |
+current                | MQTT topic current     | currents    |
+inputVolt_A            | MQTT topic UPS_Monitor | input_A.inputVolt_A |
+inputFreq_A            | MQTT topic UPS_Monitor | input_A.inputFreq_A |
+outputVolt_A           | MQTT topic UPS_Monitor | output_A.outputVolt_A|
+outputFreq_A           | MQTT topic UPS_Monitor | output_A.outputFreq_A|
+outputAmp_A            | MQTT topic UPS_Monitor | output_A.outputAmp_A|
+outputWatt_A           | MQTT topic UPS_Monitor | output_A.outputWatt_A|
+systemMode_A           | MQTT topic UPS_Monitor | output_A.systemMode_A|
+outputPercent_A        | MQTT topic UPS_Monitor | output_A.outputPercent_A|
+batteryHealth_A        | MQTT topic UPS_Monitor | battery_A.status.batteryHealth_A|
+batteryCharge_Mode_A   | MQTT topic UPS_Monitor | battery_A.status.batteryCharge_Mode_A|
+batteryTemp_A          | MQTT topic UPS_Monitor | battery_A.status.batteryTemp_A|
+batteryRemain_A        | MQTT topic UPS_Monitor | battery_A.status.batteryRemain_Min_A<br>upsMqttData.battery_A.status.batteryRemain_Sec_A|
+batteryRemain_Percent_A| MQTT topic UPS_Monitor | battery_A.status.batteryRemain_Percent_A|
+inputVolt_B            | MQTT topic UPS_Monitor | input_B.inputVolt_B|
+inputFreq_B            | MQTT topic UPS_Monitor | input_B.inputFreq_B|
+outputVolt_B           | MQTT topic UPS_Monitor | output_B.outputVolt_B|
+outputFreq_B           | MQTT topic UPS_Monitor | output_B.outputFreq_B|
+outputAmp_B            | MQTT topic UPS_Monitor | output_B.outputAmp_B|
+outputWatt_B           | MQTT topic UPS_Monitor | output_B.outputWatt_B|
+systemMode_B           | MQTT topic UPS_Monitor | output_B.systemMode_B|
+outputPercent_B        | MQTT topic UPS_Monitor | output_B.outputPercent_B|
+batteryHealth_B        | MQTT topic UPS_Monitor | battery_B.status.batteryHealth_B|
+batteryCharge_Mode_B   | MQTT topic UPS_Monitor | battery_B.status.batteryCharge_Mode_B|
+batteryTemp_B          | MQTT topic UPS_Monitor | battery_B.status.batteryTemp_B|
+batteryRemain_B        | MQTT topic UPS_Monitor | battery_B.status.batteryRemain_Min_B<br>upsMqttData.battery_B.status.batteryRemain_Sec_B|
+batteryRemain_Percent_B| MQTT topic UPS_Monitor | battery_B.status.batteryRemain_Percent_B|
+D0                     | MQTT topic ET7044/DOstatus | Array[0] |
+D1                     | MQTT topic ET7044/DOstatus | Array[1] |
+D2                     | MQTT topic ET7044/DOstatus | Array[2] |
+
+
+
+
