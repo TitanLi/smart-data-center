@@ -29,7 +29,7 @@
 
 ## 終端監控設備控制程式
 
-### 1. 自製電源及環境監測裝置（[https://github.com/TitanLi/smart-data-center/tree/master/power-meter](https://github.com/TitanLi/smart-data-center/tree/master/power-meter)）
+### 1. 自製電源及環境監測裝置（[範例程式](https://github.com/TitanLi/smart-data-center/tree/master/power-meter)）
 
 * Arduino電路圖
 ![](https://github.com/TitanLi/smart-data-center/blob/master/picture/power-meter.png)
@@ -151,3 +151,11 @@ DL303/CO2     |CO2測量        |0 to 9999 ppm (NDIR) |
 DL303/RH      |相對溼度測量    |0 to 100% RH|
 DL303/TC      |溫度測量       |-10 to +50°C|  
 DL303/DC      |露點溫度       |由溫度與相對溼度計算而得|
+
+### 4.工業級電源監控設備PM3133（[範例程式](https://github.com/TitanLi/smart-data-center/tree/master/PM3133)）
+
+MQTT Topic    | Description  | Message |
+--------------|--------------|---------|
+PM3133/A      |比流器1        | |
+PM3133/B      |比流器2        | |
+PM3133/C      |比流器3        | |  
