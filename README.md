@@ -217,3 +217,7 @@ MONGODB = 'mongodb://127.0.0.1:27017/'
 ```
 $ npm start
 ```
+
+
+
+<p align="right">臺中科技大學資工系imac iot team所開發建置於資訊與流通學院智慧聯網尖端實驗室開源雲端機房</p>
