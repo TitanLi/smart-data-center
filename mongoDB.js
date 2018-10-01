@@ -11,7 +11,8 @@ var outputFan = 'false', inputFan = 'false', humidity = 'false';
 var D0, D1, D2;
 
 MongoLocalClient.connect(process.env.MONGODB, (err, client) => {
-  localDB = client.db("smart-factory");
+  // localDB = client.db("smart-factory");
+  localDB = client.db("smart-data-center");
   console.log("connect mongodb on 27017 port");
   localInsert();
 });

@@ -26,7 +26,7 @@ let piePercent = [
   { name: 'UPS2', y: 100 }
 ];
 MongoClient.connect(process.env.MONGODB, (err, client) => {
-  db = client.db("smart-factory");
+  db = client.db("smart-data-center");
   mongodb = new mongoDB(db, io);
   new Promise(function (resolve, reject) {
     resolve(mongodb.aggregateAvgPieData());

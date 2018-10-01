@@ -1,0 +1,8 @@
+{
+    "_id": {
+        "$oid": "5b86b27a35f71c480a09aabb"
+    },
+    "humidity": false,
+    "inputFan": false,
+    "outputFan": false
+}
