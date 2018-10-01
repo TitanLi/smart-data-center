@@ -15,6 +15,10 @@
 `npm v5.6+`
 `node v8+`
 
+### python3執行環境
+
+`Python v3.7.0+`
+
 ### Database環境需求
 
 `mongoDB v3.6+`
