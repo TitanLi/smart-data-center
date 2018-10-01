@@ -1,0 +1,11 @@
+{
+    "_id": {
+        "$oid": "5b86b27435f71c480a09aaa3"
+    },
+    "Humidity": 31,
+    "Temperature": 31,
+    "currents": 2.96,
+    "time": {
+        "$date": "2018-10-01T03:12:52.723Z"
+    }
+}

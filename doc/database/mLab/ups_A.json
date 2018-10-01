@@ -1,0 +1,46 @@
+{
+    "_id": {
+        "$oid": "5b86b27935f71c480a09aab6"
+    },
+    "battery_A": {
+        "status": {
+            "batteryHealth_A": "Good (良好)",
+            "batteryStatus_A": "OK (良好)",
+            "batteryCharge_Mode_A": "Boost charging (快速充電)",
+            "batteryRemain_Min_A": "None By Charging (充電中)",
+            "batteryRemain_Sec_A": "None By Charging (充電中)",
+            "batteryVolt_A": "270",
+            "batteryTemp_A": "37",
+            "batteryRemain_Percent_A": "100"
+        },
+        "lastChange": {
+            "lastBattery_Year_A": "2017",
+            "lastBattery_Mon_A": "3",
+            "lastBattery_Day_A": "22"
+        },
+        "nextChange": {
+            "nextBattery_Year_A": "2020",
+            "nextBattery_Mon_A": "3",
+            "nextBattery_Day_A": "22"
+        }
+    },
+    "connect_A": "/dev/ttyUSB1 (牆壁)",
+    "input_A": {
+        "inputLine_A": "1",
+        "inputFreq_A": "60.0",
+        "inputVolt_A": "216.0"
+    },
+    "output_A": {
+        "systemMode_A": "Normal",
+        "outputLine_A": "1",
+        "outputFreq_A": "60.0",
+        "outputVolt_A": "222.0",
+        "outputAmp_A": "14.0631",
+        "outputWatt_A": "3.122",
+        "outputPercent_A": "37"
+    },
+    "time": {
+        "$date": "2018-10-01T03:14:07.843Z"
+    },
+    "ups_Life_A": "onLine(在線)"
+}
