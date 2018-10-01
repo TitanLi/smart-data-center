@@ -16,7 +16,7 @@ from usbid.device import usb_roots
 requests.packages.urllib3.disable_warnings()
 
 app = Flask(__name__)
-app.config['MQTT_BROKER_URL'] = '10.20.0.19'
+app.config['MQTT_BROKER_URL'] = 'MQTT-BROKER-IP'
 app.config['MQTT_BROKER_PORT'] = 1883
 app.config['MQTT_REFRESH_TIME'] = 1.0 
 mqtt = Mqtt(app)
