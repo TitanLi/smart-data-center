@@ -51,7 +51,7 @@ DL303/RH      |相對溼度測量    |0 to 100% RH|
 DL303/TC      |溫度測量       |-10 to +50°C|  
 DL303/DC      |露點溫度       |由溫度與相對溼度計算而得|
 
-### 4.工業級電源監控設備PM3133（[安裝教學](https://github.com/TitanLi/smart-data-center/tree/master/PM3133)）
+### 4.工業級電源監控設備PM3133（[範例程式](https://github.com/TitanLi/smart-data-center/tree/master/PM3133)）
 
 MQTT Topic    | Description  | Message    |
 --------------|--------------|------------|
