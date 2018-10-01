@@ -212,6 +212,30 @@ D0                     | MQTT topic ET7044/DOstatus | Array[0] |
 D1                     | MQTT topic ET7044/DOstatus | Array[1] |
 D2                     | MQTT topic ET7044/DOstatus | Array[2] |
 
+### 6.database
+
+（1）Localhost MongoDB Database
+> Database name smart-data-center
+
+Database          | Collection     | Description          | Data example |
+------------------|----------------|----------------------|--------------|
+smart-data-center |powerMeter      | power-meter logs     | [example](https://github.com/TitanLi/smart-data-center/blob/master/doc/database/local/powerMeter.bson)|
+smart-data-center |powerMeterPower | power-meter watt logs| [example](https://github.com/TitanLi/smart-data-center/blob/master/doc/database/local/powerMeterPower.bson)|
+smart-data-center |ups             | delta ups logs       | [example](https://github.com/TitanLi/smart-data-center/blob/master/doc/database/local/ups.bson)|
+smart-data-center |upsPower_A      | delta ups watt logs  | [example](https://github.com/TitanLi/smart-data-center/blob/master/doc/database/local/upsPower_A.bson)|
+smart-data-center |upsPower_B      | delta ups watt logs  |[example](https://github.com/TitanLi/smart-data-center/blob/master/doc/database/local/upsPower_B.bson)|
+
+（2）Public Cloud MongoDB Database(mLab for linebot use)
+> Database name smart-data-center
+
+Database          | Collection     | Description                    | Data example |
+------------------|----------------|--------------------------------|--------------|
+smart-data-center |powerMeter      | Latest power-meter information | [example](https://github.com/TitanLi/smart-data-center/blob/master/doc/database/mLab/powerMeter.json)|
+smart-data-center |ups_A           | Latest delta ups(A) information | [example](https://github.com/TitanLi/smart-data-center/blob/master/doc/database/mLab/ups_A.json)|
+smart-data-center |ups_B           | Latest delta ups(B) information | [example](https://github.com/TitanLi/smart-data-center/blob/master/doc/database/mLab/ups_B.json)|
+smart-data-center |control         | Latest ET7044 control information | [example](https://github.com/TitanLi/smart-data-center/blob/master/doc/database/mLab/control.json)|
+
+
 
 
 

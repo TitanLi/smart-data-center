@@ -1,0 +1,80 @@
+{
+    "_id": ObjectId("5b9dd6887261c6049ad3c5b4"),
+    "connect_A": "/dev/ttyUSB0 (左)",
+    "connect_B": "/dev/ttyUSB1 (右)",
+    "ups_Life_A": "onLine(在線)",
+    "ups_Life_B": "onLine(在線)",
+    "input_A": {
+        "inputLine_A": "1",
+        "inputFreq_A": "59.9",
+        "inputVolt_A": "214.0"
+    },
+    "input_B": {
+        "inputLine_B": "1",
+        "inputFreq_B": "59.9",
+        "inputVolt_B": "214.0"
+    },
+    "output_A": {
+        "systemMode_A": "Normal",
+        "outputLine_A": "1",
+        "outputFreq_A": "59.9",
+        "outputVolt_A": "221.0",
+        "outputAmp_A": "21.0543",
+        "outputWatt_A": "4.653",
+        "outputPercent_A": "55"
+    },
+    "output_B": {
+        "systemMode_B": "Normal",
+        "outputLine_B": "1",
+        "outputFreq_B": "59.9",
+        "outputVolt_B": "222.0",
+        "outputAmp_B": "13.7252",
+        "outputWatt_B": "3.047",
+        "outputPercent_B": "36"
+    },
+    "battery_A": {
+        "status": {
+            "batteryHealth_A": "Good (良好)",
+            "batteryStatus_A": "OK (良好)",
+            "batteryCharge_Mode_A": "Boost charging (快速充電)",
+            "batteryRemain_Min_A": "None By Charging (充電中)",
+            "batteryRemain_Sec_A": "None By Charging (充電中)",
+            "batteryVolt_A": "272",
+            "batteryTemp_A": "34",
+            "batteryRemain_Percent_A": "100"
+        },
+        "lastChange": {
+            "lastBattery_Year_A": "2017",
+            "lastBattery_Mon_A": "3",
+            "lastBattery_Day_A": "22"
+        },
+        "nextChange": {
+            "nextBattery_Year_A": "2020",
+            "nextBattery_Mon_A": "3",
+            "nextBattery_Day_A": "22"
+        }
+    },
+    "battery_B": {
+        "status": {
+            "batteryHealth_B": "Good (良好)",
+            "batteryStatus_B": "OK (良好)",
+            "batteryCharge_Mode_B": "Boost charging (快速充電)",
+            "batteryRemain_Min_B": "None By Charging (充電中)",
+            "batteryRemain_Sec_B": "None By Charging (充電中)",
+            "batteryVolt_B": "270",
+            "batteryTemp_B": "37",
+            "batteryRemain_Percent_B": "100"
+        },
+        "lastChange": {
+            "lastBattery_Year_B": "2017",
+            "lastBattery_Mon_B": "3",
+            "lastBattery_Day_B": "22"
+        },
+        "nextChange": {
+            "nextBattery_Year_B": "2020",
+            "nextBattery_Mon_B": "3",
+            "nextBattery_Day_B": "22"
+        }
+    },
+    "time": ISODate("2018-09-16T04:05:28.356Z")
+}
