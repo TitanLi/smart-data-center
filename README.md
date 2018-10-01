@@ -35,7 +35,7 @@ MQTT Topic    | Description  | Message |
 --------------|--------------|---------|
 current       |溫度、濕度、電流 |{<br>"Humidity":26,<br>"Temperature":36,<br>"currents":12<br>}|
 
-### 2.工業級數位訊號輸入控制器ET7044（[安裝教學](https://github.com/TitanLi/smart-data-center/tree/master/ET7044)）
+### 2.工業級數位訊號輸入控制器ET7044（[範例程式](https://github.com/TitanLi/smart-data-center/tree/master/ET7044)）
 
 MQTT Topic      | Description        | Message |
 ----------------|--------------------|---------|
@@ -51,7 +51,7 @@ DL303/RH      |相對溼度測量    |0 to 100% RH|
 DL303/TC      |溫度測量       |-10 to +50°C|  
 DL303/DC      |露點溫度       |由溫度與相對溼度計算而得|
 
-### 4.工業級電源監控設備PM3133（[範例程式](https://github.com/TitanLi/smart-data-center/tree/master/PM3133)）
+### 4.工業級電源監控設備PM3133（[安裝教學](https://github.com/TitanLi/smart-data-center/tree/master/PM3133)）
 
 MQTT Topic    | Description  | Message    |
 --------------|--------------|------------|
@@ -59,7 +59,9 @@ PM3133/A      |比流器1        | true/false |
 PM3133/B      |比流器2        | true/false |
 PM3133/C      |比流器3        | true/false |
 
-### 5.web service & socket.io service（[範例程式](https://github.com/TitanLi/smart-data-center/blob/master/app.js)）
+### 5.UPS 監控程式（[範例程式](https://github.com/TitanLi/smart-data-center/tree/master/Delta_UPS)）
+
+### 6.web service & socket.io service（[範例程式](https://github.com/TitanLi/smart-data-center/blob/master/app.js)）
 
 （1）web service
 
@@ -111,7 +113,7 @@ D0                     | MQTT topic ET7044/DOstatus | Array[0] |
 D1                     | MQTT topic ET7044/DOstatus | Array[1] |
 D2                     | MQTT topic ET7044/DOstatus | Array[2] |
 
-### 6.database
+### 7.database（[範例程式](https://github.com/TitanLi/smart-data-center/blob/master/mongoDB.js)）
 
 （1）Localhost MongoDB Database
 > Database name smart-data-center
@@ -126,6 +128,7 @@ smart-data-center |upsPower_B      | delta ups watt logs  |[example](https://git
 
 （2）Public Cloud MongoDB Database(mLab)
 > mLab for linebot use
+
 > Database name smart-data-center
 
 Database          | Collection     | Description                    | Data example |
@@ -135,7 +138,7 @@ smart-data-center |ups_A           | Latest delta ups(A) information | [example]
 smart-data-center |ups_B           | Latest delta ups(B) information | [example](https://github.com/TitanLi/smart-data-center/blob/master/doc/database/mLab/ups_B.json)|
 smart-data-center |control         | Latest ET7044 control information | [example](https://github.com/TitanLi/smart-data-center/blob/master/doc/database/mLab/control.json)|
 
-### 7.linebot(HEROKU)
+### 7.linebot service on HEROKU（[範例程式](https://github.com/TitanLi/smart-data-center/tree/master/heroku/smart-factory-robot)）
 > Service for linebot use
 
 Method    | API                  | Description         | Body Example |
@@ -193,7 +196,16 @@ $ npm install pm2 -g
 }
 ```
 
-（6）run service
+（6）更新.env參數
+```
+PORT = 3006
+ICINGA2_PORT = 3001
+MQTT = 'mqtt://127.0.0.1:1883'
+MONGO_URL = 'mongodb://USER-NAME:PASSWORD@PROJECT-ID.mlab.com:37922/smart-data-center'
+MONGODB = 'mongodb://127.0.0.1:27017/'
+```
+
+（7）run service
 ```
 $ npm start
 ```
