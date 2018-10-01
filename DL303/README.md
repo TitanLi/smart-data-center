@@ -1,4 +1,8 @@
 # DL303 test
+
+## 概述
+透過此測試程式可以取得DL303推送至MQTT Broker的資料
+
 ## 環境
 1. nodeJS環境:
 `node v8+`
@@ -11,7 +15,7 @@
 ```
 $ npm install mqtt
 ```
-2. 指定MQTT Broker位置
+2. 編輯DL303mqtt.js，指定MQTT Broker位置
 ```javascript
 const client = mqtt.connect('mqtt://MQTT-BROKER-IP:PORT');
 ```
@@ -19,4 +23,3 @@ const client = mqtt.connect('mqtt://MQTT-BROKER-IP:PORT');
 ```
 $ node DL303mqtt.js
 ```
-

@@ -29,118 +29,17 @@
 
 ## 終端監控設備控制程式
 
-### 1. 自製電源及環境監測裝置（[範例程式](https://github.com/TitanLi/smart-data-center/tree/master/power-meter)）
+### 1. 自製電源及環境監測裝置（[安裝教學](https://github.com/TitanLi/smart-data-center/tree/master/power-meter)）
 
-* Arduino電路圖
-![](https://github.com/TitanLi/smart-data-center/blob/master/picture/power-meter.png)
-* Raspberry pi3 service push data to MQTT broker
+MQTT Topic    | Description  | Message |
+--------------|--------------|---------|
+current       |溫度、濕度、電流 |{<br>"Humidity":26,<br>"Temperature":36,<br>"currents":12<br>}|
 
-（1）引用設定檔
-```javascript
-const config = require('./config.js');
-```
-（2）MQTT connect
-```javascript
-const client = mqtt.connect(config.MQTT);
-client.on('connect', function () {
-    console.log('on connect');
-    client.subscribe('current');
-});
-```
-（3） Opening a port and publish the message to MQTT broker
-```javascript
-const port = new SerialPort(config.serialport, {
-    parser: SerialPort.parsers.readline('\n')
-});
-port.on('open', function () {
-    port.on('data', function (data) {
-        console.log(data);
-        client.publish('current', data.toString());
-    });
-});
-```
+### 2.工業級數位訊號輸入控制器ET7044（[安裝教學](https://github.com/TitanLi/smart-data-center/tree/master/ET7044)）
 
-### 2.工業級數位訊號輸入控制器ET7044（[範例程式](https://github.com/TitanLi/smart-data-center/tree/master/ET7044)）
-（1）引用設定檔
-```javascript
-const config = require('./config.js');
-```
-（2）Using ModbusRTU protocol control ET7044
-```javascript
-function checkError(e) {
-    if (e.errno && networkErrors.includes(e.errno)) {
-        console.log("we have to reconnect");
-        // close port
-        client.close();
-        // re open client
-        client = new ModbusRTU();
-        timeoutConnectRef = setTimeout(connect, 1000);
-    }
-}
-function connect() {
-    // clear pending timeouts
-    clearTimeout(timeoutConnectRef);
-    // if client already open, just run
-    if (client.isOpen()) {
-        run();
-    }
-    client.connectTCP(config.ET7044, { port: 502 })
-    .then(setClient)
-    .then(function () {
-        console.log("Connected");
-    })
-    .catch(function (e) {
-        console.log(e.message);
-    });
-}
-function setClient() {
-    // set the client's unit id
-    client.setID(1);
-    // set a timout for requests default is null (no timeout)
-    client.setTimeout(3000);
-    // run program
-    run();
-}
-
-function run() {
-    // clear pending timeouts
-    clearTimeout(timeoutRunRef);
-    client.writeCoils(0, writeData);
-    client.readCoils(0, 8)
-    .then(function (d) {
-        //DOstatus = d.data.toString();
-        DOstatus = JSON.stringify(d.data);
-        console.log(DOstatus);
-        console.log("Receive:", d.data);
-        mqttClient.publish('ET7044/DOstatus', DOstatus);
-    })
-    .then(function () {
-        timeoutRunRef = setTimeout(run, 5000);
-    })
-    .catch(function (e) {
-        checkError(e);
-        console.log(e.message);
-    });
-}
-// connect and start logging
-connect();
-```
-
-（3）Using MQTT protocol sync ET-7044 status
-```javascript
-// Mqtt connecting and pub
-const mqttClient = mqtt.connect(config.MQTT);
-mqttClient.on('connect', function () {
-    console.log('connect to MQTT server');
-    mqttClient.subscribe('ET7044/write');
-});
-
-mqttClient.on('message', function (topic, message) {
-    // message is Buffer
-    writeData = JSON.parse(message);
-    console.log(writeData);
-});
-```
+MQTT Topic      | Description        | Message |
+----------------|--------------------|---------|
+ET7044/DOstatus |ET7044 D0~D7 status |[false, false, false, false, false, false, false, false]|
 
 ### 3.工業級環境監控設備DL303([測試程式](https://github.com/TitanLi/smart-data-center/tree/master/DL303))
 `內建MQTT功能可將資料直接推送到指定Broker`
@@ -154,11 +53,11 @@ DL303/DC      |露點溫度       |由溫度與相對溼度計算而得|
 
 ### 4.工業級電源監控設備PM3133（[範例程式](https://github.com/TitanLi/smart-data-center/tree/master/PM3133)）
 
-MQTT Topic    | Description  | Message |
---------------|--------------|---------|
-PM3133/A      |比流器1        | |
-PM3133/B      |比流器2        | |
-PM3133/C      |比流器3        | |
+MQTT Topic    | Description  | Message    |
+--------------|--------------|------------|
+PM3133/A      |比流器1        | true/false |
+PM3133/B      |比流器2        | true/false |
+PM3133/C      |比流器3        | true/false |
 
 ### 5.web service & socket.io service（[範例程式](https://github.com/TitanLi/smart-data-center/blob/master/app.js)）
 
@@ -225,7 +124,8 @@ smart-data-center |ups             | delta ups logs       | [example](https://gi
 smart-data-center |upsPower_A      | delta ups watt logs  | [example](https://github.com/TitanLi/smart-data-center/blob/master/doc/database/local/upsPower_A.bson)|
 smart-data-center |upsPower_B      | delta ups watt logs  |[example](https://github.com/TitanLi/smart-data-center/blob/master/doc/database/local/upsPower_B.bson)|
 
-（2）Public Cloud MongoDB Database(mLab for linebot use)
+（2）Public Cloud MongoDB Database(mLab)
+> mLab for linebot use
 > Database name smart-data-center
 
 Database          | Collection     | Description                    | Data example |
@@ -235,7 +135,65 @@ smart-data-center |ups_A           | Latest delta ups(A) information | [example]
 smart-data-center |ups_B           | Latest delta ups(B) information | [example](https://github.com/TitanLi/smart-data-center/blob/master/doc/database/mLab/ups_B.json)|
 smart-data-center |control         | Latest ET7044 control information | [example](https://github.com/TitanLi/smart-data-center/blob/master/doc/database/mLab/control.json)|
 
+### 7.linebot(HEROKU)
+> Service for linebot use
 
+Method    | API                  | Description         | Body Example |
+----------|----------------------|---------------------|--------------|
+GET       |/                     | test heroku service ||
+GET       |/test                 | test connect mLab   ||
+POST      |/webhooks             | for linebot use     ||
+POST      |/post/push            | notify power consumption|{<br>powerMeterPower: 123,<br>upsPower_A: 456,<br>upsPower_B: 789<br>}|
+POST      |/post/control/message | ET7044 control|{<br>message: "進風風扇：開啟"<br>}|
+POST      |/message              | icinga2 alert notification| {<br>message: "需要維修"<br>}|
 
+## 部署
 
+（1）Git clone project
+```
+$ git clone https://github.com/TitanLi/smart-data-center.git
+```
 
+（2) Switch directory
+```
+$ cd smart-data-center
+```
+
+（3）Install modules
+```
+$ npm install
+```
+
+（4）Install pm2 project management tool
+```
+$ npm install pm2 -g
+```
+
+（5）Edit build.json 留下需要的服務
+```json
+{
+  "apps": [
+    {
+      "name": "smart-data-center",
+      "script": "./app.js"
+    },
+    {
+      "name": "smart-data-center-mongodb",
+      "script": "./mongoDB.js"
+    },
+    {
+      "name": "smart-data-center-icinga2",
+      "script": "./icinga2/icinga2.js"
+    },
+    {
+      "name": "smart-data-center-ET7044",
+      "script": "./ET7044/ET7044_finish.js"
+    }
+  ]
+}
+```
+
+（6）run service
+```
+$ npm start
+```
