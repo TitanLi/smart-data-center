@@ -61,6 +61,10 @@ PM3133/C      |比流器3        | true/false |
 
 ### 5.UPS 監控程式（[範例程式](https://github.com/TitanLi/smart-data-center/tree/master/Delta_UPS)）
 
+MQTT Topic    | Description  | Message    |
+--------------|--------------|------------|
+UPS_Monitor   |UPS監測        | [example](https://github.com/TitanLi/smart-data-center/blob/master/doc/database/local/ups.bson) |
+
 ### 6.web service & socket.io service（[範例程式](https://github.com/TitanLi/smart-data-center/blob/master/app.js)）
 
 （1）web service
