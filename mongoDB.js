@@ -258,7 +258,7 @@ function mLabContronUpdate() {
           //line bot push message api on heroku
           let options = {
             method: 'POST',
-            uri: 'https://smart-factory-robot.herokuapp.com/post/control/message',
+            uri: process.env.LINE_BOT_CONTROL,
             headers: {
               'Content-Type': 'application/json'
             },
