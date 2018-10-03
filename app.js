@@ -157,7 +157,7 @@ setInterval(() => {
       let data = await mongodb.aggregateYesterdayAvgPowerRobot();
       let options = {
         method: 'POST',
-        uri: 'https://smart-factory-robot.herokuapp.com/post/push',
+        uri: process.env.LINE_BOT_PUSH,
         headers: {
           'Content-Type': 'application/json'
         },
