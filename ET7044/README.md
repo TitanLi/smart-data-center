@@ -8,7 +8,7 @@
 `mosquitto`
 
 ### 概述
-架設microservice，使用Modbus Protocol讀寫ET-7044資料，並將讀取到的資料透過MQTT Protocol傳出達到狀態同步
+ET-7044由泓格科技所開發，內建Web Server，可透過LAN方式進入裝置網頁，對裝置進行相關設定，具有8點隔離數位訊號輸出及8點乾接點數位訊號輸入，並且提供Modbus/TCP通信協定可用來與裝置溝通。透過架設microservice，使用Modbus Protocol讀寫ET-7044資料，並將讀取到的資料透過MQTT Protocol傳出達到狀態同步，以方便後續相關應用
 
 ### 程式說明
 （1）引用設定檔
