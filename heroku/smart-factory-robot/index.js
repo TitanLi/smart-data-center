@@ -106,19 +106,37 @@ router.post('/webhooks', async (ctx, next) => {
                     });
                 }
             } else if (/濕度/.test(messageText)) {
-                // 回覆給 User 的訊息
-                mLabData = await co(mongoLab.findData('濕度'));
-                events.messageText = '濕度';
-                await linebot.responseText(events, {
-                    '濕度': mLabData
-                });
+                if (/demo/.test(messageText)) {
+                    // 回覆給 User 的訊息
+                    mLabData = await co(mongoLab.findData('demo濕度'));
+                    events.messageText = 'demo濕度';
+                    await linebot.responseText(events, {
+                        'demo濕度': mLabData
+                    });
+                } else {
+                    // 回覆給 User 的訊息
+                    mLabData = await co(mongoLab.findData('機房濕度'));
+                    events.messageText = '機房濕度';
+                    await linebot.responseText(events, {
+                        '機房濕度': mLabData
+                    });
+                }
             } else if (/溫度/.test(messageText)) {
-                // 回覆給 User 的訊息
-                mLabData = await co(mongoLab.findData('溫度'));
-                events.messageText = '溫度';
-                await linebot.responseText(events, {
-                    '溫度': mLabData
-                });
+                if (/demo/.test(messageText)) {
+                    // 回覆給 User 的訊息
+                    mLabData = await co(mongoLab.findData('demo溫度'));
+                    events.messageText = 'demo溫度';
+                    await linebot.responseText(events, {
+                        'demo溫度': mLabData
+                    });
+                } else {
+                    // 回覆給 User 的訊息
+                    mLabData = await co(mongoLab.findData('機房溫度'));
+                    events.messageText = '機房溫度';
+                    await linebot.responseText(events, {
+                        '機房溫度': mLabData
+                    });
+                }
             } else if (/控制/.test(messageText)) {
                 if (/arduino/.test(messageText)) {
                     let controlStatus = await co(mongoLab.arduinoControlFind());
