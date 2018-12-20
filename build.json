@@ -15,6 +15,10 @@
     {
       "name": "smart-data-center-ET7044",
       "script": "./ET7044/ET7044_finish.js"
+    },
+    {
+      "name": "smart-data-center-DL303",
+      "script": "./DL303/DL303mqtt.js"
     }
   ]
 }
