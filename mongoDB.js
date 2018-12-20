@@ -5,10 +5,10 @@ const mqttClient = mqtt.connect(process.env.MQTT);
 const MongoLabClient = require('mongodb').MongoClient;
 const co = require('co');
 const request = require('request-promise');
-var localDB, mLabDB;
-var findData = {};
-var outputFan = 'false', inputFan = 'false', humidity = 'false';
-var D0, D1, D2;
+let localDB, mLabDB;
+let findData = {};
+let outputFan = 'false', inputFan = 'false', humidity = 'false';
+let D0, D1, D2;
 
 MongoLocalClient.connect(process.env.MONGODB, (err, client) => {
   // localDB = client.db("smart-factory");
