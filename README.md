@@ -8,6 +8,13 @@
 
 3.raspberry pi3 touch panel demo:[https://www.youtube.com/watch?v=LIEXDQloP2w](https://www.youtube.com/watch?v=LIEXDQloP2w)
 
+## 版本更新
+Version1：[Power-Meter](https://github.com/TitanLi/power-meter)
+
+Version2：[Factory](https://github.com/TitanLi/factory)
+
+Version3：[Smart-Data-Center](https://github.com/TitanLi/smart-data-center)
+
 ## 實作環境
 
 ### nodeJS執行環境
@@ -220,4 +227,4 @@ $ npm start
 
 
 
-<p align="right">臺中科技大學資工系imac iot team所開發建置於資訊與流通學院智慧聯網尖端實驗室開源雲端機房</p>
+<p align="right">臺中科技大學資工系IMAC團隊開發維護建置於資訊與流通學院智慧聯網尖端實驗室開源雲端機房</p>
