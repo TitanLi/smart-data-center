@@ -51,6 +51,7 @@ current       |溫度、濕度、電流 |{<br>"Humidity":26,<br>"Temperature":36
 MQTT Topic      | Description        | Message |
 ----------------|--------------------|---------|
 ET7044/DOstatus |ET7044 D0~D7 status |[false, false, false, false, false, false, false, false]|
+ET7044/write    |Control D0~D7 status|[false, false, false, false, false, false, false, false]|
 
 ### 3.工業級環境監控設備DL303([測試程式](https://github.com/TitanLi/smart-data-center/tree/master/DL303))
 `內建MQTT功能可將資料直接推送到指定Broker`
