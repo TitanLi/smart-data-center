@@ -67,9 +67,9 @@ DL303/DC      |露點溫度       |由溫度與相對溼度計算而得|
 
 MQTT Topic    | Description  | Message    |
 --------------|--------------|------------|
-PM3133/A      |比流器1        | true/false |
-PM3133/B      |比流器2        | true/false |
-PM3133/C      |比流器3        | true/false |
+PM3133/A      |比流器1        | 10 (A)     |
+PM3133/B      |比流器2        | 10 (A)     |
+PM3133/C      |比流器3        | 10 (A)     |
 
 ### 5.UPS 監控程式（[範例程式](https://github.com/TitanLi/smart-data-center/tree/master/Delta_UPS)）
 
