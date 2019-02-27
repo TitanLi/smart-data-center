@@ -10,7 +10,7 @@
 2. MQTT Protocol broker:
 `mosquitto`
 
-## Arduion
+## Arduino
 
 * Arduino電路圖
 ![](https://github.com/TitanLi/smart-data-center/blob/master/picture/power-meter.png)
@@ -76,9 +76,13 @@ port.on('open', function () {
 
 ## 部署
 （1）將電路製作完成與Arduino接上指定接腳
+
 （2）將Arduino程式燒入晶片
+
 （3）將[MQTT publish project](https://github.com/TitanLi/smart-data-center/blob/master/power-meter/raspberry)載入raspberry pi3
+
 （4）切換至專案目錄
+
 （5）安裝函式庫
 ```
 $ npm install
