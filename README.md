@@ -15,6 +15,9 @@ Version2：[Factory](https://github.com/TitanLi/factory)
 
 Version3：[Smart-Data-Center](https://github.com/TitanLi/smart-data-center)
 
+## 自製LINE-BOT模組
+[自製LINE-BOT模組](https://github.com/TitanLi/linebot)
+
 ## 實作環境
 
 ### nodeJS執行環境
