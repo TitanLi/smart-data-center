@@ -20,7 +20,7 @@ Version3：[Smart-Data-Center](https://github.com/TitanLi/smart-data-center)
 
 ## 3/2開源軟硬體機房環控建置經驗分享PPT
 
-[開源軟硬體機房環控建置經驗分享PPT](https://drive.google.com/open?id=1aIoCC8RRrz7uBTYgPubx51bgFmLQ3kz4)
+[開源軟硬體機房環控建置經驗分享PPT](https://www.slideshare.net/secret/3gnEbZJsU78IZV)
 
 ## 實作環境
 
