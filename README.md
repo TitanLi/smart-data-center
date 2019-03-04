@@ -19,15 +19,8 @@ Version3：[Smart-Data-Center](https://github.com/TitanLi/smart-data-center)
 [自製LINE-BOT模組](https://github.com/TitanLi/linebot)
 
 ## 3/2開源軟硬體機房環控建置經驗分享PPT
-指導教授：陳弘明 (台中科大 資工系教授/資訊創新應用與服務中心主任) 
 
-[第一講 演講者:國立台中科技大學資訊工程系 - 李汶昇](https://drive.google.com/open?id=1c3qJj0wyzoVT0rvrWL7bJJl-9-oQihbe)
-
-[第二講 演講者:國立台中科技大學資訊工程系 - 鄭鍾翔](https://drive.google.com/open?id=1-IT5pufyq4KkchUT1YHGHTVOTblnrUf4)
-
-[第三講 演講者:國立台中科技大學資訊工程系 - 李汶昇](https://drive.google.com/open?id=1z3nGpi0lspOqtHrO4zFY3oC1dlrYlnuf)
-
-[第四講 演講者:國立台中科技大學資訊工程系 - 鄭鍾翔](https://drive.google.com/open?id=1RQVIHmx-63vMt52BPTWA89fQgptoOOSp)
+[開源軟硬體機房環控建置經驗分享PPT](https://drive.google.com/open?id=1aIoCC8RRrz7uBTYgPubx51bgFmLQ3kz4)
 
 ## 實作環境
 
