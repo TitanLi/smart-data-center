@@ -22,6 +22,9 @@ Version3：[Smart-Data-Center](https://github.com/TitanLi/smart-data-center)
 
 [開源軟硬體機房環控建置經驗分享PPT](https://www.slideshare.net/secret/3gnEbZJsU78IZV)
 
+## Library license
+[Library license](https://github.com/TitanLi/smart-data-center/blob/master/license/license.md)
+
 ## 實作環境
 
 ### nodeJS執行環境
