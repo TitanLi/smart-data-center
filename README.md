@@ -222,7 +222,12 @@ $ npm install pm2 -g
 }
 ```
 
-（6）更新.env參數
+（6）建立 .env 檔案
+
+```cp .env-sample .env```
+
+（7）更新.env參數
+
 ```
 PORT = 3006
 ICINGA2_PORT = 3001
@@ -231,7 +236,7 @@ MONGO_URL = 'mongodb://USER-NAME:PASSWORD@PROJECT-ID.mlab.com:37922/smart-data-c
 MONGODB = 'mongodb://127.0.0.1:27017/'
 ```
 
-（7）run service
+（8）run service
 ```
 $ npm start
 ```
