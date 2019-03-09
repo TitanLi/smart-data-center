@@ -7,10 +7,10 @@ Highcharts 系列軟體使用條款：[https://highcharts.com.cn/license](https:
 使用時請遵守CC BY-NC 3.0 (Creative Commons Attribution-NonCommercial 3.0 License) 協議：[https://creativecommons.org/licenses/by-nc/3.0/cn/](https://creativecommons.org/licenses/by-nc/3.0/cn/)
 
 使用到的檔案：
-smart-data-center/public/script/export-data.js
-smart-data-center/public/script/exporting.js
-smart-data-center/public/script/highcharts-3d.js
-smart-data-center/public/script/highcharts.js
+1. smart-data-center/public/script/export-data.js
+2. smart-data-center/public/script/exporting.js
+3. smart-data-center/public/script/highcharts-3d.js
+4. smart-data-center/public/script/highcharts.js
 
 
 ## bootstrap
