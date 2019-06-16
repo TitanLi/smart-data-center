@@ -12,22 +12,24 @@ const socket = require('socket.io');
 const dotenv = require('dotenv').load();
 const request = require('request-promise');
 const MongoClient = require('mongodb').MongoClient;
-const mongoDB = require('./lib/mongoDB.js');
+const MongoDB = require('./lib/mongoDB.js');
 
 const app = new koa();
 const router = Router();
 const server = http.createServer(app.callback());
 const io = socket(server);
-//database
-let mongodb;
+
 let piePercent = [
   { name: '冷氣', y: 100 },
   { name: 'UPS1', y: 100 },
   { name: 'UPS2', y: 100 }
 ];
+//ET7044 status
+let et7044Status, D0, D1, D2;
+
 MongoClient.connect(process.env.MONGODB, (err, client) => {
   db = client.db("smart-data-center");
-  mongodb = new mongoDB(db, io);
+  mongodb = new MongoDB(db, io);
   new Promise(function (resolve, reject) {
     resolve(mongodb.aggregateAvgPieData());
   }).then(function (value) {
@@ -35,18 +37,8 @@ MongoClient.connect(process.env.MONGODB, (err, client) => {
     piePercent = value;
   });
 });
-// io.emit('news',{url:url});
 
 const mqttClient = mqtt.connect(process.env.MQTT);
-
-//ET7044 status
-let et7044Status, D0, D1, D2;
-//power-meter data
-// var humidity,temperature,powerMeterCurrent;
-//UPS1 data
-// var inputVolt_A,inputFreq_A,outputVolt_A,outputFreq_A,outputAmp_A,outputWatt_A,systemMode_A,outputPercent_A,batteryHealth_A,batteryCharge_Mode_A,batteryTemp_A,batteryRemain_A;
-//UPS2 data
-// var inputVolt_B,inputFreq_B,outputVolt_B,outputFreq_B,outputAmp_B,outputWatt_B,systemMode_B,outputPercent_B,batteryHealth_B,batteryCharge_Mode_B,batteryTemp_B,batteryRemain_B;
 
 mqttClient.on('connect', () => {
   mqttClient.subscribe('UPS_Monitor');
@@ -134,9 +126,6 @@ mqttClient.on('message', (topic, message) => {
   }
 });
 
-//UPS MQTT Topic
-//mosquitto_sub -h 10.20.0.90 -t UPS_Monitor
-
 //更新圓餅圖
 setInterval(() => {
   new Promise(function (resolve, reject) {
@@ -147,14 +136,15 @@ setInterval(() => {
   });
 }, 600000);
 
-// setInterval(() => {
-//   mongodb.aggregateYesterdayAvgPowerRobot();
-// },10000);
+setInterval(() => {
+  mongodb.yesterdayAvgPowerRobot();
+},10000);
 
 setInterval(() => {
   if (new Date().toLocaleString('zh-tw').split(' ')[1] == "08:01:00") {
+  // if (new Date().toLocaleString('zh-tw').split(' ')[1] == "8:01:00" && new Date().toLocaleString('zh-tw').split(' ')[2] == "AM") {
     let push = async () => {
-      let data = await mongodb.aggregateYesterdayAvgPowerRobot();
+      let data = await mongodb.yesterdayAvgPowerRobot();
       let options = {
         method: 'POST',
         uri: process.env.LINE_BOT_PUSH,
@@ -168,9 +158,10 @@ setInterval(() => {
         },
         json: true
       }
+      console.log(options)
       await request(options).then(function (parsedBody) {
         console.log(parsedBody);
-        console.log('aggregateYesterdayAvgPowerRobot post success')
+        console.log('yesterdayAvgPowerRobot post success')
       }).catch(function (err) {
         console.error(err);
         push();
@@ -197,9 +188,6 @@ app.context.render = co.wrap(render({
 }));
 
 router.get('/', index);
-router.get('/test', test);
-router.get('/pie', pie);
-router.get('/temperature', temperature);
 router.post('/ET7044', et7044);
 
 async function index(ctx) {
@@ -208,18 +196,6 @@ async function index(ctx) {
     "upsPower_A": piePercent[1].y,
     "upsPower_B": piePercent[2].y
   });
-}
-
-async function test(ctx) {
-  ctx.body = await ctx.render('test');
-}
-
-async function pie(ctx) {
-  ctx.body = await ctx.render('pie');
-}
-
-async function temperature(ctx) {
-  ctx.body = await ctx.render('temperature');
 }
 
 async function et7044(ctx) {
