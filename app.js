@@ -136,9 +136,9 @@ setInterval(() => {
   });
 }, 600000);
 
-setInterval(() => {
-  mongodb.yesterdayAvgPowerRobot();
-},10000);
+// setInterval(() => {
+//   mongodb.yesterdayAvgPowerRobot();
+// },10000);
 
 setInterval(() => {
   if (new Date().toLocaleString('zh-tw').split(' ')[1] == "08:01:00") {
