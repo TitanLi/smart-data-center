@@ -212,5 +212,117 @@ module.exports = {
       });
     }
     return findData;
+  }),
+  computerRoomInformationUpdate: (cacheData) => (function* () {
+    let updateData = {
+      'vcpu':cacheData[0],
+      'ram':cacheData[1],
+      'disk':cacheData[2],
+      'switch':cacheData[3],
+      'sdnSwitch':cacheData[4],
+      'pc':cacheData[5],
+      'server':cacheData[6]
+    };
+    yield function (done) {
+      MongoLabClient.connect(process.env.MONGO_URL, (err, db) => {
+        if (err) {
+          return console.log(err);
+        }
+        console.log("connect MongoLabClient on 27017 port");
+        let collectionComputerRoomInformation = db.collection('computerRoomInformation');
+        collectionComputerRoomInformation.update(
+          {},
+          {
+            $set: updateData
+          },
+          { upsert: true },
+          function (err, res) {
+            if (err) {
+              return console.log(err);
+            } else {
+              console.log('mLab computer room information update successfully');
+            }
+            done();
+          }
+        );
+      });
+    }
+    return 'mLab computer room information update successfully';
+  }),
+  computerRoomInformationFind: () => (function* () {
+    let findData = '';
+    yield function (done) {
+      MongoLabClient.connect(process.env.MONGO_URL, (err, db) => {
+        if (err) {
+          return console.log(err);
+        }
+        console.log("connect MongoLabClient on 27017 port");
+        let collectionComputerRoomInformation = db.collection('computerRoomInformation');
+        collectionComputerRoomInformation.findOne({}, (err, data) => {
+          if (err) {
+            return console.log(err);
+          } else {
+            findData = `VCPU數量(顆):${data.vcpu}\nRAM數量(GB):${data.ram}\n機房儲存空間(TB):${data.disk}\n機房Switch數量(台):${data.switch}\n機房SDN Switch數量(台):${data.sdnSwitch}\n機房一般主機數量(台):${data.pc}\n機房伺服器數量(台):${data.server}`;
+            console.log(findData);
+            done();
+          }
+        });
+      });
+    }
+    return findData;
+  }),
+  powerUpdate: (requestData) => (function* () {
+    let updateData = {
+      'airConditioning':requestData.powerMeterPower,
+      'upsA':requestData.upsPower_A,
+      'upsB':requestData.upsPower_B
+    };
+    yield function (done) {
+      MongoLabClient.connect(process.env.MONGO_URL, (err, db) => {
+        if (err) {
+          return console.log(err);
+        }
+        console.log("connect MongoLabClient on 27017 port");
+        let collectionComputerRoomPower = db.collection('computerRoomPower');
+        collectionComputerRoomPower.update(
+          {},
+          {
+            $set: updateData
+          },
+          { upsert: true },
+          function (err, res) {
+            if (err) {
+              return console.log(err);
+            } else {
+              console.log('mLab computer room power update successfully');
+            }
+            done();
+          }
+        );
+      });
+    }
+    return 'mLab computer room power update update successfully';
+  }),
+  powerFind: () => (function* () {
+    let findData = '';
+    yield function (done) {
+      MongoLabClient.connect(process.env.MONGO_URL, (err, db) => {
+        if (err) {
+          return console.log(err);
+        }
+        console.log("connect MongoLabClient on 27017 port");
+        let collectionComputerRoomPower = db.collection('computerRoomPower');
+        collectionComputerRoomPower.findOne({}, (err, data) => {
+          if (err) {
+            return console.log(err);
+          } else {
+            findData = data;
+            console.log(findData);
+            done();
+          }
+        });
+      });
+    }
+    return findData;
   })
 }
