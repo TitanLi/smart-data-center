@@ -19,6 +19,10 @@
     {
       "name": "smart-data-center-DL303",
       "script": "./DL303/DL303mqtt.js"
+    },
+    {
+      "name": "service-list",
+      "script": "./service/service-list.js"
     }
   ]
 }
