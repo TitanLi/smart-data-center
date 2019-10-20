@@ -3,29 +3,28 @@ const dotenv = require('dotenv').load();
 const MongoClient = require('mongodb').MongoClient;
 
 setInterval(() => {
-    // if (new Date().toLocaleString('zh-tw').split(' ')[1] == "08:01:00") {
+    if (new Date().toLocaleString('zh-tw').split(' ')[1] == "8:01:00" && new Date().toLocaleString('zh-tw').split(' ')[2] == "AM") {
         let push = async () => {
             let serviceList = [];
-            var db;
-            let dataUpdateCheck = 0;
+            let db;
             let options = {
-              method: 'GET',
-              uri: process.env.SERVICE_LIST,
-              json: true
+                method: 'GET',
+                uri: process.env.SERVICE_LIST,
+                json: true
             }
-            console.log(options)
+            // console.log(options)
             await request(options).then(function (resData) {
-              console.log(resData);
-              serviceList = resData.res
-              console.log('Get service list success')
+                console.log(resData);
+                serviceList = resData.res
+                console.log('Get service list successfully')
             }).catch(function (err) {
-              console.error(err);
-              push();
+                console.error(err);
+                push();
             });
             await new Promise(function (resolve, reject) {
                 MongoClient.connect(process.env.MONGO_URL, (err, client) => {
                     db = client.db("smart-data-center");
-                    console.log('connect');
+                    console.log('mLab connection');
                     resolve();
                 });
             });
@@ -45,20 +44,20 @@ setInterval(() => {
                         },
                         { upsert: true },
                         function (err, res) {
-                          if (err) {
-                            return console.log(err);
-                          } else {
-                            dataUpdateCheck++;
-                            console.log('mLab service list insert successfully');
-                            resolve();
-                          }
+                            if (err) {
+                              console.log(err);
+                              reject(err);
+                            } else {
+                              console.log('mLab service list insert successfully');
+                              resolve();
+                            }
                         }
-                      );
+                    );
                 });
             }
             db.close();
-          }
-          push();
-    // }
+        }
+        push();
+    }
   }, 10000);
 

@@ -141,8 +141,8 @@ setInterval(() => {
 // },10000);
 
 setInterval(() => {
-  if (new Date().toLocaleString('zh-tw').split(' ')[1] == "08:01:00") {
-  // if (new Date().toLocaleString('zh-tw').split(' ')[1] == "8:01:00" && new Date().toLocaleString('zh-tw').split(' ')[2] == "AM") {
+  // if (new Date().toLocaleString('zh-tw').split(' ')[1] == "08:01:00") {
+  if (new Date().toLocaleString('zh-tw').split(' ')[1] == "8:01:00" && new Date().toLocaleString('zh-tw').split(' ')[2] == "AM") {
     let push = async () => {
       let data = await mongodb.yesterdayAvgPowerRobot();
       let options = {
