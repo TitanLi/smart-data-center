@@ -874,6 +874,18 @@ module.exports = function (channelSecret, lineBotToken) {
                       "text": "每日通報資訊"
                     },
                     "color": "#0066cc"
+                  },
+                  {
+                    "type": "button",
+                    "margin": "sm",
+                    "height": "sm",
+                    "style": "primary",
+                    "action": {
+                      "type": "message",
+                      "label": "機房服務列表",
+                      "text": "機房服務列表"
+                    },
+                    "color": "#0066cc"
                   }
                 ]
               },
@@ -986,9 +998,6 @@ module.exports = function (channelSecret, lineBotToken) {
                 ]
               },
               "styles": {
-                "header": {
-                  "backgroundColor": "#ffaaaa"
-                },
                 "header": {
                   "backgroundColor": "#005ab5"
                 },
@@ -1105,9 +1114,6 @@ module.exports = function (channelSecret, lineBotToken) {
             },
             "styles": {
               "header": {
-                "backgroundColor": "#ffaaaa"
-              },
-              "header": {
                 "backgroundColor": "#005ab5"
               },
               "body": {
@@ -1134,5 +1140,135 @@ module.exports = function (channelSecret, lineBotToken) {
 
     return request(options);
   }
-};
 
+  /*
+    機房服務列表
+    property            Type        Description
+    mLabData            Array       service list
+  */
+  this.responseServiceList = (events, mLabData) => {
+    if (events) {
+      console.log(events);
+      let data = events.messageText;
+      console.log(data);
+      // let spacerTemplate = {
+      //   "type": "spacer",
+      //   "size": "md"
+      // };
+      let msgContentBody = [];
+      for(let i=0;i<mLabData.length;i++){
+        let titleTemplate = {
+          "type": "text",
+          "text": "服務名稱",
+          "margin": "xl",
+          "wrap": true,
+          "maxLines": 7,
+          "size": "lg",
+          "color": "#0000ff"
+        };
+        let urlTemplate = {
+          "type": "text",
+          "text": "服務名稱",
+          "margin": "md",
+          "wrap": true,
+          "maxLines": 7,
+          "size": "lg",
+          "color": "#000000"
+        };
+        let statusTemplate = {
+          "type": "text",
+          "text": "服務名稱",
+          "margin": "md",
+          "wrap": true,
+          "maxLines": 7,
+          "size": "lg",
+          "color": "#000000"
+        };
+        let noticeTemplate = {
+          "type": "text",
+          "text": "服務名稱",
+          "margin": "md",
+          "wrap": true,
+          "maxLines": 7,
+          "size": "lg",
+          "color": "#000000"
+        };
+        let btnTemplate = {
+          "type": "button",
+          "margin": "sm",
+          "height": "sm",
+          "style": "primary",
+          "action": {
+            "type": "uri",
+            "label": "Tap me",
+            "uri": "https://google.com"
+          },
+          "style": "primary",
+          "color": "#ea7500"
+        };
+        titleTemplate.text = `服務名稱:${mLabData[i].name}`;
+        msgContentBody.push(titleTemplate);
+        urlTemplate.text = `服務網址:${mLabData[i].url}`;
+        msgContentBody.push(urlTemplate);
+        statusTemplate.text = `服務啟用狀態:${mLabData[i].enabled}`;
+        msgContentBody.push(statusTemplate);
+        if(mLabData[i].notice && mLabData[i].notice.length < 100){
+          noticeTemplate.text = `備註:${mLabData[i].notice}`;
+          msgContentBody.push(noticeTemplate);
+        }
+        btnTemplate.action.label = `前往${mLabData[i].name}`;
+        btnTemplate.action.uri = mLabData[i].url;
+        msgContentBody.push(btnTemplate);
+      }
+      let options = {
+        method: 'POST',
+        uri: 'https://api.line.me/v2/bot/message/reply',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${lineBotToken}`
+        },
+        body: {
+        replyToken: events.replyToken,
+        messages: [{
+          "type": "flex",
+          "altText": "機房服務列表",
+          "contents": {
+            "type": "bubble",
+            "header": {
+              "type": "box",
+              "layout": "vertical",
+              "contents": [
+                {
+                  "type": "text",
+                  "color": "#ffffff",
+                  "text": "機房服務列表",
+                  "size": "xl"
+                }
+              ]
+            },
+            "body": {
+              "type": "box",
+              "layout": "vertical",
+              "spacing": "md",
+              "contents": msgContentBody
+            },
+            "styles": {
+              "header": {
+                "backgroundColor": "#005ab5"
+              },
+              "body": {
+                "separator": true,
+                "separatorColor": "#000000"
+              }
+            }
+          }
+        }]
+        },
+        json: true
+      }
+      return request(options);
+    } else {
+      ctx.body = "hash error";
+    }
+  };
+};

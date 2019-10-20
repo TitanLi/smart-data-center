@@ -21,7 +21,6 @@ const router = Router();
 const linebot = new Linebot(process.env.channelSecret, process.env.lineBotToken);
 
 var test = "Hello Koa";
-var linebotChange = true;
 var updateData = 0;
 var updateDataArray = [
     'VCPU數量(顆)',
@@ -78,7 +77,7 @@ router.get('/', async (ctx) => {
 // ]
 router.post('/webhooks', async (ctx, next) => {
     let resMsg = '';
-    let mLabData = "";
+    let mLabData = '';
     test = ctx.request.body.events;
     console.log(test);
     let events = linebot.requestHandle(ctx);
@@ -224,6 +223,10 @@ router.post('/webhooks', async (ctx, next) => {
                 }
                 let weatherImage = `https://works.ioa.tw/weather/img/weathers/zeusdesign/${weatherData.img}`
                 await linebot.responsePower(events, weatherImage, messageText, weatherMessage, specials);
+            } else if (/機房服務列表/.test(messageText)) {
+                mLabData = await co(mongoLab.serviceListFind());
+                console.log(mLabData);
+                await linebot.responseServiceList(events,mLabData);
             }
         } else if (events.type == 'postback') {
             //postback 控制資訊         
@@ -275,7 +278,6 @@ router.post('/post/push', async function (ctx, next) {
     let weatherImage = `https://works.ioa.tw/weather/img/weathers/zeusdesign/${weatherData.img}`;
     await co(mongoLab.powerUpdate(requestData));
     console.log(messageText);
-    console.log(linebotChange)
     // 發送給imac group
     await linebot.sendPower(imacGroupID, weatherImage, messageText, weatherMessage, specials);
     ctx.status = 200;
@@ -286,7 +288,6 @@ router.post('/post/control/message', async function (ctx, next) {
     let imacGroupID = process.env.imacGroupID;
     let messageText = requestData.message;
     console.log(messageText);
-    console.log(linebotChange)
     // 發送給imac group
     await linebot.sendText(imacGroupID, messageText);
     ctx.status = 200;
@@ -297,7 +298,6 @@ router.post('/message', async function (ctx, next) {
     let imacGroupID = process.env.imacGroupID;
     let messageText = requestData.message;
     console.log(messageText);
-    console.log(linebotChange);
     // 發送給imac group
     await linebot.sendPower(imacGroupID, messageText);
     ctx.status = 200;
