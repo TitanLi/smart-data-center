@@ -23,6 +23,10 @@
     {
       "name": "service-list",
       "script": "./service/service-list.js"
+    },
+    {
+      "name": "push-power-notification",
+      "script": "./service/push-power-notification.js"
     }
   ]
 }
