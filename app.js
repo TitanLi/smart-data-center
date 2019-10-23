@@ -140,37 +140,6 @@ setInterval(() => {
 //   mongodb.yesterdayAvgPowerRobot();
 // },10000);
 
-setInterval(() => {
-  // if (new Date().toLocaleString('zh-tw').split(' ')[1] == "08:01:00") {
-  if (new Date().toLocaleString('zh-tw').split(' ')[1] == "8:01:00" && new Date().toLocaleString('zh-tw').split(' ')[2] == "AM") {
-    let push = async () => {
-      let data = await mongodb.yesterdayAvgPowerRobot();
-      let options = {
-        method: 'POST',
-        uri: process.env.LINE_BOT_PUSH,
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: {
-          powerMeterPower: data.powerMeterPower,
-          upsPower_A: data.upsPower_A,
-          upsPower_B: data.upsPower_B
-        },
-        json: true
-      }
-      console.log(options)
-      await request(options).then(function (parsedBody) {
-        console.log(parsedBody);
-        console.log('yesterdayAvgPowerRobot post success')
-      }).catch(function (err) {
-        console.error(err);
-        push();
-      });
-    }
-    push();
-  }
-}, 1000);
-
 app.use(json());
 app.use(logger());
 app.use(bodyParser());
