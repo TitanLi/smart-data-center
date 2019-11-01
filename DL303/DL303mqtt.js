@@ -31,7 +31,7 @@ MongoLabClient.connect(process.env.MONGO_URL, (err, db) => {
                 if (err) {
                     return console.log(err);
                 } else {
-                    console.log('mLab powerMeter data insert successfully');
+                    console.log('mLab DL303 data insert successfully');
                 }
             }
         );
