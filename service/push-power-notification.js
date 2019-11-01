@@ -1,7 +1,7 @@
 const request = require('request-promise');
 const dotenv = require('dotenv').load();
 const MongoClient = require('mongodb').MongoClient;
-const MongoDB = require('./lib/mongoDB.js');
+const MongoDB = require('./../lib/mongoDB.js');
 
 setInterval(() => {
     let mongodb;
