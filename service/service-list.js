@@ -3,7 +3,8 @@ const dotenv = require('dotenv').load();
 const MongoClient = require('mongodb').MongoClient;
 
 setInterval(() => {
-    if (new Date().toLocaleString('zh-tw').split(' ')[1] == "8:01:00" && new Date().toLocaleString('zh-tw').split(' ')[2] == "AM") {
+    // if (new Date().toLocaleString('zh-tw').split(' ')[1] == "8:01:00" && new Date().toLocaleString('zh-tw').split(' ')[2] == "AM"){
+    if (new Date().toLocaleString('zh-tw').split(' ')[1] == "8:01:00") {
         let push = async () => {
             let serviceList = [];
             let db;

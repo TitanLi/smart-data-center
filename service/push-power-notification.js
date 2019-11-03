@@ -5,7 +5,8 @@ const MongoDB = require('./../lib/mongoDB.js');
 
 setInterval(() => {
     let mongodb;
-    if (new Date().toLocaleString('zh-tw').split(' ')[1] == "8:01:00" && new Date().toLocaleString('zh-tw').split(' ')[2] == "AM") {
+    // if (new Date().toLocaleString('zh-tw').split(' ')[1] == "8:01:00" && new Date().toLocaleString('zh-tw').split(' ')[2] == "AM") {
+    if (new Date().toLocaleString('zh-tw').split(' ')[1] == "8:01:00") {
       let push = async () => {
         await new Promise(function (resolve, reject) {
             MongoClient.connect(process.env.MONGODB, (err, client) => {
