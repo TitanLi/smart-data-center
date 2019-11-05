@@ -5,7 +5,6 @@ const MongoDB = require('./../lib/mongoDB.js');
 
 setInterval(() => {
     let mongodb;
-    let yesterdayAvgPowerData;
     // if (new Date().toLocaleString('zh-tw').split(' ')[1] == "8:01:00" && new Date().toLocaleString('zh-tw').split(' ')[2] == "AM") {
     if (new Date().toLocaleString('zh-tw').split(' ')[1] == "08:01:00") {
       // heroku cold start
@@ -18,7 +17,7 @@ setInterval(() => {
                 resolve();
             });
         });
-        yesterdayAvgPowerData = await mongodb.yesterdayAvgPowerRobot();
+        let yesterdayAvgPowerData = await mongodb.yesterdayAvgPowerRobot();
         let herokuOptions = {
           method: 'POST',
           uri: process.env.LINE_BOT_PUSH,
@@ -36,26 +35,26 @@ setInterval(() => {
         await request(herokuOptions).then(function (parsedBody) {
           console.log(parsedBody);
           console.log('yesterdayAvgPowerRobot post success')
+          let webOptions = {
+            method: 'POST',
+            uri: process.env.PUSH_POWER_NOTIFICATION,
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: yesterdayAvgPowerData,
+            json: true
+          }
+          request(webOptions).then(function (parsedBody) {
+            console.log(parsedBody);
+            console.log('Web yesterdayAvgPower success')
+          }).catch(function (err) {
+            console.error(err);
+          });
         }).catch(function (err) {
           console.error(err);
           push();
         });
       }
       push();
-      let webOptions = {
-        method: 'POST',
-        uri: process.env.PUSH_POWER_NOTIFICATION,
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: yesterdayAvgPowerData,
-        json: true
-      }
-      request(webOptions).then(function (parsedBody) {
-        console.log(parsedBody);
-        console.log('Web yesterdayAvgPower success')
-      }).catch(function (err) {
-        console.error(err);
-      });
     }
 }, 1000);
