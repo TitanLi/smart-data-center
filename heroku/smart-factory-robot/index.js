@@ -226,7 +226,7 @@ router.post('/webhooks', async (ctx, next) => {
             } else if (/機房服務列表/.test(messageText)) {
                 mLabData = await co(mongoLab.serviceListFind());
                 console.log(mLabData);
-                await linebot.responseServiceList(events,mLabData);
+                await linebot.responseServiceList(events, mLabData);
             }
         } else if (events.type == 'postback') {
             //postback 控制資訊         

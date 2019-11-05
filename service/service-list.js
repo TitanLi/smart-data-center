@@ -30,27 +30,27 @@ setInterval(() => {
                 });
             });
             collectionServiceList = db.collection('serviceList');
-            for(let i = 0;i<serviceList.length;i++){
+            for (let i = 0; i < serviceList.length; i++) {
                 let updateData = {
-                    'name':serviceList[i].name,
-                    'url':serviceList[i].url,
-                    'enabled':serviceList[i].enabled,
-                    'notice':serviceList[i].notice
+                    'name': serviceList[i].name,
+                    'url': serviceList[i].url,
+                    'enabled': serviceList[i].enabled,
+                    'notice': serviceList[i].notice
                 }
-                await new Promise(function (resolve,reject){
+                await new Promise(function (resolve, reject) {
                     collectionServiceList.update(
-                        {'name':serviceList[i].name},
+                        { 'name': serviceList[i].name },
                         {
-                          $set: updateData
+                            $set: updateData
                         },
                         { upsert: true },
                         function (err, res) {
                             if (err) {
-                              console.log(err);
-                              reject(err);
+                                console.log(err);
+                                reject(err);
                             } else {
-                              console.log('mLab service list insert successfully');
-                              resolve();
+                                console.log('mLab service list insert successfully');
+                                resolve();
                             }
                         }
                     );
