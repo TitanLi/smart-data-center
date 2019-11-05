@@ -134,6 +134,7 @@ setInterval(() => {
   }).then(function (value) {
     console.log(new Date() + JSON.stringify(value));
     piePercent = value;
+    io.emit('piePercent', value);
   });
 }, 600000);
 
@@ -195,7 +196,7 @@ async function et7044(ctx) {
 async function yesterdayAvgPower(ctx){
   let yesterdayPower = ctx.request.body;
   io.emit('yesterdayPower', yesterdayPower);
-  this.body = 'ok';
+  ctx.body = 'ok';
 }
 
 server.listen(process.env.PORT, function () {
