@@ -29,10 +29,11 @@ let et7044Status, D0, D1, D2;
 
 MongoClient.connect(process.env.MONGODB, (err, client) => {
   db = client.db("smart-data-center");
-  mongodb = new MongoDB(db, io);
+  mongodb = new MongoDB(db);
   new Promise(function (resolve, reject) {
     resolve(mongodb.aggregateAvgPieData());
   }).then(function (value) {
+    io.emit('piePercent', value);
     console.log(new Date() + JSON.stringify(value));
     piePercent = value;
   });
@@ -158,6 +159,7 @@ app.context.render = co.wrap(render({
 
 router.get('/', index);
 router.post('/ET7044', et7044);
+router.post('/yesterdayAvgPower', yesterdayAvgPower);
 
 async function index(ctx) {
   ctx.body = await ctx.render('smart', {
@@ -188,6 +190,12 @@ async function et7044(ctx) {
   }
   console.log(et7044);
   ctx.body = et7044;
+}
+
+async function yesterdayAvgPower(ctx){
+  let yesterdayPower = ctx.request.body;
+  io.emit('yesterdayPower', yesterdayPower);
+  this.body = 'ok';
 }
 
 server.listen(process.env.PORT, function () {

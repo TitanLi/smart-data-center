@@ -5,33 +5,35 @@ const MongoDB = require('./../lib/mongoDB.js');
 
 setInterval(() => {
     let mongodb;
+    let yesterdayAvgPowerData;
     // if (new Date().toLocaleString('zh-tw').split(' ')[1] == "8:01:00" && new Date().toLocaleString('zh-tw').split(' ')[2] == "AM") {
     if (new Date().toLocaleString('zh-tw').split(' ')[1] == "08:01:00") {
+      // heroku cold start
       let push = async () => {
         await new Promise(function (resolve, reject) {
             MongoClient.connect(process.env.MONGODB, (err, client) => {
                 db = client.db("smart-data-center");
-                mongodb = new MongoDB(db, io);
+                mongodb = new MongoDB(db);
                 console.log('MongoDB connection');
                 resolve();
             });
         });
-        let data = await mongodb.yesterdayAvgPowerRobot();
-        let options = {
+        yesterdayAvgPowerData = await mongodb.yesterdayAvgPowerRobot();
+        let herokuOptions = {
           method: 'POST',
           uri: process.env.LINE_BOT_PUSH,
           headers: {
             'Content-Type': 'application/json'
           },
           body: {
-            powerMeterPower: data.powerMeterPower,
-            upsPower_A: data.upsPower_A,
-            upsPower_B: data.upsPower_B
+            powerMeterPower: yesterdayAvgPowerData.powerMeterPower,
+            upsPower_A: yesterdayAvgPowerData.upsPower_A,
+            upsPower_B: yesterdayAvgPowerData.upsPower_B
           },
           json: true
         }
-        console.log(options)
-        await request(options).then(function (parsedBody) {
+        console.log(herokuOptions)
+        await request(herokuOptions).then(function (parsedBody) {
           console.log(parsedBody);
           console.log('yesterdayAvgPowerRobot post success')
         }).catch(function (err) {
@@ -40,5 +42,20 @@ setInterval(() => {
         });
       }
       push();
+      let webOptions = {
+        method: 'POST',
+        uri: process.env.PUSH_POWER_NOTIFICATION,
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: yesterdayAvgPowerData,
+        json: true
+      }
+      request(webOptions).then(function (parsedBody) {
+        console.log(parsedBody);
+        console.log('Web yesterdayAvgPower success')
+      }).catch(function (err) {
+        console.error(err);
+      });
     }
 }, 1000);
