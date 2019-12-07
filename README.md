@@ -8,7 +8,7 @@
 
 3.raspberry pi3 touch panel demo:[https://www.youtube.com/watch?v=LIEXDQloP2w](https://www.youtube.com/watch?v=LIEXDQloP2w)
 
-4. LINE Bot展示
+4.LINE Bot展示
 
 <div align="center">
   <img src="https://github.com/TitanLi/smart-data-center/blob/master/picture/%E6%AF%8F%E6%97%A5%E9%80%9A%E5%A0%B1.PNG" height="400px" alt="每日通報" >
