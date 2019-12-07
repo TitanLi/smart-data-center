@@ -10,12 +10,14 @@
 
 4. LINE Bot展示
 <div align="center">
-  <img src="https://github.com/TitanLi/smart-data-center/blob/master/picture/%E6%AF%8F%E6%97%A5%E9%80%9A%E5%A0%B1.PNG" height="300px" alt="每日通報" >
-  <img src="https://github.com/TitanLi/smart-data-center/blob/master/picture/%E5%8A%9F%E8%83%BD%E5%88%97%E8%A1%A8.PNG" height="300px" alt="功能列表" >
-  <img src="https://github.com/TitanLi/smart-data-center/blob/master/picture/%E6%A9%9F%E6%88%BF%E6%9C%8D%E5%8B%99%E5%88%97%E8%A1%A8.PNG" height="300px"   alt="機房服務列表" >
-  <img src="https://github.com/TitanLi/smart-data-center/blob/master/picture/%E9%81%A0%E7%AB%AF%E6%8E%A7%E5%88%B6.PNG" height="300px" alt="遠端控制" >
-  <img src="https://github.com/TitanLi/smart-data-center/blob/master/picture/%E8%A8%AD%E5%AE%9A%E6%A9%9F%E6%88%BF%E8%B3%87%E8%A8%8A.PNG" height="300px"   alt="設定機房資訊" >
-  <img src="https://github.com/TitanLi/smart-data-center/blob/master/picture/%E6%A9%9F%E6%88%BF%E8%B3%87%E8%A8%8A.PNG" height="300px" alt="機房資訊" >
+  <img src="https://github.com/TitanLi/smart-data-center/blob/master/picture/%E6%AF%8F%E6%97%A5%E9%80%9A%E5%A0%B1.PNG" height="600px" alt="每日通報" >
+  <img src="https://github.com/TitanLi/smart-data-center/blob/master/picture/%E5%8A%9F%E8%83%BD%E5%88%97%E8%A1%A8.PNG" height="600px" alt="功能列表" >
+  <img src="https://github.com/TitanLi/smart-data-center/blob/master/picture/%E6%A9%9F%E6%88%BF%E6%9C%8D%E5%8B%99%E5%88%97%E8%A1%A8.PNG" height="600px"   alt="機房服務列表" >
+</div>
+<div align="center">
+  <img src="https://github.com/TitanLi/smart-data-center/blob/master/picture/%E9%81%A0%E7%AB%AF%E6%8E%A7%E5%88%B6.PNG" height="600px" alt="遠端控制" >
+  <img src="https://github.com/TitanLi/smart-data-center/blob/master/picture/%E8%A8%AD%E5%AE%9A%E6%A9%9F%E6%88%BF%E8%B3%87%E8%A8%8A.PNG" height="600px"   alt="設定機房資訊" >
+  <img src="https://github.com/TitanLi/smart-data-center/blob/master/picture/%E6%A9%9F%E6%88%BF%E8%B3%87%E8%A8%8A.PNG" height="600px" alt="機房資訊" >
 </div>
 
 ## 版本更新
