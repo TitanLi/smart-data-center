@@ -119,8 +119,8 @@ POST      |/ET7044       | ET7044 control|
 
 Event                  | Source                 | JSON KEY    |
 -----------------------|------------------------|-------------|
-humidity               | MQTT topic current     | Humidity    |
-temperature            | MQTT topic current     | Temperature |
+humidity               | MQTT topic DL303/RH    | String Data |
+temperature            | MQTT topic DL303/TC    | String Data |
 current                | MQTT topic current     | currents    |
 inputVolt_A            | MQTT topic UPS_Monitor | input_A.inputVolt_A |
 inputFreq_A            | MQTT topic UPS_Monitor | input_A.inputFreq_A |
