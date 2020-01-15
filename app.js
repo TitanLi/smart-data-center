@@ -59,12 +59,11 @@ mqttClient.on('message', (topic, message) => {
             break;
         //DL303 humidity MQTT input data
         case 'DL303/RH':
-            console.log(message)
-            io.emit('humidity', message);
+            io.emit('humidity', message.toString());
             break;
         //DL303 temperature MQTT input data
         case 'DL303/TC':
-            io.emit('temperature', message);
+            io.emit('temperature', message.toString());
             break;
         //UPS MQTT input data
         case 'UPS_Monitor':
