@@ -36,8 +36,6 @@ mqttClient.on('connect', () => {
     mqttClient.subscribe('current');
     mqttClient.subscribe('ET7044/DOstatus');
     mqttClient.subscribe('ET7044/write');
-    mqttClient.subscribe('DL303/RH'); // humidity
-    mqttClient.subscribe('DL303/TC'); // temperature *c
 });
 
 function localInsert() {

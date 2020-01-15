@@ -52,11 +52,11 @@ module.exports = {
             );
             break;
           case '機房濕度':
-            collectionPowerMeter.findOne({}, (err, data) => {
+            collectionDL303.findOne({}, (err, data) => {
               if (err) {
                 return console.log(err);
               } else {
-                findData = '目前機房濕度：' + data.Humidity.toFixed(2) + '(%)';
+                findData = '目前機房濕度：' + data.DL303_humi.toFixed(2) + '(%)';
                 console.log(findData);
                 done();
               }
@@ -64,11 +64,11 @@ module.exports = {
             );
             break;
           case '機房溫度':
-            collectionPowerMeter.findOne({}, (err, data) => {
+            collectionDL303.findOne({}, (err, data) => {
               if (err) {
                 return console.log(err);
               } else {
-                findData = '目前機房溫度：' + data.Temperature.toFixed(2) + '(°C)';
+                findData = '目前機房溫度：' + data.DL303_temp.toFixed(2) + '(°C)';
                 console.log(findData);
                 done();
               }
