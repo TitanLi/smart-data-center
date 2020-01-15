@@ -45,6 +45,8 @@ mqttClient.on('connect', () => {
     mqttClient.subscribe('UPS_Monitor');
     mqttClient.subscribe('current');
     mqttClient.subscribe('ET7044/DOstatus');
+    mqttClient.subscribe('DL303/RH'); // humidity
+    mqttClient.subscribe('DL303/TC'); // temperature *c
 });
 
 mqttClient.on('message', (topic, message) => {
@@ -53,9 +55,15 @@ mqttClient.on('message', (topic, message) => {
         //power-meter MQTT input data
         case 'current':
             let powerMeterMqttData = JSON.parse(message);
-            io.emit('humidity', powerMeterMqttData.Humidity);
-            io.emit('temperature', powerMeterMqttData.Temperature);
             io.emit('current', powerMeterMqttData.currents);
+            break;
+        //DL303 humidity MQTT input data
+        case 'DL303/RH':
+            io.emit('humidity', message);
+            break;
+        //DL303 temperature MQTT input data
+        case 'DL303/TC':
+            io.emit('temperature', message);
             break;
         //UPS MQTT input data
         case 'UPS_Monitor':
