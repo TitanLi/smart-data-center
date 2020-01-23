@@ -299,7 +299,7 @@ router.post('/message', async function (ctx, next) {
     let messageText = requestData.message;
     console.log(messageText);
     // 發送給imac group
-    await linebot.sendPower(imacGroupID, messageText);
+    await linebot.sendText(imacGroupID, messageText);
     ctx.status = 200;
 });
 
