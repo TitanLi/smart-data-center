@@ -105,7 +105,7 @@ function mLabInsert() {
         switch (topic) {
             case "current":
                 powerMeterMqttData = JSON.parse(message);
-                powerMeterMqttData.time = new Date();
+                powerMeterMqttData.time = new Date().toLocaleString();
                 var collectionPowerMeter = mLabDB.collection('powerMeter');
                 if (powerMeterMqttData) {
                     collectionPowerMeter.update(
@@ -126,7 +126,7 @@ function mLabInsert() {
                 break;
             case "UPS_Monitor":
                 upsMqttData = JSON.parse(message);
-                upsMqttData.time = new Date();
+                upsMqttData.time = new Date().toLocaleString();
                 var collectionUps_A = mLabDB.collection('ups_A');
                 var collectionUps_B = mLabDB.collection('ups_B');
                 if (upsMqttData) {
