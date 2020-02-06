@@ -54,6 +54,7 @@ Version3：[Smart-Data-Center](https://github.com/TitanLi/smart-data-center)
 `mongoDB v3.6+`
 
 ### MQTT Protocol broker
+> mosquitto service restart CLI : sudo systemctl restart mosquitto
 
 `mosquitto`
 

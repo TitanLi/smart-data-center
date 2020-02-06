@@ -106,7 +106,8 @@ function mLabInsert() {
         switch (topic) {
             case "current":
                 powerMeterMqttData = JSON.parse(message);
-                powerMeterMqttData.time = new Date().toLocaleString();
+                powerMeterMqttData.time = new Date();
+                // powerMeterMqttData.time = new Date().toLocaleString();
                 var collectionPowerMeter = mLabDB.collection('powerMeter');
                 if (powerMeterMqttData) {
                     collectionPowerMeter.update(

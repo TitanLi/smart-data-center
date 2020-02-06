@@ -20,7 +20,8 @@ module.exports = {
               if (err) {
                 return console.log(err);
               } else {
-                findData = '冷氣目前電流：' + data.currents.toFixed(2) + '(A)';
+                findData = '冷氣目前電流：' + data.currents.toFixed(2) + '(A)\n';
+                findData = findData + '最後更新時間：' + new Date(data.time).toLocaleString();
                 console.log(findData);
                 done();
               }
@@ -32,7 +33,8 @@ module.exports = {
               if (err) {
                 return console.log(err);
               } else {
-                findData = 'ups_A目前電流：' + Number(data.output_A.outputAmp_A).toFixed(2) + '(A)';
+                findData = 'ups_A目前電流：' + Number(data.output_A.outputAmp_A).toFixed(2) + '(A)\n';
+                findData = findData + '最後更新時間：' + new Date(data.time).toLocaleString();
                 console.log(findData);
                 done();
               }
@@ -44,7 +46,8 @@ module.exports = {
               if (err) {
                 return console.log(err);
               } else {
-                findData = 'ups_B目前電流：' + Number(data.output_B.outputAmp_B).toFixed(2) + '(A)';
+                findData = 'ups_B目前電流：' + Number(data.output_B.outputAmp_B).toFixed(2) + '(A)\n';
+                findData = findData + '最後更新時間：' + new Date(data.time).toLocaleString();
                 console.log(findData);
                 done();
               }
@@ -56,7 +59,8 @@ module.exports = {
               if (err) {
                 return console.log(err);
               } else {
-                findData = '目前機房濕度：' + data.DL303_humi.toFixed(2) + '(%)';
+                findData = '目前機房濕度：' + data.DL303_humi.toFixed(2) + '(%)\n';
+                findData = findData + '最後更新時間：' + new Date(data.time).toLocaleString();
                 console.log(findData);
                 done();
               }
@@ -68,7 +72,8 @@ module.exports = {
               if (err) {
                 return console.log(err);
               } else {
-                findData = '目前機房溫度：' + data.DL303_temp.toFixed(2) + '(°C)';
+                findData = '目前機房溫度：' + data.DL303_temp.toFixed(2) + '(°C)\n';
+                findData = findData + '最後更新時間：' + new Date(data.time).toLocaleString();
                 console.log(findData);
                 done();
               }
