@@ -23,7 +23,8 @@ MongoLabClient.connect(process.env.MONGO_URL, (err, db) => {
                     'DL303_co2': DL303_co2,
                     'DL303_humi': DL303_humi,
                     'DL303_temp': DL303_temp,
-                    'DL303_dewp': DL303_dewp
+                    'DL303_dewp': DL303_dewp,
+                    'time': new Date().toLocaleString()
                 }
             },
             { upsert: true },
