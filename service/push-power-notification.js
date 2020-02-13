@@ -5,8 +5,8 @@ const MongoDB = require('./../lib/mongoDB.js');
 
 setInterval(() => {
     let mongodb;
-    // if (new Date().toLocaleString('zh-tw').split(' ')[1] == "8:01:00" && new Date().toLocaleString('zh-tw').split(' ')[2] == "AM") {
-    if (new Date().toLocaleString('zh-tw').split(' ')[1] == "8:01:00") {
+    if (new Date().toLocaleString('zh-tw').split(' ')[1] == "8:01:00" && new Date().toLocaleString('zh-tw').split(' ')[2] == "AM") {
+    // if (new Date().toLocaleString('zh-tw').split(' ')[1] == "8:01:00") {
         // heroku cold start
         let push = async () => {
             await new Promise(function (resolve, reject) {
@@ -27,7 +27,8 @@ setInterval(() => {
                 body: {
                     powerMeterPower: yesterdayAvgPowerData.powerMeterPower,
                     upsPower_A: yesterdayAvgPowerData.upsPower_A,
-                    upsPower_B: yesterdayAvgPowerData.upsPower_B
+                    upsPower_B: yesterdayAvgPowerData.upsPower_B,
+                    camera_power_consumption: yesterdayAvgPowerData.camera_power_consumption
                 },
                 json: true
             }
