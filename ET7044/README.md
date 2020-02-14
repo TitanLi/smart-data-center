@@ -2,7 +2,7 @@
 
 ## 環境
 1. nodeJS環境:
-`node v6`
+`node v10`
 `npm v5.6`
 2. MQTT Protocol broker:
 `mosquitto`
