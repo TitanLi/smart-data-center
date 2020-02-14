@@ -30,10 +30,6 @@ function checkError(e) {
 function connect() {
     // clear pending timeouts
     clearTimeout(timeoutConnectRef);
-    // if client already open, just run
-    if (client.isOpen()) {
-        run();
-    }
     client.connectTCP(config.ET7044, { port: 502 })
     .then(setClient)
     .then(function () {

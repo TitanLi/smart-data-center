@@ -33,6 +33,8 @@
     "mqtt": "^2.17.0",
     "request": "^2.85.0",
     "request-promise": "^4.2.2",
-    "socket.io": "^2.1.0"
+    "socket.io": "^2.1.0",
+    "serialport": "^8.0.7",
+    "modbus-serial": "^7.8.0"
   }
 }
