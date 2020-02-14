@@ -1,12 +1,12 @@
 const mqtt = require('mqtt');
 const ModbusRTU = require("modbus-serial");
 const config = require("./config.json");
-var client = new ModbusRTU();
-var timeoutRunRef = null;
-var timeoutConnectRef = null;
-var networkErrors = ["ESOCKETTIMEDOUT", "ETIMEDOUT", "ECONNRESET", "ECONNREFUSED"];
-var writeData = [false, false, false, false, false, false, false, false];
-var DOstatus;
+const networkErrors = ["ESOCKETTIMEDOUT", "ETIMEDOUT", "ECONNRESET", "ECONNREFUSED"];
+const writeData = [false, false, false, false, false, false, false, false];
+let client = new ModbusRTU();
+let timeoutRunRef = null;
+let timeoutConnectRef = null;
+let DOstatus;
 
 function checkError(e) {
     if (e.errno && networkErrors.includes(e.errno)) {
@@ -22,9 +22,9 @@ function connect() {
     // clear pending timeouts
     clearTimeout(timeoutConnectRef);
     // if client already open, just run
-    if (client.isOpen()) {
-        run();
-    }
+    // if (client.isOpen()) {
+    //     run();
+    // }
     client.connectTCP(config.ET7044, { port: 502 })
         .then(setClient)
         .then(function () {
