@@ -329,5 +329,26 @@ module.exports = {
       });
     }
     return findData;
+  }),
+  serviceListFind: () => (function* () {
+    let findData = '';
+    yield function (done) {
+      MongoLabClient.connect(process.env.MONGO_URL, (err, db) => {
+        if (err) {
+          return console.log(err);
+        }
+        console.log("connect MongoLabClient on 27017 port");
+        let collectionServiceList = db.collection('serviceList');
+        collectionServiceList.find().toArray((err, data) => {
+          if (err) {
+            return console.log(err);
+          } else {
+            findData = data;
+          }
+          done();
+        });
+      });
+    }
+    return findData;
   })
 }
