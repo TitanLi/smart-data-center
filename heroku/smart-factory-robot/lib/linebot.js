@@ -834,6 +834,18 @@ module.exports = function (channelSecret, lineBotToken) {
                     "style": "primary",
                     "action": {
                       "type": "message",
+                      "label": "電錶度數",
+                      "text": "電錶度數"
+                    },
+                    "color": "#0066cc"
+                  },
+                  {
+                    "type": "button",
+                    "margin": "sm",
+                    "height": "sm",
+                    "style": "primary",
+                    "action": {
+                      "type": "message",
                       "label": "設定機房資訊",
                       "text": "設定機房資訊"
                     },
@@ -914,10 +926,11 @@ module.exports = function (channelSecret, lineBotToken) {
     property            Type        Description
     weatherImage        URL         weather image
     message             String      power
+    cameraMessage       String      power
     weatherMessage      String      realtime weather information
     specials            String      realtime weather alarm
   */
-  this.responsePower = (events, weatherImage, message, weatherMessage, specials) => {
+  this.responsePower = (events, weatherImage, message, cameraMessage, weatherMessage, specials) => {
     if (events) {
       console.log(events);
       let data = events.messageText;
@@ -960,6 +973,15 @@ module.exports = function (channelSecret, lineBotToken) {
                   {
                     "type": "text",
                     "text": message,
+                    "margin": "md",
+                    "wrap": true,
+                    "maxLines": 7,
+                    "size": "lg",
+                    "color": "#0000ff"
+                  },
+                  {
+                    "type": "text",
+                    "text": cameraMessage,
                     "margin": "md",
                     "wrap": true,
                     "maxLines": 7,
@@ -1033,10 +1055,11 @@ module.exports = function (channelSecret, lineBotToken) {
     property            Type        Description
     weatherImage        URL         weather image
     message             String      power
+    cameraMessage       String      power
     weatherMessage      String      realtime weather information
     specials            String      realtime weather alarm
   */
-  this.sendPower = (userId, weatherImage, message, weatherMessage, specials) => {
+  this.sendPower = (userId, weatherImage, message, cameraMessage, weatherMessage, specials) => {
     let options = {
       method: 'POST',
       uri: 'https://api.line.me/v2/bot/message/push',
@@ -1075,6 +1098,15 @@ module.exports = function (channelSecret, lineBotToken) {
                 {
                   "type": "text",
                   "text": message,
+                  "margin": "md",
+                  "wrap": true,
+                  "maxLines": 7,
+                  "size": "lg",
+                  "color": "#0000ff"
+                },
+                {
+                  "type": "text",
+                  "text": cameraMessage,
                   "margin": "md",
                   "wrap": true,
                   "maxLines": 7,
