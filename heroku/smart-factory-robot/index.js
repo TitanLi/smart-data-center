@@ -234,7 +234,7 @@ router.post('/webhooks', async (ctx, next) => {
                 let powerData = await co(mongoLab.powerFind());
                 let messageText = '昨日冷氣消耗度數：' + powerData.airConditioning + '度\n' + '昨日ups_A消耗度數：' + powerData.upsA + '度\n' + '昨日ups_B消耗度數：' + powerData.upsB + '度';
                 // kevin
-                let cameraMessage = '昨日機房電錶消耗: ' + powerData.cameraPower + '度';
+                let cameraMessage = '昨日機房電錶消耗: ' + powerData.cameraPowerConsumption + '度';
                 let weather = {
                     uri: 'https://works.ioa.tw/weather/api/weathers/116.json',
                     headers: {
@@ -289,8 +289,7 @@ router.post('/post/push', async function (ctx, next) {
     let requestData = ctx.request.body;
     let imacGroupID = process.env.imacGroupID;
     let messageText = '昨日冷氣消耗度數：' + requestData.powerMeterPower + '度\n' + '昨日ups_A消耗度數：' + requestData.upsPower_A + '度\n' + '昨日ups_B消耗度數：' + requestData.upsPower_B + '度';
-    // kevin
-    let cameraMessage = '昨日機房電錶消耗: ' + requestData.cameraPower + '度';
+    let cameraMessage = '昨日機房電錶消耗: ' + requestData.cameraPowerConsumption + '度';
     let weather = {
         uri: 'https://works.ioa.tw/weather/api/weathers/116.json',
         headers: {

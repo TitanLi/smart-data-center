@@ -15,7 +15,7 @@ module.exports = {
         let collectionUps_B = db.collection('ups_B');
         let collectionDL303 = db.collection('dl303');
         // kevin
-        let collectionCamera_Power = db.collection('cameraPower');
+        let collectionCamera_Power = db.collection('computerRoomPower');
         switch (msgText) {
           // kevin
           case '電錶今日度數':
@@ -23,7 +23,7 @@ module.exports = {
               if (err) {
                 return console.log(err);
               } else {
-                findData = '電錶今日度數' + data.camera_power_total_today.toFixed(2) + '(度)\n';
+                findData = '電錶今日度數' + data.cameraPower.toFixed(2) + '(度)\n';
                 findData = findData + '最後更新時間：' + new Date(data.datetime).toLocaleString();
                 console.log(findData);
                 done();
@@ -36,7 +36,7 @@ module.exports = {
               if (err) {
                 return console.log(err);
               } else {
-                findData = '電錶昨日消耗度數' + data.camera_power_consumption.toFixed(2) + '(度)\n';
+                findData = '電錶昨日消耗度數' + data.cameraPowerConsumption.toFixed(2) + '(度)\n';
                 findData = findData + '最後更新時間：' + new Date(data.datetime).toLocaleString();
                 console.log(findData);
                 done();
@@ -249,13 +249,13 @@ module.exports = {
   }),
   computerRoomInformationUpdate: (cacheData) => (function* () {
     let updateData = {
-      'vcpu':cacheData[0],
-      'ram':cacheData[1],
-      'disk':cacheData[2],
-      'switch':cacheData[3],
-      'sdnSwitch':cacheData[4],
-      'pc':cacheData[5],
-      'server':cacheData[6]
+      'vcpu': cacheData[0],
+      'ram': cacheData[1],
+      'disk': cacheData[2],
+      'switch': cacheData[3],
+      'sdnSwitch': cacheData[4],
+      'pc': cacheData[5],
+      'server': cacheData[6]
     };
     yield function (done) {
       MongoLabClient.connect(process.env.MONGO_URL, (err, db) => {
@@ -307,11 +307,11 @@ module.exports = {
   }),
   powerUpdate: (requestData) => (function* () {
     let updateData = {
-      'airConditioning':requestData.powerMeterPower,
-      'upsA':requestData.upsPower_A,
-      'upsB':requestData.upsPower_B,
-      // kevin
-      'cameraPower':requestData.cameraPower,
+      'airConditioning': requestData.powerMeterPower,
+      'upsA': requestData.upsPower_A,
+      'upsB': requestData.upsPower_B,
+      'cameraPowerConsumption': requestData.cameraPowerConsumption,
+      'cameraPower': requestData.cameraPower
     };
     yield function (done) {
       MongoLabClient.connect(process.env.MONGO_URL, (err, db) => {
