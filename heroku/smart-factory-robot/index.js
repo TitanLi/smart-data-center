@@ -232,9 +232,10 @@ router.post('/webhooks', async (ctx, next) => {
                 await linebot.responseFunctionList(events);
             } else if (/每日通報資訊/.test(messageText)) {
                 let powerData = await co(mongoLab.powerFind());
-                let messageText = '昨日冷氣消耗度數：' + powerData.airConditioning + '度\n' + '昨日ups_A消耗度數：' + powerData.upsA + '度\n' + '昨日ups_B消耗度數：' + powerData.upsB + '度';
-                // kevin
-                let cameraMessage = '昨日機房電錶消耗: ' + powerData.cameraPowerConsumption + '度';
+                let messageText = '昨日冷氣消耗度數：' + powerData.airConditioning + '度\n';
+                messageText = messageText + '昨日ups_A消耗度數：' + powerData.upsA + '度\n';
+                messageText = messageText + '昨日ups_B消耗度數：' + powerData.upsB + '度\n';
+                messageText = messageText + '昨日機房電錶消耗： ' + powerData.cameraPowerConsumption + '度';
                 let weather = {
                     uri: 'https://works.ioa.tw/weather/api/weathers/116.json',
                     headers: {
@@ -249,7 +250,7 @@ router.post('/webhooks', async (ctx, next) => {
                     specials = `特別預報：${weatherData.specials[0].title}\n敘述：${weatherData.specials[0].desc}`;
                 }
                 let weatherImage = `https://works.ioa.tw/weather/img/weathers/zeusdesign/${weatherData.img}`
-                await linebot.responsePower(events, weatherImage, messageText, cameraMessage, weatherMessage, specials);
+                await linebot.responsePower(events, weatherImage, messageText, weatherMessage, specials);
             } else if (/機房服務列表/.test(messageText)) {
                 mLabData = await co(mongoLab.serviceListFind());
                 console.log(mLabData);
@@ -288,8 +289,11 @@ router.post('/webhooks', async (ctx, next) => {
 router.post('/post/push', async function (ctx, next) {
     let requestData = ctx.request.body;
     let imacGroupID = process.env.imacGroupID;
-    let messageText = '昨日冷氣消耗度數：' + requestData.powerMeterPower + '度\n' + '昨日ups_A消耗度數：' + requestData.upsPower_A + '度\n' + '昨日ups_B消耗度數：' + requestData.upsPower_B + '度';
-    let cameraMessage = '昨日機房電錶消耗: ' + requestData.cameraPowerConsumption + '度';
+    let messageText = '昨日冷氣消耗度數：' + requestData.powerMeterPower + '度\n';
+    messageText = messageText + '昨日ups_A消耗度數：' + requestData.upsPower_A + '度\n';
+    messageText = messageText + '昨日ups_B消耗度數：' + requestData.upsPower_B + '度\n';
+    messageText = messageText + '昨日機房電錶消耗： ' + requestData.cameraPowerConsumption + '度';
+    console.log(messageText);
     let weather = {
         uri: 'https://works.ioa.tw/weather/api/weathers/116.json',
         headers: {
@@ -298,6 +302,7 @@ router.post('/post/push', async function (ctx, next) {
         json: true // Automatically parses the JSON string in the response
     };
     let weatherData = await request(weather);
+    console.log(weatherData);
     let weatherMessage = `天氣：${weatherData.desc}\n室外溫度：${weatherData.temperature}\n體感溫度：${weatherData.felt_air_temp}\n濕度：${weatherData.humidity}\n`;
     let specials = '';
     if (weatherData.specials.length != 0) {
@@ -305,9 +310,9 @@ router.post('/post/push', async function (ctx, next) {
     }
     let weatherImage = `https://works.ioa.tw/weather/img/weathers/zeusdesign/${weatherData.img}`;
     await co(mongoLab.powerUpdate(requestData));
-    console.log(messageText);
+    console.log(imacGroupID, weatherImage, messageText, weatherMessage, specials);
     // 發送給imac group
-    await linebot.sendPower(imacGroupID, weatherImage, messageText, cameraMessage, weatherMessage, specials);
+    await linebot.sendPower(imacGroupID, weatherImage, messageText, weatherMessage, specials);
     ctx.status = 200;
 });
 

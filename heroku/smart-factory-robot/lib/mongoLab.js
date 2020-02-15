@@ -14,17 +14,15 @@ module.exports = {
         let collectionUps_A = db.collection('ups_A');
         let collectionUps_B = db.collection('ups_B');
         let collectionDL303 = db.collection('dl303');
-        // kevin
         let collectionCamera_Power = db.collection('computerRoomPower');
         switch (msgText) {
-          // kevin
           case '電錶今日度數':
             collectionCamera_Power.findOne({}, (err, data) => {
               if (err) {
                 return console.log(err);
               } else {
                 findData = '電錶今日度數' + data.cameraPower.toFixed(2) + '(度)\n';
-                findData = findData + '最後更新時間：' + new Date(data.datetime).toLocaleString();
+                findData = findData + '最後更新時間：' + new Date(data.time).toLocaleString();
                 console.log(findData);
                 done();
               }
@@ -37,7 +35,7 @@ module.exports = {
                 return console.log(err);
               } else {
                 findData = '電錶昨日消耗度數' + data.cameraPowerConsumption.toFixed(2) + '(度)\n';
-                findData = findData + '最後更新時間：' + new Date(data.datetime).toLocaleString();
+                findData = findData + '最後更新時間：' + new Date(data.time).toLocaleString();
                 console.log(findData);
                 done();
               }
@@ -307,11 +305,12 @@ module.exports = {
   }),
   powerUpdate: (requestData) => (function* () {
     let updateData = {
-      'airConditioning': requestData.powerMeterPower,
-      'upsA': requestData.upsPower_A,
-      'upsB': requestData.upsPower_B,
-      'cameraPowerConsumption': requestData.cameraPowerConsumption,
-      'cameraPower': requestData.cameraPower
+      'airConditioning': Number(requestData.powerMeterPower),
+      'upsA': Number(requestData.upsPower_A),
+      'upsB': Number(requestData.upsPower_B),
+      'cameraPowerConsumption': Number(requestData.cameraPowerConsumption),
+      'cameraPower': Number(requestData.cameraPower),
+      'time': requestData.time
     };
     yield function (done) {
       MongoLabClient.connect(process.env.MONGO_URL, (err, db) => {
