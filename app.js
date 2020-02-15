@@ -28,7 +28,8 @@ let piePercent = [
 let et7044Status, D0, D1, D2;
 
 MongoClient.connect(process.env.MONGODB, (err, client) => {
-    db = client.db("smart-data-center");
+    console.log(err)
+    let db = client.db("smart-data-center");
     mongodb = new MongoDB(db);
     new Promise(function (resolve, reject) {
         resolve(mongodb.aggregateAvgPieData());
@@ -169,6 +170,7 @@ app.context.render = co.wrap(render({
 router.get('/', index);
 router.post('/ET7044', et7044);
 router.post('/yesterdayAvgPower', yesterdayAvgPower);
+router.post('/cameraPower', cameraPower);
 
 async function index(ctx) {
     ctx.body = await ctx.render('smart', {
@@ -204,6 +206,12 @@ async function et7044(ctx) {
 async function yesterdayAvgPower(ctx) {
     let yesterdayPower = ctx.request.body;
     io.emit('yesterdayPower', yesterdayPower);
+    ctx.body = 'ok';
+}
+
+async function cameraPower(ctx){
+    let cameraPowerData = ctx.request.body.cameraPower;
+    await mongodb.insertCameraPower(cameraPowerData);
     ctx.body = 'ok';
 }
 
