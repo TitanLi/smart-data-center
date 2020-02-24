@@ -35,7 +35,8 @@ module.exports = {
                 return console.log(err);
               } else {
                 findData = '電錶昨日消耗度數' + data.cameraPowerConsumption.toFixed(2) + '(度)\n';
-                findData = findData + '最後更新時間：' + new Date(data.time).toLocaleString();
+                findData = findData + '機房電錶消耗計算起始時間：' + new Date(data.cameraStartTime).toLocaleString();
+                findData = findData + '機房電錶消耗計算終止時間：' + new Date(data.cameraEndTime).toLocaleString();
                 console.log(findData);
                 done();
               }
@@ -310,6 +311,8 @@ module.exports = {
       'upsB': Number(requestData.upsPower_B),
       'cameraPowerConsumption': Number(requestData.cameraPowerConsumption),
       'cameraPower': Number(requestData.cameraPower),
+      'cameraStartTime':requestData.cameraStartTime,
+      'cameraEndTime':requestData.cameraEndTime,
       'time': requestData.time
     };
     yield function (done) {

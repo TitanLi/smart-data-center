@@ -30,6 +30,8 @@ setInterval(() => {
                     upsPower_B: yesterdayAvgPowerData.upsPower_B,
                     cameraPowerConsumption: yesterdayAvgPowerData.cameraPowerConsumption,
                     cameraPower: yesterdayAvgPowerData.cameraPower,
+                    cameraStartTime: yesterdayAvgPowerData.cameraStartTime,
+                    cameraEndTime: yesterdayAvgPowerData.cameraEndTime,
                     time: yesterdayAvgPowerData.time
                 },
                 json: true

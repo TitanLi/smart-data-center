@@ -235,7 +235,9 @@ router.post('/webhooks', async (ctx, next) => {
                 let messageText = '昨日冷氣消耗度數：' + powerData.airConditioning + '度\n';
                 messageText = messageText + '昨日ups_A消耗度數：' + powerData.upsA + '度\n';
                 messageText = messageText + '昨日ups_B消耗度數：' + powerData.upsB + '度\n';
-                messageText = messageText + '昨日機房電錶消耗： ' + powerData.cameraPowerConsumption + '度';
+                messageText = messageText + '昨日機房電錶消耗： ' + powerData.cameraPowerConsumption + '度\n';
+                messageText = messageText + '機房電錶消耗計算起始日： ' + powerData.cameraStartTime + '\n';
+                messageText = messageText + '機房電錶消耗計算終止日： ' + powerData.cameraEndTime;
                 let weather = {
                     uri: 'https://works.ioa.tw/weather/api/weathers/116.json',
                     headers: {
@@ -292,8 +294,11 @@ router.post('/post/push', async function (ctx, next) {
     let messageText = '昨日冷氣消耗度數：' + requestData.powerMeterPower + '度\n';
     messageText = messageText + '昨日ups_A消耗度數：' + requestData.upsPower_A + '度\n';
     messageText = messageText + '昨日ups_B消耗度數：' + requestData.upsPower_B + '度\n';
-    messageText = messageText + '昨日機房電錶消耗： ' + requestData.cameraPowerConsumption + '度';
+    messageText = messageText + '昨日機房電錶消耗： ' + requestData.cameraPowerConsumption + '度\n';
+    messageText = messageText + '機房電錶消耗計算起始時間： ' + requestData.cameraStartTime + '\n';
+    messageText = messageText + '機房電錶消耗計算終止時間： ' + requestData.cameraEndTime;
     console.log(messageText);
+    // 取得天氣資訊
     let weather = {
         uri: 'https://works.ioa.tw/weather/api/weathers/116.json',
         headers: {
@@ -309,6 +314,7 @@ router.post('/post/push', async function (ctx, next) {
         specials = `特別預報：${weatherData.specials[0].title}\n敘述：${weatherData.specials[0].desc}`;
     }
     let weatherImage = `https://works.ioa.tw/weather/img/weathers/zeusdesign/${weatherData.img}`;
+    // 更新mLab暫存資料
     await co(mongoLab.powerUpdate(requestData));
     console.log(imacGroupID, weatherImage, messageText, weatherMessage, specials);
     // 發送給imac group
