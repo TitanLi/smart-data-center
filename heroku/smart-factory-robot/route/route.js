@@ -248,7 +248,7 @@ module.exports = {
         messageText = messageText + '昨日ups_B消耗度數：' + requestData.upsPower_B + '度\n';
         messageText = messageText + '昨日電錶消耗： ' + requestData.cameraPowerConsumption + '度\n';
         messageText = messageText + '(' + new Date(requestData.cameraStartTime).toLocaleString().split(' ')[0];
-        messageText = messageText + '~' + (powerData.cameraEndTime === '第一筆資料' ? powerData.cameraEndTime : `~ ${new Date(powerData.cameraEndTime).toLocaleString().split(' ')[0]}`) + ')';
+        messageText = messageText + '~' + (requestData.cameraEndTime === '第一筆資料' ? requestData.cameraEndTime : `~ ${new Date(requestData.cameraEndTime).toLocaleString().split(' ')[0]}`) + ')';
         console.log(messageText);
         // 取得天氣資訊
         let weather = {
