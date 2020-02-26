@@ -36,7 +36,7 @@ module.exports = {
                             } else {
                                 findData = '電錶昨日消耗度數' + data.cameraPowerConsumption.toFixed(2) + '(度)\n';
                                 findData = findData + '計算起始時間：\n' + new Date(data.cameraStartTime).toLocaleString() + '\n';
-                                findData = findData + '計算終止時間：\n' + new Date(data.cameraEndTime).toLocaleString();
+                                findData = findData + '計算終止時間：\n' + (data.cameraEndTime === '第一筆資料' ? data.cameraEndTime : `~ ${new Date(data.cameraEndTime).toLocaleString()}`);
                                 console.log(findData);
                                 done();
                             }
