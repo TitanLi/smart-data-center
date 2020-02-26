@@ -10,6 +10,10 @@ let findData = {};
 let outputFan = 'false', inputFan = 'false', humidity = 'false';
 let D0, D1, D2;
 
+const strip = function (num, precision = 12) {
+    return +parseFloat(num.toPrecision(precision));
+}
+
 MongoLocalClient.connect(process.env.MONGODB, (err, client) => {
     // localDB = client.db("smart-factory");
     localDB = client.db("smart-data-center");
@@ -56,7 +60,8 @@ function localInsert() {
                             // console.log('collectionPowerMeterLogs data insert successfully');
                         }
                     });
-                    collectionPowerMeterPower.insert({ "power": powerMeterMqttData.currents * 220 / 1000, "time": new Date() }, (err, data) => {
+                    // 三相電源需多乘√3
+                    collectionPowerMeterPower.insert({ "power": strip(1.732 * 220 * powerMeterMqttData.currents / 1000), "time": new Date() }, (err, data) => {
                         if (err) {
                             // console.log('collectionPowerMeterPower data insert failed');
                         } else {
