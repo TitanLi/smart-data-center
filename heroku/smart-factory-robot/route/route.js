@@ -188,9 +188,9 @@ module.exports = {
                     let messageText = '昨日冷氣消耗度數：' + powerData.airConditioning + '度\n';
                     messageText = messageText + '昨日ups_A消耗度數：' + powerData.upsA + '度\n';
                     messageText = messageText + '昨日ups_B消耗度數：' + powerData.upsB + '度\n';
-                    messageText = messageText + '昨日機房電錶消耗： ' + powerData.cameraPowerConsumption + '度\n';
+                    messageText = messageText + '昨日電錶消耗： ' + powerData.cameraPowerConsumption + '度\n';
                     messageText = messageText + '(' + new Date(powerData.cameraStartTime).toLocaleString().split(' ')[0];
-                    messageText = messageText + '~' + new Date(powerData.cameraEndTime).toLocaleString().split(' ')[0] + ')';
+                    messageText = messageText + (powerData.cameraEndTime === '第一筆資料' ? powerData.cameraEndTime : `~ ${new Date(powerData.cameraEndTime).toLocaleString().split(' ')[0]}`) + ')';
                     let weather = {
                         uri: 'https://works.ioa.tw/weather/api/weathers/116.json',
                         headers: {
@@ -246,9 +246,9 @@ module.exports = {
         let messageText = '昨日冷氣消耗度數：' + requestData.powerMeterPower + '度\n';
         messageText = messageText + '昨日ups_A消耗度數：' + requestData.upsPower_A + '度\n';
         messageText = messageText + '昨日ups_B消耗度數：' + requestData.upsPower_B + '度\n';
-        messageText = messageText + '昨日機房電錶消耗： ' + requestData.cameraPowerConsumption + '度\n';
+        messageText = messageText + '昨日電錶消耗： ' + requestData.cameraPowerConsumption + '度\n';
         messageText = messageText + '(' + new Date(requestData.cameraStartTime).toLocaleString().split(' ')[0];
-        messageText = messageText + '~' + new Date(requestData.cameraEndTime).toLocaleString().split(' ')[0] + ')';
+        messageText = messageText + '~' + (powerData.cameraEndTime === '第一筆資料' ? powerData.cameraEndTime : `~ ${new Date(powerData.cameraEndTime).toLocaleString().split(' ')[0]}`) + ')';
         console.log(messageText);
         // 取得天氣資訊
         let weather = {
