@@ -1,6 +1,6 @@
 const MongoClient = require('mongodb').MongoClient;
 
-const MONGO_URL = 'mongodb://nutc.iot:nutciot5891@ds161041.mlab.com:61041/smart-factory';
+const MONGO_URL = 'mongodb://USER-NAME:PASSWORD@PROJECT-ID.mlab.com:37922/smart-data-center';
 
 MongoClient.connect(MONGO_URL, (err, db) => {
     if (err) {
