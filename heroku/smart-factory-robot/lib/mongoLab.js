@@ -313,6 +313,7 @@ module.exports = {
             'cameraPower': Number(requestData.cameraPower),
             'cameraStartTime': requestData.cameraStartTime,
             'cameraEndTime': requestData.cameraEndTime,
+            'waterTank': requestData.waterTank,
             'time': requestData.time
         };
         yield function (done) {
