@@ -59,6 +59,8 @@ router.post('/message', route.message);
 
 router.get('/test', route.test);
 
+router.get('/telegram/:key/:value', route.telegram);
+
 app
     .use(route.middleware)
     .use(router.routes());

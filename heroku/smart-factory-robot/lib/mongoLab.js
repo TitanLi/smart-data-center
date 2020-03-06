@@ -282,6 +282,34 @@ module.exports = {
         }
         return 'mLab computer room information update successfully';
     }),
+    computerRoomInformationUpdateFromTelegram: (key, value) => (function* () {
+        let updateData = { [key]: value };
+        yield function (done) {
+            MongoLabClient.connect(process.env.MONGO_URL, (err, db) => {
+                if (err) {
+                    return console.log(err);
+                }
+                console.log("connect MongoLabClient on 27017 port");
+                let collectionComputerRoomInformation = db.collection('computerRoomInformation');
+                collectionComputerRoomInformation.update(
+                    {},
+                    {
+                        $set: updateData
+                    },
+                    { upsert: true },
+                    function (err, res) {
+                        if (err) {
+                            return console.log(err);
+                        } else {
+                            console.log('mLab computer room information update successfully');
+                        }
+                        done();
+                    }
+                );
+            });
+        };
+        return 'mLab computer room information update successfully';
+    }),
     computerRoomInformationFind: () => (function* () {
         let findData = '';
         yield function (done) {

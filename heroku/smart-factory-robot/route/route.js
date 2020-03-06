@@ -168,6 +168,24 @@ module.exports = {
                     if (updateStatus && updateData >= 7) {
                         updateData = 0;
                         await co(mongoLab.computerRoomInformationUpdate(cacheData));
+                        let telegramData = {
+                            'vcpu': cacheData[0],
+                            'ram': cacheData[1],
+                            'disk': cacheData[2],
+                            'switch': cacheData[3],
+                            'sdnSwitch': cacheData[4],
+                            'pc': cacheData[5],
+                            'server': cacheData[6]
+                        };
+                        let telegramOptions = {
+                            method: 'POST',
+                            uri: 'https://smart-data-center-telegram.herokuapp.com/linebot',
+                            body: telegramData,
+                            json: true
+                        }
+                        await request(telegramOptions).catch(function (err) {
+                            console.log(err);
+                        });;
                         updateStatus = false;
                         let message = `VCPU數量(顆):${cacheData[0]}\nRAM數量(GB):${cacheData[1]}\n機房儲存空間(TB):${cacheData[2]}\n機房Switch數量(台):${cacheData[3]}\n機房SDN Switch數量(台):${cacheData[4]}\n機房一般主機數量(台):${cacheData[5]}\n機房伺服器數量(台):${cacheData[6]}`
                         await linebot.responseFlexContainer(events, message);
@@ -298,6 +316,23 @@ module.exports = {
         console.log(data);
         ctx.status = 200;
         ctx.body = data;
+    },
+    telegram: async (ctx, next) => {
+        let telegramData = ['vcpu', 'ram', 'disk', 'switch', 'sdnSwitch', 'pc', 'server'];
+        let key = ctx.params.key;
+        let value = ctx.params.value;
+        if (telegramData.find(e => e == key) != undefined) {
+            await co(mongoLab.computerRoomInformationUpdateFromTelegram(key, value));
+            ctx.status = 200;
+            ctx.body = {
+                [key]: value
+            };
+        } else {
+            ctx.status = 400
+            ctx.body = {
+                status: 'key error'
+            };
+        }
     },
     middleware: linebot.middleware()
 }
