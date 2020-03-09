@@ -37,10 +37,11 @@ MongoLabClient.connect(process.env.MONGO_URL, (err, db) => {
 //MQTT connect
 mqttClient.on('connect', () => {
     console.log("connect MQTT Client on 1883 port")
-    mqttClient.subscribe('UPS_Monitor');
     mqttClient.subscribe('current');
+    mqttClient.subscribe('waterTank');
     mqttClient.subscribe('ET7044/DOstatus');
     mqttClient.subscribe('ET7044/write');
+    mqttClient.subscribe('UPS_Monitor');
 });
 
 function localInsert() {
