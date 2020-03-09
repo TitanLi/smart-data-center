@@ -206,7 +206,7 @@ module.exports = {
                     let messageText = '昨日冷氣消耗：' + powerData.airConditioning + '度\n';
                     messageText = messageText + '昨日ups_A消耗：' + powerData.upsA + '度\n';
                     messageText = messageText + '昨日ups_B消耗：' + powerData.upsB + '度\n';
-                    messageText = messageText + '昨日水塔馬達預估：' + powerData.waterTank + '度\n';
+                    messageText = messageText + '昨日水塔馬達消耗：' + powerData.waterTank + '度\n';
                     messageText = messageText + '昨日電錶消耗： ' + powerData.cameraPowerConsumption + '度\n';
                     messageText = messageText + '(' + new Date(powerData.cameraStartTime).toLocaleString().split(' ')[0];
                     messageText = messageText + (powerData.cameraEndTime === '第一筆資料' ? powerData.cameraEndTime : ` ~ ${new Date(powerData.cameraEndTime).toLocaleString().split(' ')[0]}`) + ')';
@@ -265,7 +265,7 @@ module.exports = {
         let messageText = '昨日冷氣消耗：' + requestData.powerMeterPower + '度\n';
         messageText = messageText + '昨日ups_A消耗：' + requestData.upsPower_A + '度\n';
         messageText = messageText + '昨日ups_B消耗：' + requestData.upsPower_B + '度\n';
-        messageText = messageText + '昨日水塔馬達預估：' + requestData.waterTank + '度\n';
+        messageText = messageText + '昨日水塔馬達消耗：' + requestData.waterTank + '度\n';
         messageText = messageText + '昨日電錶消耗： ' + requestData.cameraPowerConsumption + '度\n';
         messageText = messageText + '(' + new Date(requestData.cameraStartTime).toLocaleString().split(' ')[0];
         messageText = messageText + (requestData.cameraEndTime === '第一筆資料' ? requestData.cameraEndTime : ` ~ ${new Date(requestData.cameraEndTime).toLocaleString().split(' ')[0]}`) + ')';
