@@ -48,10 +48,10 @@ function localInsert() {
         // console.log(topic,JSON.parse(message));
         switch (topic) {
             case "current":
-                powerMeterMqttData = JSON.parse(message);
+                let collectionPowerMeterLogs = localDB.collection('powerMeter');
+                let collectionPowerMeterPower = localDB.collection('powerMeterPower');
+                let powerMeterMqttData = JSON.parse(message);
                 powerMeterMqttData.time = new Date();
-                var collectionPowerMeterLogs = localDB.collection('powerMeter');
-                var collectionPowerMeterPower = localDB.collection('powerMeterPower');
                 if (powerMeterMqttData) {
                     collectionPowerMeterLogs.insert(powerMeterMqttData, (err, data) => {
                         if (err) {
@@ -70,12 +70,35 @@ function localInsert() {
                     });
                 }
                 break;
+            case "waterTank":
+                let collectionWaterTankLogs = localDB.collection('waterTank');
+                let collectionWaterTankPower = localDB.collection('waterTankPower');
+                let waterTankMqttData = JSON.parse(message);
+                waterTankMqttData.time = new Date();
+                if (waterTankMqttData) {
+                    collectionWaterTankLogs.insert(waterTankMqttData, (err, data) => {
+                        if (err) {
+                            // console.log('collectionWaterTankLogs data insert failed');
+                        } else {
+                            // console.log('collectionWaterTankLogs data insert successfully');
+                        }
+                    });
+                    // 三相電源需多乘√3
+                    collectionWaterTankPower.insert({ "power": strip(1.732 * 220 * waterTankMqttData.current / 1000), "time": new Date() }, (err, data) => {
+                        if (err) {
+                            // console.log('collectionWaterTankPower data insert failed');
+                        } else {
+                            // console.log('collectionWaterTankPower data insert successfully');
+                        }
+                    });
+                }
+                break;
             case "UPS_Monitor":
-                upsMqttData = JSON.parse(message);
+                let collectionUpsLogs = localDB.collection('ups');
+                let collectionUpsPower_A = localDB.collection('upsPower_A');
+                let collectionUpsPower_B = localDB.collection('upsPower_B');
+                let upsMqttData = JSON.parse(message);
                 upsMqttData.time = new Date();
-                var collectionUpsLogs = localDB.collection('ups');
-                var collectionUpsPower_A = localDB.collection('upsPower_A');
-                var collectionUpsPower_B = localDB.collection('upsPower_B');
                 if (upsMqttData) {
                     collectionUpsLogs.insert(upsMqttData, (err, data) => {
                         if (err) {
@@ -110,10 +133,10 @@ function mLabInsert() {
     mqttClient.on('message', (topic, message) => {
         switch (topic) {
             case "current":
-                powerMeterMqttData = JSON.parse(message);
+                let collectionPowerMeter = mLabDB.collection('powerMeter');
+                let powerMeterMqttData = JSON.parse(message);
                 // powerMeterMqttData.time = new Date();
                 powerMeterMqttData.time = new Date().toLocaleString();
-                var collectionPowerMeter = mLabDB.collection('powerMeter');
                 if (powerMeterMqttData) {
                     collectionPowerMeter.update(
                         {},
@@ -132,10 +155,10 @@ function mLabInsert() {
                 }
                 break;
             case "UPS_Monitor":
-                upsMqttData = JSON.parse(message);
+                let collectionUps_A = mLabDB.collection('ups_A');
+                let collectionUps_B = mLabDB.collection('ups_B');
+                let upsMqttData = JSON.parse(message);
                 upsMqttData.time = new Date().toLocaleString();
-                var collectionUps_A = mLabDB.collection('ups_A');
-                var collectionUps_B = mLabDB.collection('ups_B');
                 if (upsMqttData) {
                     collectionUps_A.update(
                         {},
