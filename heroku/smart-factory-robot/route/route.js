@@ -210,21 +210,35 @@ module.exports = {
                     messageText = messageText + '昨日電錶消耗： ' + powerData.cameraPowerConsumption + '度\n';
                     messageText = messageText + '(' + new Date(powerData.cameraStartTime).toLocaleString().split(' ')[0];
                     messageText = messageText + (powerData.cameraEndTime === '第一筆資料' ? powerData.cameraEndTime : ` ~ ${new Date(powerData.cameraEndTime).toLocaleString().split(' ')[0]}`) + ')';
+                    // Version 1:
+                    // let weather = {
+                    //     uri: 'https://works.ioa.tw/weather/api/weathers/116.json',
+                    //     headers: {
+                    //         'User-Agent': 'Request-Promise'
+                    //     },
+                    //     json: true // Automatically parses the JSON string in the response
+                    // };
+                    // let weatherData = await request(weather);
+                    // let weatherMessage = `天氣：${weatherData.desc}\n室外溫度：${weatherData.temperature}\n體感溫度：${weatherData.felt_air_temp}\n濕度：${weatherData.humidity}\n`;
+                    // let specials = '';
+                    // console.dir(weatherData);
+                    // if (weatherData.specials.length != 0) {
+                    //     specials = `特別預報：${weatherData.specials[0].title}\n敘述：${weatherData.specials[0].desc}`;
+                    // }
+                    // let weatherImage = `https://works.ioa.tw/weather/img/weathers/zeusdesign/${weatherData.img}`
+                    // await linebot.responsePower(events, weatherImage, messageText, weatherMessage, specials);
+                    
+                    // Version 2:
                     let weather = {
-                        uri: 'https://works.ioa.tw/weather/api/weathers/116.json',
-                        headers: {
-                            'User-Agent': 'Request-Promise'
-                        },
+                        uri: `https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=${process.env.weatherAuthorization}&limit=1&offset=0&format=JSON&locationName=%E8%87%BA%E4%B8%AD%E5%B8%82`,
                         json: true // Automatically parses the JSON string in the response
                     };
                     let weatherData = await request(weather);
-                    let weatherMessage = `天氣：${weatherData.desc}\n室外溫度：${weatherData.temperature}\n體感溫度：${weatherData.felt_air_temp}\n濕度：${weatherData.humidity}\n`;
-                    let specials = '';
-                    if (weatherData.specials.length != 0) {
-                        specials = `特別預報：${weatherData.specials[0].title}\n敘述：${weatherData.specials[0].desc}`;
-                    }
-                    let weatherImage = `https://works.ioa.tw/weather/img/weathers/zeusdesign/${weatherData.img}`
-                    await linebot.responsePower(events, weatherImage, messageText, weatherMessage, specials);
+                    let weatherMessage = `天氣：${weatherData.records.location[0].weatherElement[0].time[1].parameter.parameterName}\n`;
+                    weatherMessage = weatherMessage + `最低溫度：${weatherData.records.location[0].weatherElement[2].time[1].parameter.parameterName} °C\n`;
+                    weatherMessage = weatherMessage + `最高溫度：${weatherData.records.location[0].weatherElement[4].time[1].parameter.parameterName} °C\n`;
+                    weatherMessage = weatherMessage + `降雨機率：${weatherData.records.location[0].weatherElement[1].time[1].parameter.parameterName} %\n`;
+                    await linebot.responsePower(events, messageText, weatherMessage);
                 } else if (/機房服務列表/.test(messageText)) {
                     mLabData = await co(mongoLab.serviceListFind());
                     console.log(mLabData);
@@ -271,26 +285,40 @@ module.exports = {
         messageText = messageText + (requestData.cameraEndTime === '第一筆資料' ? requestData.cameraEndTime : ` ~ ${new Date(requestData.cameraEndTime).toLocaleString().split(' ')[0]}`) + ')';
         console.log(messageText);
         // 取得天氣資訊
+        // Version 1:
+        // let weather = {
+        //     uri: 'https://works.ioa.tw/weather/api/weathers/116.json',
+        //     headers: {
+        //         'User-Agent': 'Request-Promise'
+        //     },
+        //     json: true // Automatically parses the JSON string in the response
+        // };
+        // let weatherData = await request(weather);
+        // console.log(weatherData);
+        // let weatherMessage = `天氣：${weatherData.desc}\n室外溫度：${weatherData.temperature}\n體感溫度：${weatherData.felt_air_temp}\n濕度：${weatherData.humidity}\n`;
+        // let specials = '';
+        // if (weatherData.specials.length != 0) {
+        //     specials = `特別預報：${weatherData.specials[0].title}\n敘述：${weatherData.specials[0].desc}`;
+        // }
+        // let weatherImage = `https://works.ioa.tw/weather/img/weathers/zeusdesign/${weatherData.img}`;
+        // Version 2:
         let weather = {
-            uri: 'https://works.ioa.tw/weather/api/weathers/116.json',
-            headers: {
-                'User-Agent': 'Request-Promise'
-            },
+            uri: `https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=${process.env.weatherAuthorization}&limit=1&offset=0&format=JSON&locationName=%E8%87%BA%E4%B8%AD%E5%B8%82`,
             json: true // Automatically parses the JSON string in the response
         };
         let weatherData = await request(weather);
-        console.log(weatherData);
-        let weatherMessage = `天氣：${weatherData.desc}\n室外溫度：${weatherData.temperature}\n體感溫度：${weatherData.felt_air_temp}\n濕度：${weatherData.humidity}\n`;
-        let specials = '';
-        if (weatherData.specials.length != 0) {
-            specials = `特別預報：${weatherData.specials[0].title}\n敘述：${weatherData.specials[0].desc}`;
-        }
-        let weatherImage = `https://works.ioa.tw/weather/img/weathers/zeusdesign/${weatherData.img}`;
+        let weatherMessage = `天氣：${weatherData.records.location[0].weatherElement[0].time[1].parameter.parameterName}\n`;
+        weatherMessage = weatherMessage + `最低溫度：${weatherData.records.location[0].weatherElement[2].time[1].parameter.parameterName} °C\n`;
+        weatherMessage = weatherMessage + `最高溫度：${weatherData.records.location[0].weatherElement[4].time[1].parameter.parameterName} °C\n`;
+        weatherMessage = weatherMessage + `降雨機率：${weatherData.records.location[0].weatherElement[1].time[1].parameter.parameterName} %\n`;
         // 更新mLab暫存資料
         await co(mongoLab.powerUpdate(requestData));
         console.log(imacGroupID, weatherImage, messageText, weatherMessage, specials);
         // 發送給imac group
-        await linebot.sendPower(imacGroupID, weatherImage, messageText, weatherMessage, specials);
+        // Version 1:
+        // await linebot.sendPower(imacGroupID, weatherImage, messageText, weatherMessage, specials);
+        // Version 2:
+        await linebot.sendPower(imacGroupID, messageText, weatherMessage);
         ctx.status = 200;
     },
     controlMessage: async (ctx, next) => {

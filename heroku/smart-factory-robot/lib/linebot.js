@@ -929,7 +929,120 @@ module.exports = function (channelSecret, lineBotToken) {
       weatherMessage      String      realtime weather information
       specials            String      realtime weather alarm
     */
-    this.responsePower = (events, weatherImage, message, weatherMessage, specials) => {
+    // Version 1:
+    // this.responsePower = (events, weatherImage, message, weatherMessage, specials) => {
+    //     if (events) {
+    //         console.log(events);
+    //         let data = events.messageText;
+    //         console.log(data);
+    //         let options = {
+    //             method: 'POST',
+    //             uri: 'https://api.line.me/v2/bot/message/reply',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //                 'Authorization': `Bearer ${lineBotToken}`
+    //             },
+    //             body: {
+    //                 replyToken: events.replyToken,
+    //                 messages: [{
+    //                     "type": "flex",
+    //                     "altText": "機房通知",
+    //                     "contents": {
+    //                         "type": "bubble",
+    //                         "header": {
+    //                             "type": "box",
+    //                             "layout": "vertical",
+    //                             "contents": [
+    //                                 {
+    //                                     "type": "text",
+    //                                     "color": "#ffffff",
+    //                                     "text": "機房通知",
+    //                                     "size": "xl"
+    //                                 }
+    //                             ]
+    //                         },
+    //                         "hero": {
+    //                             "type": "image",
+    //                             "url": weatherImage,
+    //                             "size": "md",
+    //                         },
+    //                         "body": {
+    //                             "type": "box",
+    //                             "layout": "vertical",
+    //                             "contents": [
+    //                                 {
+    //                                     "type": "text",
+    //                                     "text": message,
+    //                                     "margin": "md",
+    //                                     "wrap": true,
+    //                                     "maxLines": 7,
+    //                                     "size": "lg",
+    //                                     "color": "#0000ff"
+    //                                 },
+    //                                 {
+    //                                     "type": "text",
+    //                                     "text": weatherMessage,
+    //                                     "margin": "md",
+    //                                     "wrap": true,
+    //                                     "maxLines": 7,
+    //                                     "size": "lg",
+    //                                     "color": "#000000"
+    //                                 }
+    //                             ]
+    //                         },
+    //                         "footer": {
+    //                             "type": "box",
+    //                             "layout": "vertical",
+    //                             "contents": [
+    //                                 {
+    //                                     "type": "spacer",
+    //                                     "size": "md"
+    //                                 },
+    //                                 {
+    //                                     "type": "button",
+    //                                     "action": {
+    //                                         "type": "message",
+    //                                         "label": "功能列表",
+    //                                         "text": "功能列表"
+    //                                     },
+    //                                     "style": "primary",
+    //                                     "color": "#ea7500"
+    //                                 }
+    //                             ]
+    //                         },
+    //                         "styles": {
+    //                             "header": {
+    //                                 "backgroundColor": "#005ab5"
+    //                             },
+    //                             "body": {
+    //                                 "separator": true,
+    //                                 "separatorColor": "#000000"
+    //                             }
+    //                         }
+    //                     }
+    //                 }]
+    //             },
+    //             json: true
+    //         }
+    //         if (specials != '') {
+    //             options.body.messages[0].contents.body.contents[2] = {
+    //                 "type": "text",
+    //                 "text": specials,
+    //                 "margin": "md",
+    //                 "wrap": true,
+    //                 "maxLines": 19,
+    //                 "size": "lg",
+    //                 "color": "#ff0000"
+    //             }
+    //         }
+    //         return request(options);
+    //     } else {
+    //         ctx.body = "hash error";
+    //     }
+    // };
+
+    // Version 2:
+    this.responsePower = (events, message, weatherMessage) => {
         if (events) {
             console.log(events);
             let data = events.messageText;
@@ -959,11 +1072,6 @@ module.exports = function (channelSecret, lineBotToken) {
                                         "size": "xl"
                                     }
                                 ]
-                            },
-                            "hero": {
-                                "type": "image",
-                                "url": weatherImage,
-                                "size": "md",
                             },
                             "body": {
                                 "type": "box",
@@ -1023,17 +1131,6 @@ module.exports = function (channelSecret, lineBotToken) {
                 },
                 json: true
             }
-            if (specials != '') {
-                options.body.messages[0].contents.body.contents[2] = {
-                    "type": "text",
-                    "text": specials,
-                    "margin": "md",
-                    "wrap": true,
-                    "maxLines": 19,
-                    "size": "lg",
-                    "color": "#ff0000"
-                }
-            }
             return request(options);
         } else {
             ctx.body = "hash error";
@@ -1048,7 +1145,114 @@ module.exports = function (channelSecret, lineBotToken) {
       weatherMessage      String      realtime weather information
       specials            String      realtime weather alarm
     */
-    this.sendPower = (userId, weatherImage, message, weatherMessage, specials) => {
+    // Version 1:
+    // this.sendPower = (userId, weatherImage, message, weatherMessage, specials) => {
+    //     let options = {
+    //         method: 'POST',
+    //         uri: 'https://api.line.me/v2/bot/message/push',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             'Authorization': `Bearer ${lineBotToken}`
+    //         },
+    //         body: {
+    //             to: userId,
+    //             messages: [{
+    //                 "type": "flex",
+    //                 "altText": "機房通知",
+    //                 "contents": {
+    //                     "type": "bubble",
+    //                     "header": {
+    //                         "type": "box",
+    //                         "layout": "vertical",
+    //                         "contents": [
+    //                             {
+    //                                 "type": "text",
+    //                                 "color": "#ffffff",
+    //                                 "text": "機房通知",
+    //                                 "size": "xl"
+    //                             }
+    //                         ]
+    //                     },
+    //                     "hero": {
+    //                         "type": "image",
+    //                         "url": weatherImage,
+    //                         "size": "md",
+    //                     },
+    //                     "body": {
+    //                         "type": "box",
+    //                         "layout": "vertical",
+    //                         "contents": [
+    //                             {
+    //                                 "type": "text",
+    //                                 "text": message,
+    //                                 "margin": "md",
+    //                                 "wrap": true,
+    //                                 "maxLines": 7,
+    //                                 "size": "lg",
+    //                                 "color": "#0000ff"
+    //                             },
+    //                             {
+    //                                 "type": "text",
+    //                                 "text": weatherMessage,
+    //                                 "margin": "md",
+    //                                 "wrap": true,
+    //                                 "maxLines": 7,
+    //                                 "size": "lg",
+    //                                 "color": "#000000"
+    //                             }
+    //                         ]
+    //                     },
+    //                     "footer": {
+    //                         "type": "box",
+    //                         "layout": "vertical",
+    //                         "contents": [
+    //                             {
+    //                                 "type": "spacer",
+    //                                 "size": "md"
+    //                             },
+    //                             {
+    //                                 "type": "button",
+    //                                 "action": {
+    //                                     "type": "message",
+    //                                     "label": "功能列表",
+    //                                     "text": "功能列表"
+    //                                 },
+    //                                 "style": "primary",
+    //                                 "color": "#ea7500"
+    //                             }
+    //                         ]
+    //                     },
+    //                     "styles": {
+    //                         "header": {
+    //                             "backgroundColor": "#005ab5"
+    //                         },
+    //                         "body": {
+    //                             "separator": true,
+    //                             "separatorColor": "#000000"
+    //                         }
+    //                     }
+    //                 }
+    //             }]
+    //         },
+    //         json: true
+    //     }
+    //     if (specials != '') {
+    //         options.body.messages[0].contents.body.contents[2] = {
+    //             "type": "text",
+    //             "text": specials,
+    //             "margin": "md",
+    //             "wrap": true,
+    //             "maxLines": 19,
+    //             "size": "lg",
+    //             "color": "#ff0000"
+    //         }
+    //     }
+
+    //     return request(options);
+    // }
+
+    // Version 2:
+    this.sendPower = (userId, message, weatherMessage) => {
         let options = {
             method: 'POST',
             uri: 'https://api.line.me/v2/bot/message/push',
@@ -1074,11 +1278,6 @@ module.exports = function (channelSecret, lineBotToken) {
                                     "size": "xl"
                                 }
                             ]
-                        },
-                        "hero": {
-                            "type": "image",
-                            "url": weatherImage,
-                            "size": "md",
                         },
                         "body": {
                             "type": "box",
@@ -1137,17 +1336,6 @@ module.exports = function (channelSecret, lineBotToken) {
                 }]
             },
             json: true
-        }
-        if (specials != '') {
-            options.body.messages[0].contents.body.contents[2] = {
-                "type": "text",
-                "text": specials,
-                "margin": "md",
-                "wrap": true,
-                "maxLines": 19,
-                "size": "lg",
-                "color": "#ff0000"
-            }
         }
 
         return request(options);
