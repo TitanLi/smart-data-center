@@ -1,0 +1,16 @@
+{
+  "name": "raspberry",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "pm2 start app.js --name power-meter"
+  },
+  "author": "Titan",
+  "license": "ISC",
+  "dependencies": {
+    "mqtt": "^2.1.3",
+    "serialport": "^4.0.7"
+  }
+}
