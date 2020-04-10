@@ -313,7 +313,6 @@ module.exports = {
         weatherMessage = weatherMessage + `降雨機率：${weatherData.records.location[0].weatherElement[1].time[1].parameter.parameterName} %\n`;
         // 更新mLab暫存資料
         await co(mongoLab.powerUpdate(requestData));
-        console.log(imacGroupID, weatherImage, messageText, weatherMessage, specials);
         // 發送給imac group
         // Version 1:
         // await linebot.sendPower(imacGroupID, weatherImage, messageText, weatherMessage, specials);
