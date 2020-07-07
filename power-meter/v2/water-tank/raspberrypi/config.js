@@ -1,4 +1,4 @@
 module.exports = {
-    serialport: '/dev/ttyACM0',
-    MQTT: 'mqtt://10.20.0.90:1883'
+    serialport: '/dev/ttyUSB1',
+    MQTT: 'mqtt://10.20.0.19:1883'
 }

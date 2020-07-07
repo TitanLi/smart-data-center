@@ -11,6 +11,7 @@ function connect(){
           autoOpen:true
 	},(err)=>{
            if(err){
+             console.log(err);
              setTimeout(()=>{
                connect();
              },1000);
@@ -26,7 +27,8 @@ function connect(){
         });
 
         port.on('close', function (err) {
-           console.log('close');                                                                                                                                connect();
+           console.log('close'); 
+           connect();
         });
 }
 client.on('connect', function () {
