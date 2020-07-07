@@ -10,6 +10,7 @@ function connect(){
     	  parser: SerialPort.parsers.readline('\n'),
           autoOpen:true
 	},(err)=>{
+	   console.log(err);
            if(err){
              setTimeout(()=>{
                connect();
@@ -21,12 +22,13 @@ function connect(){
           port.on('data', function(data) {
             console.log(data);
             console.log(data.toString())
-            client.publish('waterTank', data.toString());
+            client.publish('current', data.toString());
           });
         });
 
         port.on('close', function (err) {
-           console.log('close');                                                                                                                                connect();
+           console.log('close');     
+	   connect();
         });
 }
 client.on('connect', function () {
