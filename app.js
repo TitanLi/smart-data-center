@@ -48,6 +48,8 @@ mqttClient.on('connect', () => {
     mqttClient.subscribe('ET7044/DOstatus');
     mqttClient.subscribe('DL303/RH'); // humidity
     mqttClient.subscribe('DL303/TC'); // temperature *c
+    mqttClient.subscribe('7F_FAN')
+    mqttClient.subscribe('7F_FAN_2')
 });
 
 mqttClient.on('message', (topic, message) => {
@@ -133,6 +135,18 @@ mqttClient.on('message', (topic, message) => {
             break;
         default:
             console.log('pass');
+        case '7F_FAN':
+            fanStatus = JSON.parse(message);
+            console.log(fanStatus);
+            io.emit('fan1', fanStatus[0]);
+            io.emit('fan2', fanStatus[1]);
+            break;
+        case '7F_FAN_2':
+            fanStatus2 = JSON.parse(message);
+            console.log(fanStatus2);
+            io.emit('fan3', fanStatus2[2]);
+            io.emit('fan4', fanStatus2[3]);
+            break;
     }
 });
 

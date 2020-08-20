@@ -26,6 +26,7 @@
   <script src="highcharts-3d.js"></script>
   <script src="exporting.js"></script>
   <script src="export-data.js"></script>
+  <script src="paho-mqtt.js" type="text/javascript"></script>
   <link rel="stylesheet" type="text/css" href="temperature.css">
   <!-- <script src="/socket.io/socket.io.js"></script>
     <link rel="stylesheet" type="text/css" href="mystyle.css">
@@ -97,6 +98,72 @@
           return false;
         }
       });
+    }
+    var ws = new WebSocket("ws://192.168.1.121:1884");
+    var webs = new WebSocket("ws://192.168.1.124:1884");
+      function fan1(){
+        var state = document.getElementById("fan1").innerHTML;
+        var ws = new WebSocket("ws://192.168.1.121:1884");
+        ws.onopen = function (event) {
+        console.log(state)
+        if (state == "反轉"){
+          ws.send('a');
+        }
+        if (state == "正轉"){
+          ws.send('2');
+        }
+        if (state == "關閉"){
+          ws.send('1');
+        }  
+      }
+    }
+    function fan2(){
+        var state = document.getElementById("fan2").innerHTML;
+        var ws = new WebSocket("ws://192.168.1.121:1884");
+        ws.onopen = function (event) {
+        console.log(state)
+        if (state == "反轉"){
+          ws.send('b');
+        }
+        if (state == "正轉"){
+          ws.send('4');
+        }
+        if (state == "關閉"){
+          ws.send('3');
+        }  
+      }
+    }
+    function fan3(){
+      var state = document.getElementById("fan3").innerHTML;
+      var ws = new WebSocket("ws://192.168.1.124:1884");
+        ws.onopen = function (event) {
+        console.log(state)
+        if (state == "反轉"){
+          ws.send('c');
+        }
+        if (state == "正轉"){
+          ws.send('6');
+        }
+        if (state == "關閉"){
+          ws.send('5');
+        }  
+      }
+    }
+    function fan4(){
+      var state = document.getElementById("fan4").innerHTML;
+      var ws = new WebSocket("ws://192.168.1.124:1884");
+        ws.onopen = function (event) {
+        console.log(state)
+        if (state == "反轉"){
+          ws.send('d');
+        }
+        if (state == "正轉"){
+          ws.send('8');
+        }
+        if (state == "關閉"){
+          ws.send('7');
+        }  
+      }
     }
   </script>
 </head>
@@ -268,10 +335,46 @@
               <div class="col-md-7 col-sm-6 col-xs-7">
                 <button class="btn btn-primary" id="D2" onclick="D2()">waiting data</button>
               </div>
+          </div>
+        <div class="col-md-12 mainStyle2">
+          <div class="row btnStyle">
+            <p class="data-title">7樓風扇</p>
+            <div class="col-md-6 col-sm-4">
+              <div class="col-md-5 col-sm-6 col-xs-5 control-item">
+                風扇1
+              </div>
+              <div class="col-md-7 col-sm-6 col-xs-7">
+                <button class="btn btn-primary" id="fan1" onclick="fan1()">waiting data</button>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-4">
+              <div class="col-md-5 col-sm-6 col-xs-5 control-item">
+                風扇2
+              </div>
+              <div class="col-md-7 col-sm-6 col-xs-7">
+                <button class="btn btn-primary" id="fan2" onclick="fan2()">waiting data</button>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-4">
+              <div class="col-md-5 col-sm-6 col-xs-5 control-item">
+                風扇3
+              </div>
+              <div class="col-md-7 col-sm-6 col-xs-7">
+                <button class="btn btn-primary" id="fan3" onclick="fan3()">waiting data</button>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-4">
+              <div class="col-md-5 col-sm-6 col-xs-5 control-item">
+                風扇4
+              </div>
+              <div class="col-md-7 col-sm-6 col-xs-7">
+                <button class="btn btn-primary" id="fan4" onclick="fan4()">waiting data</button>
+              </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
       <script language="JavaScript" src="/highcharts/air-conditioner.js"></script>
       <script language="JavaScript" src="/highcharts/ups1.js"></script>
       <script language="JavaScript" src="/highcharts/ups2.js"></script>
