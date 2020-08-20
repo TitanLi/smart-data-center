@@ -133,8 +133,6 @@ mqttClient.on('message', (topic, message) => {
             D1 = et7044Status[1];
             D2 = et7044Status[2];
             break;
-        default:
-            console.log('pass');
         case '7F_FAN':
             fanStatus = JSON.parse(message);
             console.log(fanStatus);
@@ -147,6 +145,8 @@ mqttClient.on('message', (topic, message) => {
             io.emit('fan3', fanStatus2[2]);
             io.emit('fan4', fanStatus2[3]);
             break;
+        default:
+            console.log('pass');
     }
 });
 
@@ -183,6 +183,8 @@ app.context.render = co.wrap(render({
 
 router.get('/', index);
 router.post('/ET7044', et7044);
+router.post('/7F_left_fan', SevenFloor_left_fan);
+router.post('/7F_right_fan', SevenFloor_right_fan);
 router.post('/yesterdayAvgPower', yesterdayAvgPower);
 router.post('/cameraPower', cameraPower);
 
@@ -216,7 +218,60 @@ async function et7044(ctx) {
     console.log(et7044);
     ctx.body = et7044;
 }
-
+async function SevenFloor_left_fan(ctx) {
+    let fan_control = ctx.request.body.data;
+    switch (fan_control){
+        case 'fan1':
+            if(fanStatus[0] != '正轉' && fanStatus[0] != '反轉'){
+                mqttClient.publish('arduino', '1');
+            }
+            if(fanStatus[0] != '關閉' && fanStatus[0] != '反轉'){
+                mqttClient.publish('arduino', '2');
+            }
+            if(fanStatus[0] != '正轉' && fanStatus[0] != '關閉'){
+                mqttClient.publish('arduino', 'a');
+            }
+            break;
+        case 'fan2':
+            if(fanStatus[1] != '正轉' && fanStatus[1] != '反轉'){
+                mqttClient.publish('arduino', '3');
+            }
+            if(fanStatus[1] != '關閉' && fanStatus[1] != '反轉'){
+                mqttClient.publish('arduino', '4');
+            }
+            if(fanStatus[1] != '正轉' && fanStatus[1] != '關閉'){
+                mqttClient.publish('arduino', 'b');
+            }
+            break;
+    }
+}
+async function SevenFloor_right_fan(ctx) {
+    let fan_control = ctx.request.body.data;
+    switch (fan_control){
+        case 'fan3':
+            if(fanStatus2[0] != '正轉' && fanStatus2[0] != '反轉'){
+                mqttClient.publish('arduino', '5');
+            }
+            if(fanStatus2[0] != '關閉' && fanStatus2[0] != '反轉'){
+                mqttClient.publish('arduino', '6');
+            }
+            if(fanStatus2[0] != '正轉' && fanStatus2[0] != '關閉'){
+                mqttClient.publish('arduino', 'c');
+            }
+            break;
+        case 'fan4':
+            if(fanStatus2[1] != '正轉' && fanStatus2[1] != '反轉'){
+                mqttClient.publish('arduino', '7');
+            }
+            if(fanStatus2[1] != '關閉' && fanStatus2[1] != '反轉'){
+                mqttClient.publish('arduino', '8');
+            }
+            if(fanStatus2[1] != '正轉' && fanStatus2[1] != '關閉'){
+                mqttClient.publish('arduino', 'd');
+            }
+            break;
+    }
+}
 async function yesterdayAvgPower(ctx) {
     let yesterdayPower = ctx.request.body;
     io.emit('yesterdayPower', yesterdayPower);

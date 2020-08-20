@@ -26,7 +26,6 @@
   <script src="highcharts-3d.js"></script>
   <script src="exporting.js"></script>
   <script src="export-data.js"></script>
-  <script src="paho-mqtt.js" type="text/javascript"></script>
   <link rel="stylesheet" type="text/css" href="temperature.css">
   <!-- <script src="/socket.io/socket.io.js"></script>
     <link rel="stylesheet" type="text/css" href="mystyle.css">
@@ -99,71 +98,73 @@
         }
       });
     }
-    var ws = new WebSocket("ws://192.168.1.121:1884");
-    var webs = new WebSocket("ws://192.168.1.124:1884");
       function fan1(){
-        var state = document.getElementById("fan1").innerHTML;
-        var ws = new WebSocket("ws://192.168.1.121:1884");
-        ws.onopen = function (event) {
-        console.log(state)
-        if (state == "反轉"){
-          ws.send('a');
+        $.ajax({
+        type: "POST",
+        url: "/7F_left_fan",
+        dataType: "text",
+        data: {
+          data: "fan1"
+        },
+        success: function (data) {
+          console.log(data);
+        },
+        error: function (data) {
+          console.error(data);
+          return false;
         }
-        if (state == "正轉"){
-          ws.send('2');
-        }
-        if (state == "關閉"){
-          ws.send('1');
-        }  
-      }
+      });
     }
     function fan2(){
-        var state = document.getElementById("fan2").innerHTML;
-        var ws = new WebSocket("ws://192.168.1.121:1884");
-        ws.onopen = function (event) {
-        console.log(state)
-        if (state == "反轉"){
-          ws.send('b');
+      $.ajax({
+        type: "POST",
+        url: "/7F_left_fan",
+        dataType: "text",
+        data: {
+          data: "fan2"
+        },
+        success: function (data) {
+          console.log(data);
+        },
+        error: function (data) {
+          console.error(data);
+          return false;
         }
-        if (state == "正轉"){
-          ws.send('4');
-        }
-        if (state == "關閉"){
-          ws.send('3');
-        }  
-      }
+      });
     }
     function fan3(){
-      var state = document.getElementById("fan3").innerHTML;
-      var ws = new WebSocket("ws://192.168.1.124:1884");
-        ws.onopen = function (event) {
-        console.log(state)
-        if (state == "反轉"){
-          ws.send('c');
+      $.ajax({
+        type: "POST",
+        url: "/7F_right_fan",
+        dataType: "text",
+        data: {
+          data: "fan3"
+        },
+        success: function (data) {
+          console.log(data);
+        },
+        error: function (data) {
+          console.error(data);
+          return false;
         }
-        if (state == "正轉"){
-          ws.send('6');
-        }
-        if (state == "關閉"){
-          ws.send('5');
-        }  
-      }
+      });
     }
     function fan4(){
-      var state = document.getElementById("fan4").innerHTML;
-      var ws = new WebSocket("ws://192.168.1.124:1884");
-        ws.onopen = function (event) {
-        console.log(state)
-        if (state == "反轉"){
-          ws.send('d');
+      $.ajax({
+        type: "POST",
+        url: "/7F_right_fan",
+        dataType: "text",
+        data: {
+          data: "fan4"
+        },
+        success: function (data) {
+          console.log(data);
+        },
+        error: function (data) {
+          console.error(data);
+          return false;
         }
-        if (state == "正轉"){
-          ws.send('8');
-        }
-        if (state == "關閉"){
-          ws.send('7');
-        }  
-      }
+      });
     }
   </script>
 </head>
