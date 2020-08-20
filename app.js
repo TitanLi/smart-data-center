@@ -133,8 +133,6 @@ mqttClient.on('message', (topic, message) => {
             D1 = et7044Status[1];
             D2 = et7044Status[2];
             break;
-        default:
-            console.log('pass');
         case '7F_FAN':
             fanStatus = JSON.parse(message);
             console.log(fanStatus);
@@ -147,6 +145,8 @@ mqttClient.on('message', (topic, message) => {
             io.emit('fan3', fanStatus2[2]);
             io.emit('fan4', fanStatus2[3]);
             break;
+        default:
+            console.log('pass');
     }
 });
 
