@@ -3,34 +3,33 @@ const mqtt = require('mqtt');
 const config = require('./config.js');
 const client  = mqtt.connect(config.MQTT);
 
-
-
-function connect(){
-	port = new SerialPort(config.serialport, { 
-    	  parser: SerialPort.parsers.readline('\n'),
-          autoOpen:true
-	},(err)=>{
-           if(err){
-             setTimeout(()=>{
-               connect();
-             },1000);
-           }
-        });
-        port.on('open', function() {
-          console.log("arduino connect")
-          port.on('data', function(data) {
+const Readline = SerialPort.parsers.Readline;
+var port;
+function connect() {
+    port = new SerialPort(config.serialport, {
+        baudRate: 9600
+    });
+    const parser = port.pipe(new Readline({ delimiter: '\r\n' }));
+    // parser.on('data', console.log);
+    port.on('open', function () {
+        console.log('port open')
+        parser.on('data', function (data) {
             console.log(data);
-            console.log(data.toString())
-            client.publish('waterTank', data.toString());
-          });
+            client.publish('current', data.toString());
         });
+    });
 
-        port.on('close', function (err) {
-           console.log('close');                                                                                                                                connect();
-        });
+    port.on('close', function (err) {
+        console.log('close')
+    });
 }
-client.on('connect', function () {
-  console.log('on connect');
-});
-
 connect();
+
+setInterval(() => {
+    port.get(function (err) {
+        if (err) {
+            console.log(err);
+            connect();
+        }
+    });
+}, 1000);

@@ -200,3 +200,19 @@ socket.on("ET7044", function (data) {
   textarea.scrollTop(textarea[0].scrollHeight - textarea.height());
   console.log(data);
 });
+socket.on("fan1", function(data){
+  document.getElementById("fan1").innerHTML = data;
+  console.log(data);
+});
+socket.on("fan2", function(data){
+  document.getElementById("fan2").innerHTML = data;
+  console.log(data);
+})
+socket.on("fan3", function(data){
+  document.getElementById("fan3").innerHTML = data;
+  console.log(data);
+})
+socket.on("fan4", function(data){
+  document.getElementById("fan4").innerHTML = data;
+  console.log(data); 
+})

@@ -98,6 +98,74 @@
         }
       });
     }
+      function fan1(){
+        $.ajax({
+        type: "POST",
+        url: "/7F_left_fan",
+        dataType: "text",
+        data: {
+          data: "fan1"
+        },
+        success: function (data) {
+          console.log(data);
+        },
+        error: function (data) {
+          console.error(data);
+          return false;
+        }
+      });
+    }
+    function fan2(){
+      $.ajax({
+        type: "POST",
+        url: "/7F_left_fan",
+        dataType: "text",
+        data: {
+          data: "fan2"
+        },
+        success: function (data) {
+          console.log(data);
+        },
+        error: function (data) {
+          console.error(data);
+          return false;
+        }
+      });
+    }
+    function fan3(){
+      $.ajax({
+        type: "POST",
+        url: "/7F_right_fan",
+        dataType: "text",
+        data: {
+          data: "fan3"
+        },
+        success: function (data) {
+          console.log(data);
+        },
+        error: function (data) {
+          console.error(data);
+          return false;
+        }
+      });
+    }
+    function fan4(){
+      $.ajax({
+        type: "POST",
+        url: "/7F_right_fan",
+        dataType: "text",
+        data: {
+          data: "fan4"
+        },
+        success: function (data) {
+          console.log(data);
+        },
+        error: function (data) {
+          console.error(data);
+          return false;
+        }
+      });
+    }
   </script>
 </head>
 
@@ -268,10 +336,46 @@
               <div class="col-md-7 col-sm-6 col-xs-7">
                 <button class="btn btn-primary" id="D2" onclick="D2()">waiting data</button>
               </div>
+          </div>
+        <div class="col-md-12 mainStyle2">
+          <div class="row btnStyle">
+            <p class="data-title">7樓風扇</p>
+            <div class="col-md-6 col-sm-4">
+              <div class="col-md-5 col-sm-6 col-xs-5 control-item">
+                風扇1
+              </div>
+              <div class="col-md-7 col-sm-6 col-xs-7">
+                <button class="btn btn-primary" id="fan1" onclick="fan1()">waiting data</button>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-4">
+              <div class="col-md-5 col-sm-6 col-xs-5 control-item">
+                風扇2
+              </div>
+              <div class="col-md-7 col-sm-6 col-xs-7">
+                <button class="btn btn-primary" id="fan2" onclick="fan2()">waiting data</button>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-4">
+              <div class="col-md-5 col-sm-6 col-xs-5 control-item">
+                風扇3
+              </div>
+              <div class="col-md-7 col-sm-6 col-xs-7">
+                <button class="btn btn-primary" id="fan3" onclick="fan3()">waiting data</button>
+              </div>
+            </div>
+            <div class="col-md-6 col-sm-4">
+              <div class="col-md-5 col-sm-6 col-xs-5 control-item">
+                風扇4
+              </div>
+              <div class="col-md-7 col-sm-6 col-xs-7">
+                <button class="btn btn-primary" id="fan4" onclick="fan4()">waiting data</button>
+              </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
       <script language="JavaScript" src="/highcharts/air-conditioner.js"></script>
       <script language="JavaScript" src="/highcharts/ups1.js"></script>
       <script language="JavaScript" src="/highcharts/ups2.js"></script>
