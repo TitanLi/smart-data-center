@@ -21,7 +21,7 @@
     "koa-router": "^7.4.0",
     "koa-static": "^4.0.2",
     "koa-swig": "^2.2.1",
-    "mongodb": "^2.2.35",
+    "mongodb": "^3.6.1",
     "request-promise": "^4.2.2"
   },
   "devDependencies": {
